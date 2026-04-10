@@ -15,7 +15,7 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata = {
-  title: "FocusNeo",
+  title: "Components Library",
   description: "Headless WordPress + Next.js",
 };
 
