@@ -69,15 +69,6 @@ export async function getCaseStudies() {
   return Array.isArray(data) ? data : [];
 }
 
-export async function getCaseStudyBySlug(slug) {
-  return getSingleEntry("case-study", slug);
-}
-
-export async function getCaseStudies() {
-  const data = await fetchWP(`/wp/v2/case-study?per_page=100&_embed`);
-  return Array.isArray(data) ? data : [];
-}
-
 // ─── Media ────
 
 export async function getMediaById(id) {
