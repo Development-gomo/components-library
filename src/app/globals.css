@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
+/* ==========================================
+   BASE ROOT (optional future branding setup)
+========================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-primary: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-serif: var(--font-merriweather), serif;
+
+  --color-dark: #2b2b2b;
+  --color-light: #ffffff;
+  --color-grey: #9192a0;
+  --color-accent: #00fec3; 
+  --color-brand: #000; 
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Notes us this class 
+  bg-[var(--color-accent)]
+  bg-[var(--color-brand)]
+*/
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
 }
+
+/* Global heading tags default */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
+  font-weight: 500;
+}
+
+i,
+em {
+  font-family: var(--font-serif) !important;
+  font-style: italic;
+}
+
+.min-h-screen {margin-bottom: 50px;}
