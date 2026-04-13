@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HeroCenteredBg({ data }) {
+export default function CenteredHero({ data }) {
   if (!data) return null;
 
   const {
@@ -12,18 +12,32 @@ export default function HeroCenteredBg({ data }) {
     hero_description,
     button_row = [],
     background_image,
-    background_color  } = data;
+    background_color,
+    background_video_url,
+  } = data;
 
   const bgImg = background_image?.url || background_image?.sizes?.large;
 
   return (
     <section
       className="relative min-h-screen flex items-center justify-center text-center overflow-hidden"
-      style={background_color && !bgImg ? { backgroundColor: background_color } : {}}
+      style={background_color && !bgImg && !background_video_url ? { backgroundColor: background_color } : {}}
     >
+      {/* Background Video */}
+      {background_video_url && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover -z-10"
+        >
+          <source src={background_video_url.url} />
+        </video>
+      )}
 
       {/* Background Image */}
-      {bgImg && (
+      {bgImg && !background_video_url && (
         <Image
           src={bgImg}
           alt=""
@@ -35,7 +49,7 @@ export default function HeroCenteredBg({ data }) {
       )}
 
       {/* Overlay */}
-      {bgImg && (
+      {(bgImg || background_video_url) && (
         <div className="absolute inset-0 bg-black/40 -z-10" />
       )}
 

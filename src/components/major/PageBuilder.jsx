@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 
 const HeroCenteredBg = dynamic(() => import("../sections/hero-sections/HeroCenteredBg"));
 const HeroWithImage  = dynamic(() => import("../sections/hero-sections/HeroWithImage"));
+const CenteredHero = dynamic(() => import("../sections/hero-sections/Centeredhero"));
 
 export default function PageBuilder({ sections }) {
   if (!sections || !Array.isArray(sections)) return null;
@@ -16,6 +17,8 @@ export default function PageBuilder({ sections }) {
             return <HeroCenteredBg key={i} data={block} />;
           case "hero_with_image":
             return <HeroWithImage key={i} data={block} />; 
+          case "centered_hero":   
+            return <CenteredHero key={i} data={block} />;  
 
           default:
             return null;
