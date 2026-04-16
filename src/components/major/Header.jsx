@@ -1,8 +1,10 @@
 // src/components/major/Header.jsx
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { getThemeOptions } from "@/lib/api";
+import { useState } from "react";
 
 function extractLinksFromHtml(html) {
   if (!html) return [];
@@ -109,40 +111,22 @@ function getColumnClass(layoutType) {
   return "md:grid-cols-1";
 }
 
-export default async function Header() {
-  const themeOptions = await getThemeOptions();
-  const optionsRoot = resolveThemeOptions(themeOptions);
+function HeaderComponent(props) {
+  const {
+    logoUrl,
+    megaMenuRows,
+    navLinks,
+    ctaText,
+    ctaUrl,
+    ctaTarget,
+  } = props;
 
-  const headerOptions = pickFirstObject([
-    optionsRoot?.header,
-    optionsRoot?.header_options,
-    optionsRoot?.global,
-    optionsRoot,
-  ]);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openSubmenus, setOpenSubmenus] = useState({});
 
-  const logoUrl =
-    headerOptions?.logo?.url ||
-    headerOptions?.header_logo?.url ||
-    optionsRoot?.logo?.url ||
-    null;
-  const navHtml =
-    headerOptions?.nav ||
-    headerOptions?.navigation ||
-    optionsRoot?.nav ||
-    null;
-  const megaMenuRows = normalizeMegaMenuRows(
-    headerOptions?.mega_menu || optionsRoot?.mega_menu || optionsRoot?.global?.mega_menu || []
-  );
-
-  const navLinks = extractLinksFromHtml(navHtml);
-
-  const ctaLink = normalizeLink(
-    headerOptions?.cta_link || headerOptions?.cta_url || optionsRoot?.cta_link || optionsRoot?.cta_url,
-    headerOptions?.cta_text || optionsRoot?.cta_text || "Get in touch"
-  );
-  const ctaText = headerOptions?.cta_text || optionsRoot?.cta_text || ctaLink.label || null;
-  const ctaUrl = ctaLink.href || "/contact";
-  const ctaTarget = ctaLink.target || "_self";
+  const toggleSubmenu = (key) => {
+    setOpenSubmenus((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[rgb(23,29,45)]/95 text-white backdrop-blur-sm">
@@ -271,51 +255,105 @@ export default async function Header() {
               ))}
         </nav>
 
-        {/* MOBILE NAV */}
-        <details className="lg:hidden relative ml-auto">
-          <summary className="list-none cursor-pointer rounded border border-white/25 px-4 py-2 text-sm font-medium text-white/90 hover:bg-white/10">
-            Menu
-          </summary>
-          <div className="absolute right-0 top-full mt-3 w-[min(92vw,360px)] rounded-xl border border-slate-200/70 bg-white p-4 text-slate-900 shadow-xl">
-            <ul className="space-y-2">
-              {megaMenuRows.length > 0
-                ? megaMenuRows.map((menuRow) => (
-                    <li key={`mobile-${menuRow.key}`} className="border-b border-slate-200 pb-2">
-                      <Link
-                        href={menuRow.titleLink.href}
-                        target={menuRow.titleLink.target}
-                        className="block py-2 text-[16px] font-semibold"
-                      >
-                        {menuRow.title}
-                      </Link>
+        {/* MOBILE NAV - FLYOUT */}
+        <button
+          className="lg:hidden ml-auto flex items-center justify-center w-10 h-10 rounded border border-white/25 text-white hover:bg-white/10"
+          aria-label="Open menu"
+          onClick={() => setMobileOpen(true)}
+        >
+          {/* Hamburger icon */}
+          <svg width="28" height="28" fill="none" viewBox="0 0 28 28">
+            <rect y="6" width="28" height="2.5" rx="1.25" fill="currentColor" />
+            <rect y="13" width="28" height="2.5" rx="1.25" fill="currentColor" />
+            <rect y="20" width="28" height="2.5" rx="1.25" fill="currentColor" />
+          </svg>
+        </button>
 
-                      {menuRow.layoutType !== "no_column" && (
-                        <ul className="pb-2">
-                          {menuRow.columns.flatMap((column) => column.links).map((link) => (
-                            <li key={`mobile-${link.key}`}>
-                              <Link
-                                href={link.href}
-                                target={link.target}
-                                className="block py-1 text-sm text-slate-700 hover:text-slate-900"
+        {/* Flyout sidebar */}
+        {mobileOpen && (
+          <div className="fixed inset-0 z-999 bg-black/40 flex">
+            <div className="relative w-[min(92vw,360px)] max-w-90 bg-white text-slate-900 shadow-xl h-full flex flex-col">
+              <button
+                className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+              >
+                {/* Close icon */}
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M6 6L16 16" stroke="currentColor" strokeWidth="2" />
+                  <path d="M16 6L6 16" stroke="currentColor" strokeWidth="2" />
+                </svg>
+              </button>
+              <div className="p-6 pt-12 flex-1 overflow-y-auto">
+                <ul className="space-y-2">
+                  {megaMenuRows.length > 0
+                    ? megaMenuRows.map((menuRow) => (
+                        <li key={`mobile-${menuRow.key}`} className="border-b border-slate-200 pb-2">
+                          {menuRow.layoutType !== "no_column" ? (
+                            <>
+                              <button
+                                className="flex w-full items-center justify-between py-2 text-[16px] font-semibold"
+                                onClick={() => toggleSubmenu(menuRow.key)}
+                                aria-expanded={!!openSubmenus[menuRow.key]}
                               >
-                                {link.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))
-                : navLinks.map((link) => (
-                    <li key={`mobile-${link.href}`} className="border-b border-slate-200 pb-2">
-                      <Link href={link.href} className="block py-2 text-[16px] font-semibold">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-            </ul>
+                                <span>{menuRow.title}</span>
+                                <svg
+                                  width="18"
+                                  height="18"
+                                  viewBox="0 0 18 18"
+                                  fill="none"
+                                  className={`transition-transform ${openSubmenus[menuRow.key] ? "rotate-90" : "rotate-0"}`}
+                                >
+                                  <path d="M6 4L12 9L6 14" stroke="currentColor" strokeWidth="2" />
+                                </svg>
+                              </button>
+                              {openSubmenus[menuRow.key] && (
+                                <ul className="pl-3 pb-2">
+                                  {menuRow.columns.flatMap((column) => column.links).map((link) => (
+                                    <li key={`mobile-${link.key}`}>
+                                      <Link
+                                        href={link.href}
+                                        target={link.target}
+                                        className="block py-1 text-[15px] text-slate-700 hover:text-slate-900"
+                                        onClick={() => setMobileOpen(false)}
+                                      >
+                                        {link.label}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </>
+                          ) : (
+                            <Link
+                              href={menuRow.titleLink.href}
+                              target={menuRow.titleLink.target}
+                              className="block py-2 text-[16px] font-semibold"
+                              onClick={() => setMobileOpen(false)}
+                            >
+                              {menuRow.title}
+                            </Link>
+                          )}
+                        </li>
+                      ))
+                    : navLinks.map((link) => (
+                        <li key={`mobile-${link.href}`} className="border-b border-slate-200 pb-2">
+                          <Link
+                            href={link.href}
+                            className="block py-2 text-[16px] font-semibold"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                </ul>
+              </div>
+            </div>
+            {/* Overlay click closes menu */}
+            <div className="flex-1" onClick={() => setMobileOpen(false)} />
           </div>
-        </details>
+        )}
 
         {/* CTA */}
         {ctaText && (
@@ -329,5 +367,54 @@ export default async function Header() {
         )}
       </div>
     </header>
+
+  );
+}
+
+// SSR/async wrapper for data fetching
+export default async function Header() {
+  const themeOptions = await getThemeOptions();
+  const optionsRoot = resolveThemeOptions(themeOptions);
+
+  const headerOptions = pickFirstObject([
+    optionsRoot?.header,
+    optionsRoot?.header_options,
+    optionsRoot?.global,
+    optionsRoot,
+  ]);
+
+  const logoUrl =
+    headerOptions?.logo?.url ||
+    headerOptions?.header_logo?.url ||
+    optionsRoot?.logo?.url ||
+    null;
+  const navHtml =
+    headerOptions?.nav ||
+    headerOptions?.navigation ||
+    optionsRoot?.nav ||
+    null;
+  const megaMenuRows = normalizeMegaMenuRows(
+    headerOptions?.mega_menu || optionsRoot?.mega_menu || optionsRoot?.global?.mega_menu || []
+  );
+
+  const navLinks = extractLinksFromHtml(navHtml);
+
+  const ctaLink = normalizeLink(
+    headerOptions?.cta_link || headerOptions?.cta_url || optionsRoot?.cta_link || optionsRoot?.cta_url,
+    headerOptions?.cta_text || optionsRoot?.cta_text || "Get in touch"
+  );
+  const ctaText = headerOptions?.cta_text || optionsRoot?.cta_text || ctaLink.label || null;
+  const ctaUrl = ctaLink.href || "/contact";
+  const ctaTarget = ctaLink.target || "_self";
+
+  return (
+    <HeaderComponent
+      logoUrl={logoUrl}
+      megaMenuRows={megaMenuRows}
+      navLinks={navLinks}
+      ctaText={ctaText}
+      ctaUrl={ctaUrl}
+      ctaTarget={ctaTarget}
+    />
   );
 }

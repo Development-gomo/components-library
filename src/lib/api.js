@@ -1,7 +1,7 @@
 import { WP_BASE } from "@/config";
 
 // Generic fetch helper with ISR revalidation (60s by default).
-export async function fetchWP(endpoint, { revalidate = 60 } = {}) {
+export async function fetchWP(endpoint, { revalidate = 10 } = {}) {
   try {
     const url = `${WP_BASE}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
     const res = await fetch(url, { next: { revalidate } });

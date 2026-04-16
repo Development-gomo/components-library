@@ -1,0 +1,220 @@
+{
+  "header": [],
+  "footer": [],
+  "global": {
+    "social_links": [
+      {
+        "social_media_name": "Linkedin",
+        "logo": false,
+        "social_media_link": "https://www.linkedin.com/company/gomo-group-ab"
+      },
+      {
+        "social_media_name": "Facebook",
+        "logo": false,
+        "social_media_link": "https://www.facebook.com/GOMOGROUP/"
+      },
+      {
+        "social_media_name": "Youtube",
+        "logo": false,
+        "social_media_link": "https://www.youtube.com/@B2BMarketingInsightsGOMO"
+      }
+    ],
+    "mega_menu": [
+      {
+        "menu_title": "About us",
+        "menu_title_link": {
+          "title": "About",
+          "url": "/about",
+          "target": ""
+        },
+        "layout_type": "no_column",
+        "columns": false,
+        "side_image": false
+      },
+      {
+        "menu_title": "Components",
+        "menu_title_link": {
+          "title": "",
+          "url": "#",
+          "target": ""
+        },
+        "layout_type": "one_column",
+        "columns": [
+          {
+            "links": [
+              {
+                "label": "Left Content",
+                "url": {
+                  "title": "",
+                  "url": "/left-content",
+                  "target": ""
+                }
+              },
+              {
+                "label": "Right Content",
+                "url": {
+                  "title": "",
+                  "url": "/right-content",
+                  "target": ""
+                }
+              }
+            ],
+            "card": {
+              "title": "Components Modules",
+              "description": "<p>Mega menu setup with one column structure</p>\n",
+              "button_link": {
+                "title": "",
+                "url": "/contact",
+                "target": ""
+              }
+            }
+          }
+        ],
+        "side_image": "https://gomowebb.com/components-library/wp-content/uploads/2026/04/case-banner-2.jpg.webp"
+      },
+      {
+        "menu_title": "More Components",
+        "menu_title_link": {
+          "title": "",
+          "url": "#",
+          "target": ""
+        },
+        "layout_type": "two_column",
+        "columns": [
+          {
+            "links": [
+              {
+                "label": "Submenu items",
+                "url": {
+                  "title": "",
+                  "url": "#",
+                  "target": ""
+                }
+              },
+              {
+                "label": "Submenu items",
+                "url": ""
+              },
+              {
+                "label": "Submenu items",
+                "url": ""
+              },
+              {
+                "label": "Submenu items",
+                "url": ""
+              },
+              {
+                "label": "Submenu items",
+                "url": ""
+              },
+              {
+                "label": "Submenu items",
+                "url": ""
+              }
+            ],
+            "card": {
+              "title": "Major mega menu",
+              "description": "<p>we are enabling the major shift to headless</p>\n",
+              "button_link": {
+                "title": "Contact us",
+                "url": "/contact ",
+                "target": ""
+              }
+            }
+          },
+          {
+            "links": [
+              {
+                "label": "Sub Menu Item",
+                "url": ""
+              },
+              {
+                "label": "Sub Menu Item",
+                "url": ""
+              },
+              {
+                "label": "Sub Menu Item",
+                "url": ""
+              }
+            ],
+            "card": {
+              "title": "Second coloumn",
+              "description": "<p>Second column text here</p>\n",
+              "button_link": {
+                "title": "Contact us",
+                "url": "/contact",
+                "target": ""
+              }
+            }
+          }
+        ],
+        "side_image": "https://gomowebb.com/components-library/wp-content/uploads/2026/04/library-image.jpg"
+      },
+      {
+        "menu_title": "Contact",
+        "menu_title_link": {
+          "title": "",
+          "url": "/contact",
+          "target": ""
+        },
+        "layout_type": "no_column",
+        "columns": false,
+        "side_image": false
+      }
+    ],
+    "footer_cta": {
+      "cta_heading": "Please contact us!",
+      "cta_button_text": "Contact us",
+      "cta_button_link": {
+        "title": "Contact us",
+        "url": "/contact",
+        "target": ""
+      },
+      "social_links": false
+    },
+    "services": {
+      "service_links": [
+        {
+          "title": "Service ",
+          "url": ""
+        },
+        {
+          "title": "Service ",
+          "url": ""
+        },
+        {
+          "title": "SEO",
+          "url": ""
+        }
+      ]
+    },
+    "quick_links_group": {
+      "quick_links": [
+        {
+          "title": "About",
+          "url": ""
+        },
+        {
+          "title": "Knowledge Hub",
+          "url": ""
+        },
+        {
+          "title": "News",
+          "url": ""
+        },
+        {
+          "title": "Company",
+          "url": ""
+        }
+      ]
+    },
+    "resources": {
+      "resource_links": false
+    },
+    "contact": {
+      "address": "<p><strong>Pune</strong><br />\nWeWork, Third Floor,<br />\nRaheja Woods,<br />\nKalyani Nagar,<br />\nPune, Maharashtra 411006</p>\n",
+      "email": "hello@gomogroup.com",
+      "phone": "+91 9890 153 799"
+    }
+  }
+}
