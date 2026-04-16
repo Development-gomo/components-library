@@ -12,18 +12,37 @@ export default function HeroCenteredBg({ data }) {
     hero_description,
     button_row = [],
     background_image,
-    background_color  } = data;
+    background_video_url,
+    background_color
+  } = data;
 
   const bgImg = background_image?.url || background_image?.sizes?.large;
+  const bgVideo =
+    typeof background_video_url === "string"
+      ? background_video_url
+      : background_video_url?.url;
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center text-center overflow-hidden"
-      style={background_color && !bgImg ? { backgroundColor: background_color } : {}}
+      className="relative isolate min-h-screen flex items-center justify-center text-center overflow-hidden"
+      style={background_color && !bgImg && !bgVideo ? { backgroundColor: background_color } : {}}
     >
+      {/* Background Video (preferred over image) */}
+      {bgVideo && (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover -z-10"
+        >
+          <source src={bgVideo} type="video/mp4" />
+        </video>
+      )}
 
-      {/* Background Image */}
-      {bgImg && (
+      {/* Background Image (only when no video) */}
+      {!bgVideo && bgImg && (
         <Image
           src={bgImg}
           alt=""
@@ -35,9 +54,7 @@ export default function HeroCenteredBg({ data }) {
       )}
 
       {/* Overlay */}
-      {bgImg && (
-        <div className="absolute inset-0 bg-black/40 -z-10" />
-      )}
+      {(bgVideo || bgImg) && <div className="absolute inset-0 bg-black/40 -z-10" />}
 
       {/* Content */}
       <div className="relative web-width px-6 py-32 flex flex-col items-center gap-8">

@@ -91,9 +91,18 @@ export async function getMenu(location = "primary") {
 // Reads from the ACF options page if registered, otherwise returns empty shell.
 
 export async function getThemeOptions() {
-  try {
-    const data = await fetchWP(`/wp/v2/acf/options`);
-    if (data && !data.code) return data;
-  } catch {}
+  const endpoints = [
+    `/headless/v1/theme-options`,
+    `/wp/v2/acf/options`,
+    `/acf/v3/options/options`,
+  ];
+
+  for (const endpoint of endpoints) {
+    try {
+      const data = await fetchWP(endpoint);
+      if (data && !data.code) return data;
+    } catch {}
+  }
+
   return {};
 }
