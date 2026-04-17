@@ -44,3 +44,9 @@ em {
 }
 
 .min-h-screen {margin-bottom: 50px;}
+
+.web-width {
+  max-width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
+}
