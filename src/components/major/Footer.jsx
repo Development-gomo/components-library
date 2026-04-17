@@ -44,7 +44,7 @@ export default async function Footer() {
             )}
           
             {footerCta?.cta_button_link?.url && (
-              <Link href={footerCta.cta_button_link.url} className="max-w-1.5  inline-block rounded bg-[#2f56d3] px-6 py-3 text-white font-medium hover:bg-[#2849b5] mb-4">
+              <Link href={footerCta.cta_button_link.url} className="w-40 text-center inline-block rounded bg-[#2f56d3] px-6 py-3 text-white font-medium hover:bg-[#2849b5] mb-4">
                 {footerCta.cta_button_text || footerCta.cta_button_link.title}
               </Link>
             )}
