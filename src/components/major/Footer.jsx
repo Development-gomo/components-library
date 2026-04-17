@@ -19,9 +19,10 @@ export default async function Footer() {
   // New data structure
   const quickLinks = themeOptions?.global?.quick_links_group?.quick_links || [];
   const services = themeOptions?.global?.services?.service_links || [];
+  const resources = themeOptions?.global?.resources?.resource_links || [];
+
   const socialLinks = themeOptions?.global?.social_links || [];
   const contact = themeOptions?.global?.contact || {};
-  const megaMenu = themeOptions?.global?.mega_menu || [];
 
   const footerCta = themeOptions?.global?.footer_cta || {};
   // Copyright fields (assuming structure: themeOptions.global.copyright_left, copyright_right)
@@ -88,14 +89,14 @@ export default async function Footer() {
             </div>
           )}
 
-          {/* EXPLORE (dynamic from mega_menu) */}
-          {megaMenu.length > 0 && (
+          {/* QUICK LINKS (dynamic) */}
+          {resources.length > 0 && (
             <div>
-              <p className="mb-4 text-[14px] font-medium uppercase tracking-widest text-[#5a7be6]">Explore</p>
+              <p className="mb-4 text-[14px] font-medium uppercase tracking-widest text-[#5a7be6]">Resources</p>
               <ul className="space-y-2 text-white/90">
-                {megaMenu.map((item, idx) => (
-                  <li key={item.menu_title + idx}>
-                    <Link href={item.menu_title_link?.url || "#"} className="hover:text-white/70">{item.menu_title}</Link>
+                {resources.map((item) => (
+                  <li key={item.title}>
+                    <Link href={item.url || "#"} className="hover:text-white/70">{item.title}</Link>
                   </li>
                 ))}
               </ul>
