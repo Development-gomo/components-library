@@ -21,7 +21,11 @@ export default async function Footer() {
   const services = themeOptions?.global?.services?.service_links || [];
   const socialLinks = themeOptions?.global?.social_links || [];
   const contact = themeOptions?.global?.contact || {};
+
   const footerCta = themeOptions?.global?.footer_cta || {};
+  // Copyright fields (assuming structure: themeOptions.global.copyright_left, copyright_right)
+  const copyrightLeft = themeOptions?.global?.copyright_left || "© 2026 GOMO Group. All rights reserved.";
+  const copyrightRight = themeOptions?.global?.copyright_right || "";
 
   return (
     <footer className="bg-(--color-brand) text-white relative z-10 border-t border-[#9293a066]">
@@ -87,10 +91,8 @@ export default async function Footer() {
 
         {/* BOTTOM ROW */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-6 border-t border-white/10">
-          {/* No logo or copyright in new data, but you can add if available */}
-          <div />
           {socialLinks.length > 0 && (
-            <div className="flex gap-3">
+            <div className="flex gap-3 order-2 md:order-2">
               {socialLinks.map((item) => (
                 <Link key={item.social_media_name} href={item.social_media_link} target="_blank" aria-label={item.social_media_name}>
                   {SOCIAL_ICON_MAP[item.social_media_name] || null}
@@ -98,6 +100,12 @@ export default async function Footer() {
               ))}
             </div>
           )}
+        </div>
+
+        {/* COPYRIGHT BAR */}
+        <div className="flex flex-col md:flex-row md:justify-between items-center gap-2 py-4 border-t border-white/10 text-xs md:text-sm text-white/70">
+          <div className="w-full md:w-1/2 text-center md:text-left">{copyrightLeft}</div>
+          <div className="w-full md:w-1/2 text-center md:text-right">{copyrightRight}</div>
         </div>
       </div>
     </footer>
