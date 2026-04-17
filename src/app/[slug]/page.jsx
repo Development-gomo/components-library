@@ -1,6 +1,7 @@
 import Header from "@/components/major/Header";
 import PageBuilder from "@/components/major/PageBuilder";
 import Footer from "@/components/major/Footer";
+import BodyClass from "@/components/BodyClass";
 import { getPageBySlug, getAllPages } from "@/lib/api";
 import { buildMetadataFromYoast } from "@/lib/seo";
 import { notFound } from "next/navigation";
@@ -21,6 +22,7 @@ export default async function DynamicPage({ params }) {
 
   return (
     <>
+      <BodyClass className={slug} />
       <Header />
       <main>
         <PageBuilder sections={page?.acf?.page_builder} />

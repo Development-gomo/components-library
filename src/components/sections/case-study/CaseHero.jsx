@@ -11,9 +11,14 @@ export default function CaseHero({ data }) {
   const heading = data?.heading || "";
   const sub_heading = data?.sub_heading || "";
   const logo = data?.logo?.url || "";
+  const custom_class = data?.custom_class || "";
+  const custom_id = data?.custom_id || "";
 
   return (
-    <section id="inner-hero" className="relative w-full overflow-hidden hero">
+    <section
+      id={custom_id || "inner-hero"}
+      className={`relative w-full overflow-hidden hero${custom_class ? ` ${custom_class}` : ""}`}
+    >
       {/* BG IMAGE/VIDEO */}
       <div className="absolute inset-0 -z-10">
         {bgImage &&  

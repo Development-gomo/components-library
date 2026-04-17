@@ -1,6 +1,7 @@
 import Header from "@/components/major/Header";
 import PageBuilder from "@/components/major/PageBuilder";
 import Footer from "@/components/major/Footer";
+import BodyClass from "@/components/BodyClass";
 import { getPageBySlug } from "@/lib/api";
 import { buildMetadataFromYoast } from "@/lib/seo";
 import { notFound } from "next/navigation";
@@ -22,6 +23,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <BodyClass className={page.slug} />
       <Header />
       <main id="home">
         <PageBuilder sections={page?.acf?.page_builder} />

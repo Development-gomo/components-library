@@ -1,5 +1,5 @@
 // Layout: hero_centered_bg
-// Fields: hero_title, hero_description, button_row, background_image, background_color, background_video_url
+// Fields: hero_title, hero_description, button_row, background_image, background_color, background_video_url, custom_class, custom_id
 
 import Image from "next/image";
 import Link from "next/link";
@@ -12,13 +12,17 @@ export default function HeroCenteredBg({ data }) {
     hero_description,
     button_row = [],
     background_image,
-    background_color  } = data;
+    background_color,
+    custom_class,
+    custom_id,
+  } = data;
 
   const bgImg = background_image?.url || background_image?.sizes?.large;
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center text-center overflow-hidden"
+      id={custom_id || undefined}
+      className={`relative min-h-screen flex items-center justify-center text-center overflow-hidden${custom_class ? ` ${custom_class}` : ""}`}
       style={background_color && !bgImg ? { backgroundColor: background_color } : {}}
     >
 
