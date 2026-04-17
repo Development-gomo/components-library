@@ -24,8 +24,8 @@ export default async function Footer() {
 
   const footerCta = themeOptions?.global?.footer_cta || {};
   // Copyright fields (assuming structure: themeOptions.global.copyright_left, copyright_right)
-  const copyrightLeft = themeOptions?.global?.copyright_left || "© 2026 GOMO Group. All rights reserved.";
-  const copyrightRight = themeOptions?.global?.copyright_right || "";
+  const copyrightLeft = themeOptions?.global?.copyrights_left;
+  const copyrightRight = themeOptions?.global?.copyrights_right;
 
   return (
     <footer className="bg-(--color-brand) text-white relative z-10 border-t border-[#9293a066]">
@@ -48,8 +48,8 @@ export default async function Footer() {
                   <div>
                     <p className="mb-6 text-[14px] font-medium uppercase tracking-widest text-[#9192A0]">Services</p>
                     <ul className="space-y-2 text-white/90">
-                      {services.map((s) => (
-                        <li key={s.title}>
+                      {services.map((s, idx) => (
+                        <li key={s.title + idx}>
                           <Link href={s.url || "#"} className="hover:text-white/70">{s.title}</Link>
                         </li>
                       ))}
@@ -104,8 +104,8 @@ export default async function Footer() {
 
         {/* COPYRIGHT BAR */}
         <div className="flex flex-col md:flex-row md:justify-between items-center gap-2 py-4 border-t border-white/10 text-xs md:text-sm text-white/70">
-          <div className="w-full md:w-1/2 text-center md:text-left">{copyrightLeft}</div>
-          <div className="w-full md:w-1/2 text-center md:text-right">{copyrightRight}</div>
+          {copyrightLeft && <div className="w-full md:w-1/2 text-center md:text-left [&_p]:m-0" dangerouslySetInnerHTML={{ __html: copyrightLeft }} />}
+          {copyrightRight && <div className="w-full md:w-1/2 text-center md:text-right [&_p]:m-0 [&_a]:underline [&_a]:hover:text-white" dangerouslySetInnerHTML={{ __html: copyrightRight }} />}
         </div>
       </div>
     </footer>
