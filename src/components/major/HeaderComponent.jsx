@@ -22,7 +22,7 @@ export default function HeaderComponent(props) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[rgb(23,29,45)]/95 text-white backdrop-blur-sm">
-      <div className="web-width px-6 mx-auto flex items-center justify-between h-20 gap-4">
+      <div className="web-width px-6 mx-auto flex flex-row items-center justify-between h-20 gap-4">
         {/* LOGO */}
         <Link href="/" className="shrink-0">
           {logoUrl ? (
@@ -162,7 +162,7 @@ export default function HeaderComponent(props) {
 
         {mobileOpen && (
           <div className="fixed inset-0 z-999 bg-black/40 flex">
-            <div className="relative w-[min(92vw,360px)] max-w-90 bg-white text-slate-900 shadow-xl h-full flex flex-col">
+            <div className="relative w-full h-[100vh] bg-white text-slate-900 shadow-xl flex flex-col">
               <button
                 className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100"
                 aria-label="Close menu"
@@ -173,7 +173,7 @@ export default function HeaderComponent(props) {
                   <path d="M16 6L6 16" stroke="currentColor" strokeWidth="2" />
                 </svg>
               </button>
-              <div className="p-6 pt-12 flex-1 overflow-y-auto">
+              <div className="p-6 pt-12 flex-1 h-full w-full">
                 <ul className="space-y-2">
                   {megaMenuRows.length > 0
                     ? megaMenuRows.map((menuRow) => (
