@@ -23,7 +23,7 @@ export default function CenteredHero({ data }) {
   return (
     <section
       id={custom_id || undefined}
-      className={`relative min-h-screen flex items-center justify-center text-center overflow-hidden${custom_class ? ` ${custom_class}` : ""}`}
+      className={`relative min-h-screen flex items-center justify-center px-6 py-10  text-center overflow-hidden${custom_class ? ` ${custom_class}` : ""}`}
       style={background_color && !bgImg && !background_video_url ? { backgroundColor: background_color } : {}}
     >
       {/* Background Video */}
@@ -59,7 +59,7 @@ export default function CenteredHero({ data }) {
       {/* Content */}
       <div className="relative web-width px-6 py-32 flex flex-col items-center gap-8">
         {hero_title && (
-          <h1 className="text-8xl font-bold text-white max-w-4xl">{hero_title}</h1>
+          <h1 className="text-4xl md:text-8xl font-bold text-white max-w-4xl">{hero_title}</h1>
         )}
 
         {hero_description && (

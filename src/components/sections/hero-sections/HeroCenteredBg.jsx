@@ -63,7 +63,7 @@ export default function HeroCenteredBg({ data }) {
       {/* Content */}
       <div className="relative web-width px-6 py-32 flex flex-col items-center gap-8">
         {hero_title && (
-          <h1 className="text-8xl font-bold text-white max-w-4xl">{hero_title}</h1>
+          <h1 className="text-4xl md:text-8xl font-bold text-white max-w-4xl">{hero_title}</h1>
         )}
 
         {hero_description && (
@@ -74,7 +74,7 @@ export default function HeroCenteredBg({ data }) {
         )}
 
         {button_row?.length > 0 && (
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-row gap-4 justify-center">
             {button_row.map((btn, i) => (
               <Link
                 key={i}

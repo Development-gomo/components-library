@@ -34,7 +34,7 @@ export default async function Footer() {
     <footer className="bg-(--color-brand) text-white relative z-10 border-t border-[#9293a066]">
       <div className="mx-auto w-full web-width px-6 pb-12 pt-12">
         {/* MAIN GRID - 5 columns */}
-        <div className="flex justify-between  gap-12 md:gap-20 pb-12">
+        <div className="flex flex-col md:flex-row justify-between  gap-12 md:gap-20 pb-12">
           {/* CTA + Social */}
           <div className="col-span-1 flex flex-col justify-start">
             {footerCta?.cta_heading && (
@@ -50,7 +50,7 @@ export default async function Footer() {
               </Link>
             )}
             {socialLinks.length > 0 && (
-              <div className="flex gap-3 mt-2">
+              <div className="flex flex-row gap-3 mt-2">
                 {socialLinks.map((item) => (
                   <Link key={item.social_media_name} href={item.social_media_link} target="_blank" aria-label={item.social_media_name}>
                     {SOCIAL_ICON_MAP[item.social_media_name] || null}
