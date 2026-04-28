@@ -162,7 +162,7 @@ export default function HeaderComponent(props) {
 
         {mobileOpen && (
           <div className="fixed inset-0 z-999 bg-black/40 flex">
-            <div className="relative w-full h-[100vh] bg-white text-slate-900 shadow-xl flex flex-col">
+            <div className="relative w-full h-screen bg-white text-slate-900 shadow-xl flex flex-col">
               <button
                 className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100"
                 aria-label="Close menu"

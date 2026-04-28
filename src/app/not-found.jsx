@@ -17,13 +17,13 @@ export default async function NotFound() {
         </p>
         <Link
           href="/"
-          className="gap-3 group relative inline-flex items-center rounded-sm bg-(--color-brand) px-6 py-4 text-white transition-all duration-300 w-[195px] overflow-hidden select-none"
+          className="gap-3 group relative inline-flex items-center rounded-sm bg-(--color-brand) px-6 py-4 text-white transition-all duration-300 w-37.5 overflow-hidden select-none"
         >
           <span className="relative w-6 flex items-center justify-center">
             <span className="absolute h-2 w-2 rounded-full bg-[#27E0C0] transition-all duration-300 ease-out group-hover:opacity-0 group-hover:-translate-x-1"></span>
           </span>
           <span className="flex-1 text-[16px] leading-none whitespace-nowrap transition-all duration-300 ease-out group-hover:-translate-x-3">
-            Go to Homepage
+            Go to Home
           </span>
           <span className="relative w-4 flex items-center justify-center">
             <span className="w-4 absolute opacity-0 -translate-x-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:-translate-x-1">
