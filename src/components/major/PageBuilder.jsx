@@ -6,6 +6,8 @@ const HeroCenteredBg = dynamic(() => import("../sections/hero-sections/HeroCente
 const HeroWithImage  = dynamic(() => import("../sections/hero-sections/HeroWithImage"));
 const CenteredHero = dynamic(() => import("../sections/hero-sections/Centeredhero"));
 const ContentMediaBlock = dynamic(() => import("../sections/content-sections/ContentMediaBlock"));
+const ServiceOverview = dynamic(() => import("../sections/content-sections/ServiceOverview"));
+const LatestInsights = dynamic(() => import("../sections/content-sections/LatestInsights"));
 
 export default function PageBuilder({ sections }) {
   if (!sections || !Array.isArray(sections)) return null;
@@ -22,6 +24,10 @@ export default function PageBuilder({ sections }) {
             return <CenteredHero key={i} data={block} />;  
           case "content_media_block":
             return <ContentMediaBlock key={i} data={block} />;
+          case "service_overview":
+            return <ServiceOverview key={i} data={block} />;
+          case "latest_insights":
+            return <LatestInsights key={i} data={block} />;
 
           default:
             return null;
