@@ -70,10 +70,10 @@ export async function getCaseStudies() {
   return Array.isArray(data) ? data : [];
 }
 
-// Client-side: calls WordPress directly (NEXT_PUBLIC_WP_BASE is available in the browser)
+// Client-side: proxied through /api/case-studies so WP_BASE stays server-only
 export async function fetchCaseStudiesClient() {
   try {
-    const res = await fetch(`${WP_BASE}/wp/v2/case-study?per_page=100&_embed`);
+    const res = await fetch("/api/case-studies");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return Array.isArray(data) ? data : [];
