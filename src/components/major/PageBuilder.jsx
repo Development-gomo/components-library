@@ -8,10 +8,15 @@ const CenteredHero = dynamic(() => import("../sections/hero-sections/Centeredher
 const ContentMediaBlock = dynamic(() => import("../sections/content-sections/ContentMediaBlock"));
 const ServiceOverview = dynamic(() => import("../sections/content-sections/ServiceOverview"));
 const LatestInsights = dynamic(() => import("../sections/content-sections/LatestInsights"));
+const CaseStudyListing = dynamic(() => import("../sections/case-study/CaseStudyListing"));
+const CaseStudySlider = dynamic(() => import("../sections/case-study/CaseStudySlider"));
+const CaseStudySliderFullWidth = dynamic(() => import("../sections/case-study/CaseStudySliderFullWidth"));
+const CaseStudyLoadMore = dynamic(() => import("../sections/case-study/CaseStudyLoadMore"));
+const CaseStudyFilter = dynamic(() => import("../sections/case-study/CaseStudyFilter"));
 
 export default function PageBuilder({ sections }) {
   if (!sections || !Array.isArray(sections)) return null;
-
+  
   return (
     <>
       {sections.map((block, i) => {
@@ -28,6 +33,16 @@ export default function PageBuilder({ sections }) {
             return <ServiceOverview key={i} data={block} />;
           case "latest_insights":
             return <LatestInsights key={i} data={block} />;
+          case "case_study_listing":
+            return <CaseStudyListing key={i} data={block} />;
+          case "case_study_slider":
+            return <CaseStudySlider key={i} data={block} />;
+          case "case_study_slider_full_width":
+            return <CaseStudySliderFullWidth key={i} data={block} />;
+          case "case_study_load_more":
+            return <CaseStudyLoadMore key={i} data={block} />;
+          case "case_study_filter":
+            return <CaseStudyFilter key={i} data={block} />;
 
           default:
             return null;

@@ -64,9 +64,23 @@ export async function getCaseStudyBySlug(slug) {
   return getSingleEntry("case-study", slug);
 }
 
+// Server-side: used in async server components
 export async function getCaseStudies() {
   const data = await fetchWP(`/wp/v2/case-study?per_page=100&_embed`);
   return Array.isArray(data) ? data : [];
+}
+
+// Client-side: calls WordPress directly (NEXT_PUBLIC_WP_BASE is available in the browser)
+export async function fetchCaseStudiesClient() {
+  try {
+    const res = await fetch(`${WP_BASE}/wp/v2/case-study?per_page=100&_embed`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch (err) {
+    console.error("fetchCaseStudiesClient error:", err);
+    return [];
+  }
 }
 
 // ─── Media ────
