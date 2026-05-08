@@ -6,21 +6,21 @@
 import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchCaseStudiesClient } from "@/lib/api";
 
 const ALL_LABEL = "All";
 
 export default function CaseStudyFilter({ data }) {
   const [caseStudies, setCaseStudies] = useState([]);
   const [activeFilter, setActiveFilter] = useState(ALL_LABEL);
-  const [loading, setLoading] = useState(!!data);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!data) return;
-    fetchCaseStudiesClient().then((d) => {
-      setCaseStudies(d);
-      setLoading(false);
-    });
+    fetch(`/api/case-studies`)
+      .then((res) => res.json())
+      .then((d) => setCaseStudies(Array.isArray(d) ? d : []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, [data]);
 
   if (!data) return null;

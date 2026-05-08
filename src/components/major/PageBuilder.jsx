@@ -44,9 +44,8 @@ export default function PageBuilder({ sections }) {
             return <CaseStudyLoadMore key={i} data={block} />;
           case "case_study_filter":
             return <CaseStudyFilter key={i} data={block} />;
-          case "case_study_dropdown_filter":
+          case "case_study_filter_dropdown":
             return <CaseStudyDropDownFilter key={i} data={block} />;
-
           default:
             return null;
         }
