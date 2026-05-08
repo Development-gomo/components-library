@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchCaseStudiesClient } from "@/lib/api";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 3;
 
 export default function CaseStudyLoadMore({ data }) {
   const [allCaseStudies, setAllCaseStudies] = useState([]);
