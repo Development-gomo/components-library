@@ -13,6 +13,7 @@ const CaseStudySlider = dynamic(() => import("../sections/case-study/CaseStudySl
 const CaseStudySliderFullWidth = dynamic(() => import("../sections/case-study/CaseStudySliderFullWidth"));
 const CaseStudyLoadMore = dynamic(() => import("../sections/case-study/CaseStudyLoadMore"));
 const CaseStudyFilter = dynamic(() => import("../sections/case-study/CaseStudyFilter"));
+const CaseStudyDropDownFilter = dynamic(() => import("../sections/case-study/CaseStudyDropDownFilter"));
 
 export default function PageBuilder({ sections }) {
   if (!sections || !Array.isArray(sections)) return null;
@@ -43,6 +44,8 @@ export default function PageBuilder({ sections }) {
             return <CaseStudyLoadMore key={i} data={block} />;
           case "case_study_filter":
             return <CaseStudyFilter key={i} data={block} />;
+          case "case_study_dropdown_filter":
+            return <CaseStudyDropDownFilter key={i} data={block} />;
 
           default:
             return null;
