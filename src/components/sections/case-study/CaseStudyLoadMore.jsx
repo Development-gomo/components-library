@@ -151,7 +151,7 @@ export default function CaseStudyLoadMore({ data }) {
               <div className="flex justify-center mt-12">
                 <button
                   onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                  className="px-8 py-3 rounded-full border-2 border-[#1E1E1E] text-[#1E1E1E] font-medium hover:bg-[#1E1E1E] hover:text-white transition-colors duration-300"
+                  className="px-8 py-3 rounded-full border-2 border-[#1E1E1E] text-[#1E1E1E] font-medium hover:bg-[#1E1E1E] hover:text-white transition-colors duration-300 cursor-pointer"
                 >
                   Load more
                 </button>
