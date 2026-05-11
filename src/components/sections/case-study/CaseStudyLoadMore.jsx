@@ -13,11 +13,10 @@ const PAGE_SIZE = 3;
 export default function CaseStudyLoadMore({ data }) {
   const [allCaseStudies, setAllCaseStudies] = useState([]);
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const [loading, setLoading] = useState(!!data);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!data) return;
     fetchCaseStudiesClient().then((d) => {
       if (d.length) {
         setAllCaseStudies(d);
@@ -26,9 +25,7 @@ export default function CaseStudyLoadMore({ data }) {
       }
       setLoading(false);
     });
-  }, [data]);
-
-  if (!data) return null;
+  }, []);
 
   const {
     background_color,
@@ -37,7 +34,7 @@ export default function CaseStudyLoadMore({ data }) {
     description,
     custom_class,
     custom_id,
-  } = data;
+  } = data || {};
 
   const getFeaturedImage = (post) =>
     post?.featured_image_url ||
