@@ -6,24 +6,44 @@
 import { useEffect, useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchCaseStudiesClient } from "@/lib/api";
+import { fetchCaseStudiesClient } from "@/lib/clientApi";
 
 const ALL_LABEL = "All";
 
-export default function CaseStudyDropDownFilter({ data }) {
-  const [caseStudies, setCaseStudies] = useState([]);
+export default function CaseStudyDropDownFilter({ data, initialCaseStudies = null }) {
+  const hasInitialCaseStudies = Array.isArray(initialCaseStudies);
+  const [caseStudies, setCaseStudies] = useState(() =>
+    hasInitialCaseStudies ? initialCaseStudies : []
+  );
   const [activeFilter, setActiveFilter] = useState(ALL_LABEL);
-  const [loading, setLoading] = useState(!!data);
+  const [loading, setLoading] = useState(!hasInitialCaseStudies && !!data);
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  const getCategory = (post) =>
+    post?._embedded?.["wp:term"]?.[0]?.[0]?.name || null;
+
+  const getFeaturedImage = (post) =>
+    post?.featured_image_url ||
+    post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    null;
+
+  // Derive unique filter tabs from all case studies
+  const filters = useMemo(() => {
+    const cats = caseStudies
+      .map(getCategory)
+      .filter(Boolean)
+      .filter((c, i, arr) => arr.indexOf(c) === i);
+    return [ALL_LABEL, ...cats];
+  }, [caseStudies]);
+
   useEffect(() => {
-    if (!data) return;
+    if (!data || hasInitialCaseStudies) return;
     fetchCaseStudiesClient().then((d) => {
       setCaseStudies(d);
       setLoading(false);
     });
-  }, [data]);
+  }, [data, hasInitialCaseStudies]);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -45,23 +65,6 @@ export default function CaseStudyDropDownFilter({ data }) {
     custom_class,
     custom_id,
   } = data;
-
-  const getCategory = (post) =>
-    post?._embedded?.["wp:term"]?.[0]?.[0]?.name || null;
-
-  const getFeaturedImage = (post) =>
-    post?.featured_image_url ||
-    post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-    null;
-
-  // Derive unique filter tabs from all case studies
-  const filters = useMemo(() => {
-    const cats = caseStudies
-      .map(getCategory)
-      .filter(Boolean)
-      .filter((c, i, arr) => arr.indexOf(c) === i);
-    return [ALL_LABEL, ...cats];
-  }, [caseStudies]);
 
   const filtered =
     activeFilter === ALL_LABEL

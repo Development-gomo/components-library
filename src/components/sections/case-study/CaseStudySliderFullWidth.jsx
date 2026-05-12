@@ -11,15 +11,18 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { fetchCaseStudiesClient } from "@/lib/api";
+import { fetchCaseStudiesClient } from "@/lib/clientApi";
 
-export default function CaseStudySliderFullWidth({ data }) {
-  const [caseStudies, setCaseStudies] = useState([]);
+export default function CaseStudySliderFullWidth({ data, initialCaseStudies = null }) {
+  const hasInitialCaseStudies = Array.isArray(initialCaseStudies);
+  const [caseStudies, setCaseStudies] = useState(() =>
+    hasInitialCaseStudies ? initialCaseStudies : []
+  );
 
   useEffect(() => {
-    if (!data) return;
+    if (!data || hasInitialCaseStudies) return;
     fetchCaseStudiesClient().then(setCaseStudies);
-  }, [data]);
+  }, [data, hasInitialCaseStudies]);
 
   if (!data || !caseStudies.length) return null;
 

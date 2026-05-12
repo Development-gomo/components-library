@@ -9,30 +9,13 @@ import Link from "next/link";
 
 const ALL_LABEL = "All";
 
-export default function CaseStudyFilter({ data }) {
-  const [caseStudies, setCaseStudies] = useState([]);
+export default function CaseStudyFilter({ data, initialCaseStudies = null }) {
+  const hasInitialCaseStudies = Array.isArray(initialCaseStudies);
+  const [caseStudies, setCaseStudies] = useState(() =>
+    hasInitialCaseStudies ? initialCaseStudies : []
+  );
   const [activeFilter, setActiveFilter] = useState(ALL_LABEL);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!data) return;
-    fetch(`/api/case-studies`)
-      .then((res) => res.json())
-      .then((d) => setCaseStudies(Array.isArray(d) ? d : []))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, [data]);
-
-  if (!data) return null;
-
-  const {
-    background_color,
-    section_title,
-    title,
-    description,
-    custom_class,
-    custom_id,
-  } = data;
+  const [loading, setLoading] = useState(!hasInitialCaseStudies);
 
   const getCategory = (post) =>
     post?._embedded?.["wp:term"]?.[0]?.[0]?.name || null;
@@ -50,6 +33,26 @@ export default function CaseStudyFilter({ data }) {
       .filter((c, i, arr) => arr.indexOf(c) === i);
     return [ALL_LABEL, ...cats];
   }, [caseStudies]);
+
+  useEffect(() => {
+    if (!data || hasInitialCaseStudies) return;
+    fetch(`/api/case-studies`)
+      .then((res) => res.json())
+      .then((d) => setCaseStudies(Array.isArray(d) ? d : []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [data, hasInitialCaseStudies]);
+
+  if (!data) return null;
+
+  const {
+    background_color,
+    section_title,
+    title,
+    description,
+    custom_class,
+    custom_id,
+  } = data;
 
   const filtered =
     activeFilter === ALL_LABEL

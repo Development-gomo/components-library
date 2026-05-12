@@ -13,14 +13,14 @@ const SubIcon = () => (
 );
 
 export default function CaseTestimonial({ data }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+
   if (!data) return null;
 
   const { bg_image, heading, testimonial, name, person_organization } = data;
   const imgUrl = bg_image?.url || bg_image?.sizes?.large;
-
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-(--color-dark)">

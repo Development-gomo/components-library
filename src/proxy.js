@@ -1,4 +1,4 @@
-// src/middleware.js
+// src/proxy.js
 // Fetches redirects from /api/wp-redirects and applies them.
 
 import { NextResponse } from "next/server";
@@ -56,7 +56,7 @@ function matchRedirect(redirects, pathname) {
   return null;
 }
 
-export async function middleware(request) {
+export async function proxy(request) {
   const { pathname, origin } = request.nextUrl;
 
   const redirects = await getRedirects(origin);

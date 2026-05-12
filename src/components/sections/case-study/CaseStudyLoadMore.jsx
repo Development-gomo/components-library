@@ -6,17 +6,21 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { fetchCaseStudiesClient } from "@/lib/api";
+import { fetchCaseStudiesClient } from "@/lib/clientApi";
 
 const PAGE_SIZE = 3;
 
-export default function CaseStudyLoadMore({ data }) {
-  const [allCaseStudies, setAllCaseStudies] = useState([]);
+export default function CaseStudyLoadMore({ data, initialCaseStudies = null }) {
+  const hasInitialCaseStudies = Array.isArray(initialCaseStudies);
+  const [allCaseStudies, setAllCaseStudies] = useState(() =>
+    hasInitialCaseStudies ? initialCaseStudies : []
+  );
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!hasInitialCaseStudies);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (hasInitialCaseStudies) return;
     fetchCaseStudiesClient().then((d) => {
       if (d.length) {
         setAllCaseStudies(d);
@@ -25,7 +29,7 @@ export default function CaseStudyLoadMore({ data }) {
       }
       setLoading(false);
     });
-  }, []);
+  }, [hasInitialCaseStudies]);
 
   const {
     background_color,

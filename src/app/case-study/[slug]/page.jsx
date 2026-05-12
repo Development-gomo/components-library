@@ -22,13 +22,17 @@ export default async function CaseStudySinglePage({ params }) {
   if (!caseStudy) notFound();
 
   const sections = caseStudy?.acf?.case_study_builder;
+  const moreCaseStudies = (await getCaseStudies()).filter((item) => item.id !== caseStudy.id);
 
   return (
     <>
       <Header />
       <main>
         <PageBuilderCasestudy sections={sections} />
-        <CaseStudyLoadMore data={{ section_title: "More Work", title: "Explore More Case Studies" }} />
+        <CaseStudyLoadMore
+          data={{ section_title: "More Work", title: "Explore More Case Studies" }}
+          initialCaseStudies={moreCaseStudies}
+        />
       </main>
       <Footer />
     </>

@@ -1,9 +1,24 @@
+import "server-only";
+import { cache } from "react";
 import { WP_BASE } from "@/config";
 
-export async function fetchWP(endpoint) {
+const DEFAULT_REVALIDATE = 60;
+
+export async function fetchWP(endpoint, options = {}) {
   try {
+    if (!WP_BASE) return null;
     const url = `${WP_BASE}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
-    const res = await fetch(url, { cache: "no-store" });
+    const { revalidate = DEFAULT_REVALIDATE, tags } = options;
+    const fetchOptions =
+      revalidate === 0
+        ? { cache: "no-store" }
+        : {
+            next: {
+              revalidate,
+              ...(tags ? { tags } : {}),
+            },
+          };
+    const res = await fetch(url, fetchOptions);
     if (!res.ok) return null;
     return await res.json();
   } catch {
@@ -13,25 +28,29 @@ export async function fetchWP(endpoint) {
 
 // ─── Generic helpers ────────────────────────────────────────────────────────
 
-async function getSingleEntry(endpoint, slug) {
+const getSingleEntry = cache(async function getSingleEntry(endpoint, slug) {
   if (!slug) return null;
   try {
-    const entries = await fetchWP(`/wp/v2/${endpoint}?slug=${encodeURIComponent(slug)}&_embed`);
+    const entries = await fetchWP(`/wp/v2/${endpoint}?slug=${encodeURIComponent(slug)}&_embed`, {
+      tags: [endpoint, `${endpoint}:${slug}`],
+    });
     if (!Array.isArray(entries) || entries.length === 0) return null;
     return entries.find((e) => e.slug === slug) || entries[0];
   } catch {
     return null;
   }
-}
+});
 
-async function getEntryById(endpoint, id) {
+const getEntryById = cache(async function getEntryById(endpoint, id) {
   if (!id) return null;
   try {
-    return await fetchWP(`/wp/v2/${endpoint}/${id}`);
+    return await fetchWP(`/wp/v2/${endpoint}/${id}`, {
+      tags: [endpoint, `${endpoint}:${id}`],
+    });
   } catch {
     return null;
   }
-}
+});
 
 // ─── Pages ──────────────────────────────────────────────────────────────────
 
@@ -43,9 +62,9 @@ export async function getPageById(id) {
   return getEntryById("pages", id);
 }
 
-export async function getAllPages() {
-  return fetchWP(`/wp/v2/pages?per_page=100`);
-}
+export const getAllPages = cache(async function getAllPages() {
+  return fetchWP(`/wp/v2/pages?per_page=100`, { tags: ["pages"] });
+});
 
 // ─── Posts ──────────────────────────────────────────────────────────────────
 
@@ -53,73 +72,67 @@ export async function getPostBySlug(slug) {
   return getSingleEntry("posts", slug);
 }
 
-export async function getAllPosts() {
-  return fetchWP(`/wp/v2/posts?per_page=100&_embed`);
-}
+export const getAllPosts = cache(async function getAllPosts() {
+  return fetchWP(`/wp/v2/posts?per_page=100&_embed`, { tags: ["posts"] });
+});
 
 // ─── Case studies (custom post type) ───────────────────────────────────────
 
-export async function getCaseStudyBySlug(slug) {
+export const getCaseStudyBySlug = cache(async function getCaseStudyBySlug(slug) {
   if (!slug) return null;
   try {
     const entries = await fetchWP(
-      `/wp/v2/case-study?slug=${encodeURIComponent(slug)}&_embed&acf_format=standard`
+      `/wp/v2/case-study?slug=${encodeURIComponent(slug)}&_embed&acf_format=standard`,
+      { tags: ["case-study", `case-study:${slug}`] }
     );
     if (!Array.isArray(entries) || entries.length === 0) return null;
     return entries.find((e) => e.slug === slug) || entries[0];
   } catch {
     return null;
   }
-}
+});
 
 // Server-side: used in async server components
-export async function getCaseStudies() {
-  const data = await fetchWP(`/wp/v2/case-study?per_page=100&_embed`);
+export const getCaseStudies = cache(async function getCaseStudies() {
+  const data = await fetchWP(`/wp/v2/case-study?per_page=100&_embed`, {
+    tags: ["case-study"],
+  });
   return Array.isArray(data) ? data : [];
-}
-
-// Client-side: proxied through /api/case-studies so WP_BASE stays server-only
-export async function fetchCaseStudiesClient() {
-  try {
-    const res = await fetch("/api/case-studies");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.error("fetchCaseStudiesClient error:", err);
-    return [];
-  }
-}
+});
 
 // ─── Media ────
 
-export async function getMediaById(id) {
+export const getMediaById = cache(async function getMediaById(id) {
   if (!id) return null;
-  return fetchWP(`/wp/v2/media/${id}`);
-}
+  return fetchWP(`/wp/v2/media/${id}`, { tags: ["media", `media:${id}`] });
+});
 
 // ─── Menu (headless/v1 — the only custom namespace available) ───────────────
 
-export async function getMenu(location = "primary") {
+export const getMenu = cache(async function getMenu(location = "primary") {
   try {
-    const data = await fetchWP(`/headless/v1/menu/${location}`);
+    const data = await fetchWP(`/headless/v1/menu/${location}`, {
+      tags: ["menus", `menu:${location}`],
+    });
     return Array.isArray(data?.items) ? data.items : [];
   } catch {
     return [];
   }
-}
+});
 
 // ─── Team members (custom post type) ────────────────────────────────────────
 
-export async function getTeamMembers() {
-  const data = await fetchWP(`/wp/v2/team?per_page=100&_embed`);
+export const getTeamMembers = cache(async function getTeamMembers() {
+  const data = await fetchWP(`/wp/v2/team?per_page=100&_embed`, {
+    tags: ["team"],
+  });
   return Array.isArray(data) ? data : [];
-}
+});
 
 // ─── Theme options (ACF Options page via wp/v2) ──────────────────────────────
 // Reads from the ACF options page if registered, otherwise returns empty shell.
 
-export async function getThemeOptions() {
+export const getThemeOptions = cache(async function getThemeOptions() {
   const endpoints = [
     `/headless/v1/theme-options`,
     `/wp/v2/acf/options`,
@@ -134,4 +147,4 @@ export async function getThemeOptions() {
   }
 
   return {};
-}
+});

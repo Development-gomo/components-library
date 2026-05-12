@@ -1,23 +1,35 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 
 export default function TeamSlider({ members = [] }) {
-  if (!members.length) return null;
+  const swiperRef = useRef(null);
+  const [prevEl, setPrevEl] = useState(null);
+  const [nextEl, setNextEl] = useState(null);
 
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
+  useEffect(() => {
+    const swiper = swiperRef.current;
+    if (!swiper || !prevEl || !nextEl) return;
+
+    swiper.params.navigation.prevEl = prevEl;
+    swiper.params.navigation.nextEl = nextEl;
+    swiper.navigation.destroy();
+    swiper.navigation.init();
+    swiper.navigation.update();
+  }, [prevEl, nextEl]);
+
+  if (!members.length) return null;
 
   return (
     <div>
       {/* Top-right navigation arrows */}
       <div className="flex justify-end gap-3 mb-6">
         <button
-          ref={prevRef}
+          ref={setPrevEl}
           aria-label="Previous"
           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 text-gray-600 hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:text-black transition-colors duration-200"
         >
@@ -26,7 +38,7 @@ export default function TeamSlider({ members = [] }) {
           </svg>
         </button>
         <button
-          ref={nextRef}
+          ref={setNextEl}
           aria-label="Next"
           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 text-gray-600 hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:text-black transition-colors duration-200"
         >
@@ -39,10 +51,9 @@ export default function TeamSlider({ members = [] }) {
       <Swiper
         modules={[Navigation]}
         loop={true}
-        navigation={{ prevEl: prevRef.current, nextEl: nextRef.current, disabledClass: '!opacity-100 !cursor-pointer' }}
-        onBeforeInit={(swiper) => {
-          swiper.params.navigation.prevEl = prevRef.current;
-          swiper.params.navigation.nextEl = nextRef.current;
+        navigation={{ disabledClass: "!opacity-100 !cursor-pointer" }}
+        onSwiper={(instance) => {
+          swiperRef.current = instance;
         }}
         spaceBetween={20}
         breakpoints={{

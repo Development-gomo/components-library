@@ -1,6 +1,7 @@
 //src/components/major/PageBuilder.jsx
 
 import dynamic from "next/dynamic";
+import { getCaseStudies } from "@/lib/api";
 
 const HeroCenteredBg = dynamic(() => import("../sections/hero-sections/HeroCenteredBg"));
 const HeroWithImage  = dynamic(() => import("../sections/hero-sections/HeroWithImage"));
@@ -16,8 +17,22 @@ const CaseStudyFilter = dynamic(() => import("../sections/case-study/CaseStudyFi
 const CaseStudyDropDownFilter = dynamic(() => import("../sections/case-study/CaseStudyDropDownFilter"));
 const TeamSection = dynamic(() => import("../sections/team/TeamSection"));
 
-export default function PageBuilder({ sections }) {
+const CASE_STUDY_LAYOUTS = new Set([
+  "case_study_listing",
+  "case_study_slider",
+  "case_study_slider_full_width",
+  "case_study_load_more",
+  "case_study_filter",
+  "case_study_filter_dropdown",
+]);
+
+export default async function PageBuilder({ sections }) {
   if (!sections || !Array.isArray(sections)) return null;
+
+  const needsCaseStudies = sections.some((block) =>
+    CASE_STUDY_LAYOUTS.has(block?.acf_fc_layout)
+  );
+  const caseStudies = needsCaseStudies ? await getCaseStudies() : [];
   
   return (
     <>
@@ -36,17 +51,17 @@ export default function PageBuilder({ sections }) {
           case "latest_insights":
             return <LatestInsights key={i} data={block} />;
           case "case_study_listing":
-            return <CaseStudyListing key={i} data={block} />;
+            return <CaseStudyListing key={i} data={block} caseStudiesData={caseStudies} />;
           case "case_study_slider":
-            return <CaseStudySlider key={i} data={block} />;
+            return <CaseStudySlider key={i} data={block} initialCaseStudies={caseStudies} />;
           case "case_study_slider_full_width":
-            return <CaseStudySliderFullWidth key={i} data={block} />;
+            return <CaseStudySliderFullWidth key={i} data={block} initialCaseStudies={caseStudies} />;
           case "case_study_load_more":
-            return <CaseStudyLoadMore key={i} data={block} />;
+            return <CaseStudyLoadMore key={i} data={block} initialCaseStudies={caseStudies} />;
           case "case_study_filter":
-            return <CaseStudyFilter key={i} data={block} />;
+            return <CaseStudyFilter key={i} data={block} initialCaseStudies={caseStudies} />;
           case "case_study_filter_dropdown":
-            return <CaseStudyDropDownFilter key={i} data={block} />;
+            return <CaseStudyDropDownFilter key={i} data={block} initialCaseStudies={caseStudies} />;
           case "team_section":
             return <TeamSection key={i} data={block} />;
           default:

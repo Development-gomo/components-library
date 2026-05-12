@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCaseStudies } from "@/lib/api";
 
-export default async function CaseStudyListing({ data }) {
+export default async function CaseStudyListing({ data, caseStudiesData = null }) {
   if (!data) return null;
 
   const {
@@ -17,7 +17,9 @@ export default async function CaseStudyListing({ data }) {
     custom_id,
   } = data;
 
-  const caseStudies = await getCaseStudies();
+  const caseStudies = Array.isArray(caseStudiesData)
+    ? caseStudiesData
+    : await getCaseStudies();
   if (!caseStudies.length) return null;
 
   const getFeaturedImage = (post) =>
