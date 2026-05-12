@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@theme {
+  --animate-marquee: marquee 30s linear infinite;
+}
+
 /* ==========================================
    BASE ROOT (optional future branding setup)
 ========================================== */

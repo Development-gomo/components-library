@@ -16,6 +16,7 @@ const CaseStudyLoadMore = dynamic(() => import("../sections/case-study/CaseStudy
 const CaseStudyFilter = dynamic(() => import("../sections/case-study/CaseStudyFilter"));
 const CaseStudyDropDownFilter = dynamic(() => import("../sections/case-study/CaseStudyDropDownFilter"));
 const TeamSection = dynamic(() => import("../sections/team/TeamSection"));
+const ClientLogo = dynamic(() => import("../sections/client-logo/ClientLogo"));
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -64,6 +65,8 @@ export default async function PageBuilder({ sections }) {
             return <CaseStudyDropDownFilter key={i} data={block} initialCaseStudies={caseStudies} />;
           case "team_section":
             return <TeamSection key={i} data={block} />;
+          case "client_logo":
+            return <ClientLogo key={i} data={block} />;
           default:
             return null;
         }
