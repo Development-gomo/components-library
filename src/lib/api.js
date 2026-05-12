@@ -109,6 +109,13 @@ export async function getMenu(location = "primary") {
   }
 }
 
+// ─── Team members (custom post type) ────────────────────────────────────────
+
+export async function getTeamMembers() {
+  const data = await fetchWP(`/wp/v2/team?per_page=100&_embed`);
+  return Array.isArray(data) ? data : [];
+}
+
 // ─── Theme options (ACF Options page via wp/v2) ──────────────────────────────
 // Reads from the ACF options page if registered, otherwise returns empty shell.
 
