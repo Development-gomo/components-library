@@ -60,7 +60,16 @@ export async function getAllPosts() {
 // ─── Case studies (custom post type) ───────────────────────────────────────
 
 export async function getCaseStudyBySlug(slug) {
-  return getSingleEntry("case-study", slug);
+  if (!slug) return null;
+  try {
+    const entries = await fetchWP(
+      `/wp/v2/case-study?slug=${encodeURIComponent(slug)}&_embed&acf_format=standard`
+    );
+    if (!Array.isArray(entries) || entries.length === 0) return null;
+    return entries.find((e) => e.slug === slug) || entries[0];
+  } catch {
+    return null;
+  }
 }
 
 // Server-side: used in async server components
