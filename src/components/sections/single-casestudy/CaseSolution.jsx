@@ -47,7 +47,7 @@ export default function CaseSolution({ data }) {
           {heading && (
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold text-(--color-dark) leading-[1.08] max-w-3xl"
+              className="text-3xl md:text-4xl font-bold text-(--color-dark)  leading-[1.08] max-w-3xl"
               dangerouslySetInnerHTML={{ __html: heading }}
             />
           )}
@@ -83,7 +83,7 @@ export default function CaseSolution({ data }) {
             className="order-1 lg:order-2"
           >
             {solution_heading && (
-              <motion.h3 variants={fadeUp} className="text-xl font-semibold text-(--color-dark) mb-5">
+              <motion.h3 variants={fadeUp} className="text-xl font-semibold text-(--color-dark)  mb-5">
                 {solution_heading}
               </motion.h3>
             )}
@@ -98,7 +98,7 @@ export default function CaseSolution({ data }) {
                   [&_li:before]:absolute [&_li:before]:left-0 [&_li:before]:top-2.5
                   [&_li:before]:content-[''] [&_li:before]:w-1.5 [&_li:before]:h-1.5
                   [&_li:before]:rounded-full [&_li:before]:bg-(--color-accent)
-                  [&_strong]:text-(--color-dark) [&_strong]:font-semibold
+                  [&_strong]:text-(--color-dark)  [&_strong]:font-semibold
                 "
                 dangerouslySetInnerHTML={{ __html: short_text }}
               />

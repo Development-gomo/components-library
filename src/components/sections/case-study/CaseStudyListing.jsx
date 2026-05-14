@@ -41,7 +41,7 @@ export default async function CaseStudyListing({ data, caseStudiesData = null })
         {(section_title || title || description) && (
           <div className="mb-12 md:mb-16">
             {section_title && (
-              <p className="text-sm font-semibold tracking-wider uppercase text-[var(--color-accent)] mb-3">
+              <p className="text-sm font-semibold tracking-wider uppercase text-(--color-accent) mb-3">
                 {section_title}
               </p>
             )}
@@ -93,10 +93,10 @@ export default async function CaseStudyListing({ data, caseStudiesData = null })
                 </div>
                 <div className="p-6">
                   <h3
-                    className="text-lg font-semibold text-[#1E1E1E] group-hover:text-[var(--color-accent)] transition-colors line-clamp-2"
+                    className="text-lg font-semibold text-[#1E1E1E] group-hover:text-(--color-accent) transition-colors line-clamp-2"
                     dangerouslySetInnerHTML={{ __html: csTitle }}
                   />
-                  <span className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-[var(--color-accent)]">
+                  <span className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-(--color-accent)">
                     Read case study
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M7 7h10v10" />

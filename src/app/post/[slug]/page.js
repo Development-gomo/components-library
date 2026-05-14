@@ -52,7 +52,7 @@ export default async function PostSinglePage({ params }) {
             {/* Meta row */}
             <div className="flex flex-wrap items-center gap-3 mb-6">
               {category && (
-                <span className="inline-block px-4 py-1 text-xs font-semibold tracking-widest uppercase bg-[var(--color-accent)] text-[var(--color-dark)] rounded-full">
+                <span className="inline-block px-4 py-1 text-xs font-semibold tracking-widest uppercase bg-(--color-accent) text-(--color-dark) rounded-full">
                   {category}
                 </span>
               )}
@@ -76,7 +76,7 @@ export default async function PostSinglePage({ params }) {
             {/* Author */}
             {author && (
               <div className="flex items-center gap-3 mb-10">
-                <div className="w-9 h-9 rounded-full bg-[var(--color-accent)] flex items-center justify-center text-[var(--color-dark)] font-bold text-sm flex-shrink-0">
+                <div className="w-9 h-9 rounded-full bg-(--color-accent) flex items-center justify-center text-(--color-dark) font-bold text-sm flex-shrink-0">
                   {author.charAt(0).toUpperCase()}
                 </div>
                 <span className="text-sm text-white/60">by <span className="text-white/90 font-medium">{author}</span></span>
@@ -111,7 +111,7 @@ export default async function PostSinglePage({ params }) {
                 className="prose prose-lg max-w-none
                   prose-headings:font-bold prose-headings:text-[var(--color-dark)]
                   prose-p:text-gray-600 prose-p:leading-relaxed
-                  prose-a:text-[var(--color-dark)] prose-a:underline prose-a:decoration-[var(--color-accent)] prose-a:underline-offset-4
+                  prose-a:text-(--color-dark) prose-a:underline prose-a:decoration-[var(--color-accent)] prose-a:underline-offset-4
                   prose-img:rounded-xl prose-img:shadow-md
                   prose-blockquote:border-l-4 prose-blockquote:border-[var(--color-accent)] prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-500
                   prose-strong:text-[var(--color-dark)]"
@@ -122,7 +122,7 @@ export default async function PostSinglePage({ params }) {
               <div className="mt-14 pt-8 border-t border-gray-100">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-dark)] hover:text-[var(--color-accent)] transition-colors"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-(--color-dark) hover:text-(--color-accent) transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -150,7 +150,7 @@ export default async function PostSinglePage({ params }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Share on ${label}`}
-                      className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-[var(--color-accent)] hover:border-[var(--color-accent)] hover:text-black transition-colors duration-200"
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-500 hover:bg-(--color-accent) hover:border-[var(--color-accent)] hover:text-black transition-colors duration-200"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                         {icon}
@@ -184,7 +184,7 @@ export default async function PostSinglePage({ params }) {
                 {category && (
                   <div className="flex flex-col gap-0.5">
                     <span className="text-xs text-gray-400">Category</span>
-                    <span className="inline-block mt-1 px-3 py-1 text-xs font-semibold bg-[var(--color-accent)] text-[var(--color-dark)] rounded-full w-fit">
+                    <span className="inline-block mt-1 px-3 py-1 text-xs font-semibold bg-(--color-accent) text-(--color-dark) rounded-full w-fit">
                       {category}
                     </span>
                   </div>
@@ -199,8 +199,8 @@ export default async function PostSinglePage({ params }) {
         {related.length > 0 && (
           <div className="bg-gray-50 py-16 md:py-24">
             <div className="web-width mx-auto px-6">
-              <p className="text-xs font-semibold tracking-widest uppercase text-[var(--color-accent)] mb-3">Keep reading</p>
-              <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-dark)] mb-10">Related articles</h2>
+              <p className="text-xs font-semibold tracking-widest uppercase text-(--color-accent) mb-3">Keep reading</p>
+              <h2 className="text-2xl md:text-4xl font-bold text-(--color-dark) mb-10">Related articles</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {related.map((rp) => (
@@ -233,7 +233,7 @@ export default async function PostSinglePage({ params }) {
                         dangerouslySetInnerHTML={{ __html: rp.title }} />
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-white/60">{rp.date}</span>
-                        <span className="text-xs text-[var(--color-accent)] group-hover:gap-2 flex items-center gap-1 transition-all">
+                        <span className="text-xs text-(--color-accent) group-hover:gap-2 flex items-center gap-1 transition-all">
                           Read more
                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M7 7h10v10" />

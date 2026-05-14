@@ -38,7 +38,7 @@ export default function CaseHero({ data }) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
-                className="uppercase subheading-label text-[var(--color-accent)] mb-6 tracking-widest"
+                className="uppercase subheading-label text-(--color-accent) mb-6 tracking-widest"
                 dangerouslySetInnerHTML={{ __html: sub_heading }}
               />
             )}
@@ -73,7 +73,7 @@ export default function CaseHero({ data }) {
         >
           <div className="relative h-14 w-px overflow-hidden bg-white/15">
             <motion.div
-              className="absolute top-0 left-0 w-full bg-[var(--color-accent)]"
+              className="absolute top-0 left-0 w-full bg-(--color-accent)"
               animate={{ y: ["-100%", "200%"] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
               style={{ height: "50%" }}

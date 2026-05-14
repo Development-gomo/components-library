@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import SearchBar from "./SearchBar";
 
 function getColumnClass(layoutType) {
   if (layoutType === "three_column") return "md:grid-cols-3";
@@ -147,21 +148,38 @@ export default function HeaderComponent(props) {
               ))}
         </nav>
 
-        {/* MOBILE NAV - FLYOUT */}
-        <button
-          className="lg:hidden ml-auto flex items-center justify-center w-10 h-10 rounded border border-white/25 text-white hover:bg-white/10"
-          aria-label="Open menu"
-          onClick={() => setMobileOpen(true)}
-        >
-          <svg width="28" height="28" fill="none" viewBox="0 0 28 28">
-            <rect y="6" width="28" height="2.5" rx="1.25" fill="currentColor" />
-            <rect y="13" width="28" height="2.5" rx="1.25" fill="currentColor" />
-            <rect y="20" width="28" height="2.5" rx="1.25" fill="currentColor" />
-          </svg>
-        </button>
+        {/* SEARCH + RIGHT ACTIONS */}
+        <div className="flex items-center gap-2 ml-auto lg:ml-0">
+          <SearchBar />
 
+          {/* CTA — desktop only */}
+          {ctaText && (
+            <Link
+              href={ctaUrl}
+              target={ctaTarget}
+              className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[#2f56d3] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2849b5]"
+            >
+              {ctaText}
+            </Link>
+          )}
+
+          {/* Burger — mobile only */}
+          <button
+            className="lg:hidden flex items-center justify-center w-10 h-10 rounded border border-white/25 text-white hover:bg-white/10"
+            aria-label="Open menu"
+            onClick={() => setMobileOpen(true)}
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 28 28">
+              <rect y="6" width="28" height="2.5" rx="1.25" fill="currentColor" />
+              <rect y="13" width="28" height="2.5" rx="1.25" fill="currentColor" />
+              <rect y="20" width="28" height="2.5" rx="1.25" fill="currentColor" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile flyout */}
         {mobileOpen && (
-          <div className="fixed inset-0 z-999 bg-black/40 flex">
+          <div className="fixed inset-0 z-200 bg-black/40 flex">
             <div className="relative w-full h-screen bg-white text-slate-900 shadow-xl flex flex-col">
               <button
                 className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100"
@@ -235,17 +253,6 @@ export default function HeaderComponent(props) {
             </div>
             <div className="flex-1" onClick={() => setMobileOpen(false)} />
           </div>
-        )}
-
-        {/* CTA */}
-        {ctaText && (
-          <Link
-            href={ctaUrl}
-            target={ctaTarget}
-            className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[#2f56d3] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2849b5]"
-          >
-            {ctaText}
-          </Link>
         )}
       </div>
     </header>

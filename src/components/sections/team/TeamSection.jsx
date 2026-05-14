@@ -72,7 +72,7 @@ function SocialIcons({ social }) {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20 hover:bg-[var(--color-accent)] hover:text-black text-white transition-colors duration-200"
+          className="flex items-center justify-center w-7 h-7 rounded-full bg-white/20 hover:bg-(--color-accent) hover:text-black text-white transition-colors duration-200"
           aria-label={key}
         >
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -120,7 +120,7 @@ function DefaultGridCard({ member }) {
           <SocialIcons social={member.social} />
         </div>
         {/* Accent underline that expands on hover */}
-        <div className="mt-2 h-0.5 w-8 bg-[var(--color-accent)] group-hover:w-full transition-all duration-500" />
+        <div className="mt-2 h-0.5 w-8 bg-(--color-accent) group-hover:w-full transition-all duration-500" />
       </div>
     </div>
   );
@@ -150,7 +150,7 @@ function LeftGridCard({ member }) {
       {/* Name & role — slide up on hover */}
       <div className="absolute bottom-0 left-0 right-0 px-5 py-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 ease-out">
         {/* Accent line */}
-        <div className="w-8 h-0.5 bg-[var(--color-accent)] mb-3" />
+        <div className="w-8 h-0.5 bg-(--color-accent) mb-3" />
         {member.name && (
           <p className="text-base font-semibold text-white leading-snug">{member.name}</p>
         )}
@@ -174,12 +174,12 @@ function SectionHeader({ section_title, title, description, centered = false }) 
   return (
     <div className={centered ? "text-center mb-12 md:mb-16 max-w-2xl mx-auto" : ""}>
       {section_title && (
-        <p className="text-sm font-semibold tracking-widest uppercase text-[var(--color-accent)] mb-3">
+        <p className="text-sm font-semibold tracking-widest uppercase text-(--color-accent) mb-3">
           {section_title}
         </p>
       )}
       {title && (
-        <h2 className="text-4xl md:text-6xl font-bold text-[var(--color-dark)] mb-6 leading-tight" style={{ fontFamily: "Georgia, serif" }}>
+        <h2 className="text-4xl md:text-6xl font-bold text-(--color-dark) mb-6 leading-tight" style={{ fontFamily: "Georgia, serif" }}>
           {title}
         </h2>
       )}

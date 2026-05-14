@@ -71,7 +71,7 @@ export default function CaseCtaBanner({ data }) {
           <motion.div variants={fadeUp} className="shrink-0">
             <Link
               href={cta_url}
-              className="group relative inline-flex items-center gap-3 bg-(--color-accent) text-(--color-dark) px-8 py-5 font-semibold rounded-sm overflow-hidden hover:gap-5 transition-all duration-300"
+              className="group relative inline-flex items-center gap-3 bg-(--color-accent) text-(--color-dark)  px-8 py-5 font-semibold rounded-sm overflow-hidden hover:gap-5 transition-all duration-300"
             >
               <span className="relative z-10">{cta_text}</span>
               <span className="relative z-10 group-hover:translate-x-1 transition-transform duration-300">→</span>

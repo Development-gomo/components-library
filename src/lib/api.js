@@ -129,6 +129,17 @@ export const getTeamMembers = cache(async function getTeamMembers() {
   return Array.isArray(data) ? data : [];
 });
 
+// ─── Search ──────────────────────────────────────────────────────────────────
+
+export async function searchWP(query, perPage = 12) {
+  if (!query || query.trim().length < 2) return [];
+  const data = await fetchWP(
+    `/wp/v2/search?search=${encodeURIComponent(query.trim())}&per_page=${perPage}&type=post&subtype=any`,
+    { revalidate: 0 }
+  );
+  return Array.isArray(data) ? data : [];
+}
+
 // ─── Theme options (ACF Options page via wp/v2) ──────────────────────────────
 // Reads from the ACF options page if registered, otherwise returns empty shell.
 

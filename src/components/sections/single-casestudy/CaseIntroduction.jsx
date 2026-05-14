@@ -53,7 +53,7 @@ export default function CaseIntroduction({ data }) {
           {heading && (
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold text-(--color-dark) leading-[1.08] mb-7"
+              className="text-3xl md:text-4xl font-bold text-(--color-dark)  leading-[1.08] mb-7"
               dangerouslySetInnerHTML={{ __html: heading }}
             />
 
@@ -69,7 +69,7 @@ export default function CaseIntroduction({ data }) {
               key={i} variants={fadeUp}
               className="flex justify-between items-start gap-8 py-4 border-b border-gray-200"
             >
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-(--color-dark) shrink-0 mt-0.5">
+              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-(--color-dark)  shrink-0 mt-0.5">
                 {item.label}
               </span>
               {item.html ? (

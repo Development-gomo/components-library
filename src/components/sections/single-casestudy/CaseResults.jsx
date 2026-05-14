@@ -66,7 +66,7 @@ export default function CaseResults({ data }) {
           {heading && (
             <motion.div
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold text-(--color-dark) leading-[1.08] max-w-3xl [&_strong]:text-(--color-accent) [&_em]:font-serif [&_em]:italic"
+              className="text-3xl md:text-4xl font-bold text-(--color-dark)  leading-[1.08] max-w-3xl [&_strong]:text-(--color-accent) [&_em]:font-serif [&_em]:italic"
               dangerouslySetInnerHTML={{ __html: heading }}
             />
           )}
@@ -87,7 +87,7 @@ export default function CaseResults({ data }) {
                 <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-(--color-accent) group-hover:w-full transition-all duration-500 ease-out" />
 
                 <div className="flex items-baseline gap-1 mb-3">
-                  <span className="text-5xl md:text-6xl font-bold text-(--color-dark) leading-none tabular-nums">
+                  <span className="text-5xl md:text-6xl font-bold text-(--color-dark)  leading-none tabular-nums">
                     <CountUp value={item.number || "0"} />
                   </span>
                   {item.suffix && (

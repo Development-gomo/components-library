@@ -29,7 +29,7 @@ function SectionHeader({ sub_heading, heading, description }) {
         </p>
       )}
       {heading && (
-        <h2 className="text-3xl md:text-4xl font-semibold text-[var(--color-dark)] mb-4">
+        <h2 className="text-3xl md:text-4xl font-semibold text-(--color-dark)  mb-4">
           {heading}
         </h2>
       )}
