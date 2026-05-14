@@ -52,10 +52,13 @@ export default function SearchBar() {
   const [visible, setVisible] = useState(false); // drives CSS enter/exit
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [fetchedFor, setFetchedFor] = useState("");
   const inputRef = useRef(null);
   const closeTimerRef = useRef(null);
   const debouncedQuery = useDebounce(query, 300);
+
+  // True while debounce is pending OR a fetch is in flight for the current query
+  const loading = debouncedQuery.length >= 2 && debouncedQuery !== fetchedFor;
 
   function openModal() {
     clearTimeout(closeTimerRef.current);
@@ -87,14 +90,20 @@ export default function SearchBar() {
   useEffect(() => {
     if (!debouncedQuery || debouncedQuery.length < 2) return;
     const controller = new AbortController();
-    setLoading(true);
     fetch(`/api/search?q=${encodeURIComponent(debouncedQuery)}`, {
       signal: controller.signal,
     })
       .then((r) => r.json())
-      .then((data) => setResults(Array.isArray(data) ? data : []))
-      .catch((err) => { if (err.name !== "AbortError") setResults([]); })
-      .finally(() => setLoading(false));
+      .then((data) => {
+        setResults(Array.isArray(data) ? data : []);
+        setFetchedFor(debouncedQuery);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          setResults([]);
+          setFetchedFor(debouncedQuery);
+        }
+      });
     return () => controller.abort();
   }, [debouncedQuery]);
 
