@@ -13,10 +13,22 @@ function useDebounce(value, delay) {
 }
 
 function getPostPath(item) {
+  let slug = "";
   try {
-    return new URL(item.url).pathname;
+    const pathname = new URL(item.url).pathname;
+    slug = pathname.replace(/\/$/, "").split("/").pop();
   } catch {
-    return item.url || "#";
+    slug = item.slug || "";
+  }
+  if (!slug) return item.url || "#";
+
+  switch (item.subtype) {
+    case "post":
+      return `/post/${slug}`;
+    case "case-study":
+      return `/case-study/${slug}`;
+    default:
+      return `/${slug}`;
   }
 }
 
