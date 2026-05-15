@@ -17,6 +17,11 @@ const CaseStudyFilter = dynamic(() => import("../sections/case-study/CaseStudyFi
 const CaseStudyDropDownFilter = dynamic(() => import("../sections/case-study/CaseStudyDropDownFilter"));
 const TeamSection = dynamic(() => import("../sections/team/TeamSection"));
 const ClientLogo = dynamic(() => import("../sections/client-logo/ClientLogo"));
+const StoryScroll = dynamic(() => import("../ui/story-scroll"));
+const AccordionSection = dynamic(() => import("../sections/accordian/AccordianTypes"));
+const TubeLightSection = dynamic(() => import("../ui/TubeLight"));
+const ScrollExpansionHero = dynamic(() => import("../sections/hero-sections/ScrollExpansionHero"));
+const TestimonialSection = dynamic(() => import("../sections/testimonial/Testimonial"));
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -67,6 +72,16 @@ export default async function PageBuilder({ sections }) {
             return <TeamSection key={i} data={block} />;
           case "client_logo":
             return <ClientLogo key={i} data={block} />;
+          case "scroller_section":
+            return <StoryScroll key={i} data={block} />;
+          case "accordion_section":
+            return <AccordionSection key={i} data={block} />;
+          case "tube_light_section":
+            return <TubeLightSection key={i} data={block} />;
+          case "scroll_expansion_hero":
+            return <ScrollExpansionHero key={i} data={block} />;
+          case "testimonial_section":
+            return <TestimonialSection key={i} data={block} />;
           default:
             return null;
         }

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -13,6 +14,7 @@
    BASE ROOT (optional future branding setup)
 ========================================== */
 :root {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
   --font-primary: var(--font-instrument-sans), system-ui, sans-serif;
   --font-serif: var(--font-merriweather), serif;
 

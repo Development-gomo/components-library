@@ -2,7 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { WP_BASE } from "@/config";
 
-const DEFAULT_REVALIDATE = 60;
+const DEFAULT_REVALIDATE = 0;
 
 export async function fetchWP(endpoint, options = {}) {
   try {
