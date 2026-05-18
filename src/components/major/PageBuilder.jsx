@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { getCaseStudies } from "@/lib/api";
 
 const HeroCenteredBg = dynamic(() => import("../sections/hero-sections/HeroCenteredBg"));
+const KineticHero = dynamic(() => import("../sections/hero-sections/KineticHero"));
 const HeroWithImage  = dynamic(() => import("../sections/hero-sections/HeroWithImage"));
 const CenteredHero = dynamic(() => import("../sections/hero-sections/Centeredhero"));
 const ContentMediaBlock = dynamic(() => import("../sections/content-sections/ContentMediaBlock"));
@@ -19,9 +20,13 @@ const TeamSection = dynamic(() => import("../sections/team/TeamSection"));
 const ClientLogo = dynamic(() => import("../sections/client-logo/ClientLogo"));
 const StoryScroll = dynamic(() => import("../ui/story-scroll"));
 const AccordionSection = dynamic(() => import("../sections/accordian/AccordianTypes"));
+const AccordionImageScroller = dynamic(() => import("../sections/accordian/AccordionImageScroller"));
 const TubeLightSection = dynamic(() => import("../ui/TubeLight"));
 const ScrollExpansionHero = dynamic(() => import("../sections/hero-sections/ScrollExpansionHero"));
+const FloatingGalleryHero = dynamic(() => import("../sections/hero-sections/FloatingGalleryHero"));
 const TestimonialSection = dynamic(() => import("../sections/testimonial/Testimonial"));
+const ProcessSteps = dynamic(() => import("../sections/process/ProcessSteps"));
+const FeatureGrid = dynamic(() => import("../sections/feature-grid/FeatureGrid"));
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -46,6 +51,8 @@ export default async function PageBuilder({ sections }) {
         switch (block.acf_fc_layout) {
           case "hero_centered_bg":
             return <HeroCenteredBg key={i} data={block} />;
+          case "kinetic_hero":
+            return <KineticHero key={i} data={block} />;
           case "hero_with_image":
             return <HeroWithImage key={i} data={block} />; 
           case "centered_hero":   
@@ -76,12 +83,20 @@ export default async function PageBuilder({ sections }) {
             return <StoryScroll key={i} data={block} />;
           case "accordion_section":
             return <AccordionSection key={i} data={block} />;
+          case "accordion_image_scroller":
+            return <AccordionImageScroller key={i} data={block} />;
           case "tube_light_section":
             return <TubeLightSection key={i} data={block} />;
           case "scroll_expansion_hero":
             return <ScrollExpansionHero key={i} data={block} />;
           case "testimonial_section":
             return <TestimonialSection key={i} data={block} />;
+          case "floating_gallery_hero":
+            return <FloatingGalleryHero key={i} data={block} />;
+          case "process_steps":
+            return <ProcessSteps key={i} data={block} />;
+          case "feature_grid":
+            return <FeatureGrid key={i} data={block} />;
           default:
             return null;
         }

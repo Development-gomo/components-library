@@ -21,7 +21,7 @@ function SectionHeader({ sub_heading, heading, description, align = 'left' }) {
   return (
     <div className={alignClass}>
       {sub_heading && (
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] opacity-60">
+        <p className="mb-6 text-xs font-bold uppercase tracking-[0.2em] opacity-60">
           {sub_heading}
         </p>
       )}
