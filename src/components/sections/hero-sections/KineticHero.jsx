@@ -156,9 +156,7 @@ export default function KineticHero({ data }) {
       {/* ── Text content ── */}
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center text-white">
         {hero_title && (
-          <h1 className="max-w-4xl text-5xl font-bold leading-tight md:text-6xl lg:text-7xl">
-            {hero_title}
-          </h1>
+          <h1 className="max-w-4xl text-5xl font-bold leading-tight md:text-6xl lg:text-7xl" dangerouslySetInnerHTML={{ __html: hero_title }} />
         )}
 
         {hero_description && (

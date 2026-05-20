@@ -27,6 +27,7 @@ const FloatingGalleryHero = dynamic(() => import("../sections/hero-sections/Floa
 const TestimonialSection = dynamic(() => import("../sections/testimonial/Testimonial"));
 const ProcessSteps = dynamic(() => import("../sections/process/ProcessSteps"));
 const FeatureGrid = dynamic(() => import("../sections/feature-grid/FeatureGrid"));
+const InteractiveMap = dynamic(() => import("../sections/interactive-map/InteractiveMap"));
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -97,6 +98,8 @@ export default async function PageBuilder({ sections }) {
             return <ProcessSteps key={i} data={block} />;
           case "feature_grid":
             return <FeatureGrid key={i} data={block} />;
+          case "interactive_map":
+            return <InteractiveMap key={i} data={block} />;
           default:
             return null;
         }
