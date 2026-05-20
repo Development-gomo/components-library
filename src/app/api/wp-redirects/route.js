@@ -25,6 +25,9 @@ export async function GET() {
 
     if (!res.ok) break;
 
+    const contentType = res.headers.get('content-type') ?? '';
+    if (!contentType.includes('application/json')) break;
+
     const data = await res.json();
     const items = Array.isArray(data?.items)
       ? data.items.filter((item) => item?.enabled !== false)

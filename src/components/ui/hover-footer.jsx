@@ -1,11 +1,12 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export function TextHoverEffect({ text, duration = 0, className }) {
   const svgRef = useRef(null);
+  const inView = useInView(svgRef, { once: true, margin: '0px 0px -50px 0px' });
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
   const [maskPosition, setMaskPosition] = useState({ cx: '50%', cy: '50%' });
@@ -31,7 +32,8 @@ export function TextHoverEffect({ text, duration = 0, className }) {
       className={cn('select-none uppercase cursor-pointer', className)}
     >
       <defs>
-        <linearGradient id="textGradient" gradientUnits="userSpaceOnUse" cx="50%" cy="50%" r="25%">
+        {/* Radial gradient that follows the cursor for the colour reveal */}
+        <radialGradient id="textGradient" gradientUnits="userSpaceOnUse" cx="50%" cy="50%" r="25%">
           {hovered && (
             <>
               <stop offset="0%"   stopColor="#eab308" />
@@ -41,7 +43,7 @@ export function TextHoverEffect({ text, duration = 0, className }) {
               <stop offset="100%" stopColor="#8b5cf6" />
             </>
           )}
-        </linearGradient>
+        </radialGradient>
 
         <motion.radialGradient
           id="revealMask"
@@ -66,21 +68,21 @@ export function TextHoverEffect({ text, duration = 0, className }) {
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-neutral-700 font-[helvetica] text-7xl font-bold"
+        className="fill-transparent stroke-neutral-700 font-[helvetica] text-[6vw] font-bold"
         style={{ opacity: hovered ? 0.7 : 0, transition: 'opacity 0.3s ease' }}
       >
         {text}
       </text>
 
-      {/* Animated draw-on stroke */}
+      {/* Animated draw-on stroke — fires once when section enters viewport */}
       <motion.text
         x="50%" y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-[#3ca2fa55] font-[helvetica] text-7xl font-bold"
+        className="fill-transparent stroke-[#3ca2fa55] font-[helvetica] text-[6vw] font-bold"
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
-        animate={{ strokeDashoffset: 0, strokeDasharray: 1000 }}
+        animate={inView ? { strokeDashoffset: 0, strokeDasharray: 1000 } : { strokeDashoffset: 1000, strokeDasharray: 1000 }}
         transition={{ duration: 4, ease: 'easeInOut' }}
       >
         {text}
@@ -94,7 +96,7 @@ export function TextHoverEffect({ text, duration = 0, className }) {
         stroke="url(#textGradient)"
         strokeWidth="0.3"
         mask="url(#textMask)"
-        className="fill-transparent font-[helvetica] text-7xl font-bold"
+        className="fill-transparent font-[helvetica] text-[6vw] font-bold"
       >
         {text}
       </text>

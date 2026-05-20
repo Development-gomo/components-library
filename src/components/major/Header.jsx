@@ -125,7 +125,7 @@ export default async function Header() {
   const navLinks = extractLinksFromHtml(navHtml);
 
   const ctaLink = normalizeLink(
-    headerOptions?.cta_link || headerOptions?.cta_url || optionsRoot?.cta_link || optionsRoot?.cta_url,
+    headerOptions?.cta_link || headerOptions?.cta_url || optionsRoot?.cta_link || optionsRoot?.cta_url || "/contact",
     headerOptions?.cta_text || optionsRoot?.cta_text || "Get in touch"
   );
   const ctaText = headerOptions?.cta_text || optionsRoot?.cta_text || ctaLink.label || null;

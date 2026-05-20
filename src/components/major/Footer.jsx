@@ -20,12 +20,12 @@ export default async function Footer() {
   const socialLinks   = themeOptions?.global?.social_links                   || [];
   const contact       = themeOptions?.global?.contact                        || {};
   const footerCta     = themeOptions?.global?.footer_cta                     || {};
-  const footer_text_sparkal = themeOptions?.global?.footer_text_sparkal     || {};
+  const footer_text_sparkal = themeOptions?.global?.footer_text_sparkal     || '';
   const copyrightLeft  = themeOptions?.global?.copyrights_left;
   const copyrightRight = themeOptions?.global?.copyrights_right;
 
   // Text shown in the large hover effect — falls back to a brand name
-  const hoverText = themeOptions?.global?.brand_name || footer_text_sparkal;
+  const hoverText = themeOptions?.global?.brand_name || footer_text_sparkal || '';
 
   return (
     <footer className="relative overflow-hidden bg-[#0a0a0c] text-white border-t border-white/5">
@@ -195,9 +195,9 @@ export default async function Footer() {
       </div>
 
       {/* ── Large hover-text brand watermark ────────────────────────────── */}
-      {/* <div className="relative z-10 hidden lg:flex h-52 -mb-6 overflow-hidden">
+      <div className="relative z-10 hidden lg:flex h-52 -mb-6 overflow-hidden">
         <TextHoverEffect text={hoverText} duration={0} />
-      </div> */}
+      </div>
 
     </footer>
   );
