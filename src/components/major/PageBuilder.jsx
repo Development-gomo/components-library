@@ -29,6 +29,7 @@ const ProcessSteps = dynamic(() => import("../sections/process/ProcessSteps"));
 const FeatureGrid = dynamic(() => import("../sections/feature-grid/FeatureGrid"));
 const InteractiveMap = dynamic(() => import("../sections/interactive-map/InteractiveMap"));
 const PricingTable = dynamic(() => import("../sections/pricing/PricingTable"));
+const TabsSection = dynamic(() => import("../sections/tabs/TabsSections"));
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -99,6 +100,8 @@ export default async function PageBuilder({ sections }) {
             return <ProcessSteps key={i} data={block} />;
           case "feature_grid":
             return <FeatureGrid key={i} data={block} />;
+          case "tab_section":
+            return <TabsSection key={i} data={block} />;
           case "interactive_map":
             return (
               <>
