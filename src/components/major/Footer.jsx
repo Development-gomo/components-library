@@ -34,32 +34,24 @@ export default async function Footer() {
 
       <div className="relative z-10 mx-auto w-full web-width px-6 pt-16 pb-0">
 
-        {/* ── Top bar: CTA + social ───────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-14 border-b border-white/10">
-          <div className="max-w-xl">
+        {/* ── Link columns (5 col) ────────────────────────────────────────── */}
+        <div className="grid grid-cols-2 md:grid-cols-[4fr_2fr_2fr_2fr_2fr] gap-12 py-14 border-b border-white/10">
+
+
+          {/* Col 1 — Brand */}
+          <div className="col-span-2 md:col-span-1">
             {footerCta?.cta_heading && (
               <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
                 {footerCta.cta_heading}
               </h2>
             )}
             {footerCta?.short_text && (
-              <p className="text-white/50 text-sm leading-relaxed">
+              <p className="text-sm text-white/40 leading-relaxed mb-5">
                 {footerCta.short_text}
               </p>
             )}
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 shrink-0">
-            {footerCta?.cta_button_link?.url && (
-              <Link
-                href={footerCta.cta_button_link.url}
-                className="inline-flex items-center gap-2 rounded-lg bg-[#3ca2fa] hover:bg-[#2f8de0] px-6 py-3 text-sm font-semibold text-white transition-colors"
-              >
-                {footerCta.cta_button_text || footerCta.cta_button_link.title}
-              </Link>
-            )}
             {socialLinks.length > 0 && (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5 flex-wrap">
                 {socialLinks.map((item) => (
                   <Link
                     key={item.social_media_name}
@@ -67,7 +59,7 @@ export default async function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={item.social_media_name}
-                    className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-[#3ca2fa] hover:border-[#3ca2fa]/40 transition-colors"
+                    className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-[#3ca2fa] hover:border-[#3ca2fa]/40 transition-colors"
                   >
                     {SOCIAL_ICON_MAP[item.social_media_name] || null}
                   </Link>
@@ -75,11 +67,8 @@ export default async function Footer() {
               </div>
             )}
           </div>
-        </div>
 
-        {/* ── Link columns ────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 py-14 border-b border-white/10">
-
+          {/* Col 2 — Services */}
           {services.length > 0 && (
             <div>
               <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#3ca2fa]">
@@ -100,6 +89,7 @@ export default async function Footer() {
             </div>
           )}
 
+          {/* Col 3 — Quick Links */}
           {quickLinks.length > 0 && (
             <div>
               <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#3ca2fa]">
@@ -120,6 +110,7 @@ export default async function Footer() {
             </div>
           )}
 
+          {/* Col 4 — Resources */}
           {resources.length > 0 && (
             <div>
               <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#3ca2fa]">
@@ -140,6 +131,7 @@ export default async function Footer() {
             </div>
           )}
 
+          {/* Col 5 — Contact */}
           <div>
             <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#3ca2fa]">
               Contact
@@ -152,24 +144,20 @@ export default async function Footer() {
                 />
               )}
               {contact.email && (
-                <div>
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="hover:text-white transition-colors"
-                  >
-                    {contact.email}
-                  </a>
-                </div>
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="block hover:text-white transition-colors"
+                >
+                  {contact.email}
+                </a>
               )}
               {contact.phone && (
-                <div>
-                  <a
-                    href={`tel:${contact.phone}`}
-                    className="hover:text-white transition-colors"
-                  >
-                    {contact.phone}
-                  </a>
-                </div>
+                <a
+                  href={`tel:${contact.phone}`}
+                  className="block hover:text-white transition-colors"
+                >
+                  {contact.phone}
+                </a>
               )}
             </div>
           </div>
