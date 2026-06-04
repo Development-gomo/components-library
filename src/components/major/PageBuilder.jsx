@@ -25,6 +25,7 @@ const TubeLightSection = dynamic(() => import("../ui/TubeLight"));
 const ScrollExpansionHero = dynamic(() => import("../sections/hero-sections/ScrollExpansionHero"));
 const FloatingGalleryHero = dynamic(() => import("../sections/hero-sections/FloatingGalleryHero"));
 const TestimonialSection = dynamic(() => import("../sections/testimonial/Testimonial"));
+const TestimonialSectionLogo = dynamic(() => import("../sections/testimonial/TestimonialSectionLogo"));
 const ProcessSteps = dynamic(() => import("../sections/process/ProcessSteps"));
 const FeatureGrid = dynamic(() => import("../sections/feature-grid/FeatureGrid"));
 const InteractiveMap = dynamic(() => import("../sections/interactive-map/InteractiveMap"));
@@ -103,6 +104,8 @@ export default async function PageBuilder({ sections }) {
             return <ScrollExpansionHero key={i} data={block} />;
           case "testimonial_section":
             return <TestimonialSection key={i} data={block} />;
+          case "testimonial_section_with_logo":
+            return <TestimonialSectionLogo key={i} data={block} />;
           case "floating_gallery_hero":
             return <FloatingGalleryHero key={i} data={block} />;
           case "process_steps":
