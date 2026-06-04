@@ -30,6 +30,9 @@ const FeatureGrid = dynamic(() => import("../sections/feature-grid/FeatureGrid")
 const InteractiveMap = dynamic(() => import("../sections/interactive-map/InteractiveMap"));
 const PricingTable = dynamic(() => import("../sections/pricing/PricingTable"));
 const TabsSection = dynamic(() => import("../sections/tabs/TabsSections"));
+const CaseStudyBentoGrid = dynamic(() => import("../sections/case-study/CaseStudyBentoGrid"));
+const CaseStudyGridLayout = dynamic(() => import("../sections/case-study/CaseStudyGridLayout"));
+import TabsCptSection from "../sections/tabs/TabsCptSection";
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -38,6 +41,8 @@ const CASE_STUDY_LAYOUTS = new Set([
   "case_study_load_more",
   "case_study_filter",
   "case_study_filter_dropdown",
+  "case_study_bento_grid",
+  "case_study_grid_layout",
 ]);
 
 export default async function PageBuilder({ sections }) {
@@ -78,6 +83,10 @@ export default async function PageBuilder({ sections }) {
             return <CaseStudyFilter key={i} data={block} initialCaseStudies={caseStudies} />;
           case "case_study_filter_dropdown":
             return <CaseStudyDropDownFilter key={i} data={block} initialCaseStudies={caseStudies} />;
+          case "case_study_bento_grid":
+            return <CaseStudyBentoGrid key={i} data={block} caseStudiesData={caseStudies} />;
+          case "case_study_grid_layout":
+            return <CaseStudyGridLayout key={i} data={block} caseStudiesData={caseStudies} />;
           case "team_section":
             return <TeamSection key={i} data={block} />;
           case "client_logo":
@@ -102,6 +111,8 @@ export default async function PageBuilder({ sections }) {
             return <FeatureGrid key={i} data={block} />;
           case "tab_section":
             return <TabsSection key={i} data={block} />;
+          case "tab_cpt_section":
+            return <TabsCptSection key={i} data={block} />;
           case "interactive_map":
             return (
               <>

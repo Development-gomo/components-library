@@ -110,7 +110,7 @@ function MediaPanel({ tab, direction = 0 }) {
           </span>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
     </motion.div>
   );
 }
@@ -136,7 +136,7 @@ function ArrowBtn({ onClick, dir = 'next' }) {
 // ─── Progress Bar ─────────────────────────────────────────────────────────────
 
 function ProgressBar({ active, paused, duration }) {
-  if (!active) return null;
+  if (active == null) return null;
   return (
     <motion.div
       key={`pb-${active}-${paused}`}
@@ -438,18 +438,7 @@ function HorizontalSlider({ tabs, active, setActive, paused, setPaused, directio
           {/* Media */}
           <div className="relative aspect-[4/3] lg:aspect-auto">
             <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={`media-${active}`}
-                custom={direction}
-                variants={sliderVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.55, ease }}
-                className="absolute inset-0 rounded-r-2xl overflow-hidden"
-              >
-                <MediaPanel tab={tabs[active]} direction={direction} />
-              </motion.div>
+              <MediaPanel key={`media-${active}`} tab={tabs[active]} direction={direction} />
             </AnimatePresence>
           </div>
         </div>
