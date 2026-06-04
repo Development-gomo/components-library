@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { getCaseStudies } from "@/lib/api";
 
+const HeroClientslider = dynamic(() => import("../sections/hero-sections/HeroClientslider"));
 const HeroCenteredBg = dynamic(() => import("../sections/hero-sections/HeroCenteredBg"));
 const KineticHero = dynamic(() => import("../sections/hero-sections/KineticHero"));
 const HeroWithImage  = dynamic(() => import("../sections/hero-sections/HeroWithImage"));
@@ -54,10 +55,12 @@ export default async function PageBuilder({ sections }) {
   );
   const caseStudies = needsCaseStudies ? await getCaseStudies() : [];
   
-  return (
+  return ( 
     <>
       {sections.map((block, i) => {
         switch (block.acf_fc_layout) {
+          case "hero_with_slider": 
+            return <HeroClientslider key={i} data={block} />;
           case "hero_centered_bg":
             return <HeroCenteredBg key={i} data={block} />;
           case "kinetic_hero":
