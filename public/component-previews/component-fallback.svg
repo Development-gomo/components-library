@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="Auto discovered component preview">
+  <defs>
+    <linearGradient id="mint" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#00fec3"/>
+      <stop offset="1" stop-color="#8ce6ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+  <rect width="960" height="600" fill="#f4f6ef"/>
+  <rect x="54" y="54" width="852" height="492" rx="24" fill="#ffffff" filter="url(#shadow)"/>
+  <rect x="96" y="106" width="220" height="22" rx="11" fill="#111316"/>
+  <rect x="96" y="154" width="420" height="14" rx="7" fill="#7b877f"/>
+  <rect x="96" y="184" width="340" height="14" rx="7" fill="#a5afa9"/>
+  <rect x="96" y="252" width="252" height="184" rx="18" fill="#e8eee8" stroke="#d8e3da"/>
+  <rect x="388" y="252" width="252" height="184" rx="18" fill="#e8eee8" stroke="#d8e3da"/>
+  <rect x="680" y="252" width="210" height="184" rx="18" fill="#e8eee8" stroke="#d8e3da"/>
+  <circle cx="222" cy="344" r="42" fill="url(#mint)"/>
+  <rect x="430" y="310" width="150" height="18" rx="9" fill="#111316"/>
+  <rect x="430" y="350" width="118" height="12" rx="6" fill="#87938c"/>
+  <rect x="718" y="306" width="104" height="34" rx="10" fill="url(#mint)"/>
+  <rect x="718" y="368" width="128" height="12" rx="6" fill="#87938c"/>
+  <text x="96" y="494" fill="#1d7c68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Auto-discovered module</text>
+</svg>

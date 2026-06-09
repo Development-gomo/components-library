@@ -1,0 +1,109 @@
+⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: groups is not defined
+    at ComponentsPage (src\app\components\page.jsx:218:25)
+  216 |
+  217 | export default function ComponentsPage() {
+> 218 |   const allComponents = groups.flatMap((group) => group.items);
+      |                         ^
+  219 |
+  220 |   return (
+  221 |     <> {
+  digest: '718249723'
+}
+⨯ ReferenceError: groups is not defined
+    at ComponentsPage (src\app\components\page.jsx:218:25)
+  216 |
+  217 | export default function ComponentsPage() {
+> 218 |   const allComponents = groups.flatMap((group) => group.items);
+      |                         ^
+  219 |
+  220 |   return (
+  221 |     <> {
+  digest: '718249723'
+}
+⨯ ReferenceError: groups is not defined
+    at ComponentsPage (src\app\components\page.jsx:218:25)
+  216 |
+  217 | export default function ComponentsPage() {
+> 218 |   const allComponents = groups.flatMap((group) => group.items);
+      |                         ^
+  219 |
+  220 |   return (
+  221 |     <> {
+  digest: '718249723'
+}
+⨯ ReferenceError: groups is not defined
+    at ComponentsPage (src\app\components\page.jsx:218:25)
+  216 |
+  217 | export default function ComponentsPage() {
+> 218 |   const allComponents = groups.flatMap((group) => group.items);
+      |                         ^
+  219 |
+  220 |   return (
+  221 |     <> {
+  digest: '718249723'
+}
+⨯ ReferenceError: groups is not defined
+    at ComponentsPage (src\app\components\page.jsx:218:25)
+  216 |
+  217 | export default function ComponentsPage() {
+> 218 |   const allComponents = groups.flatMap((group) => group.items);
+      |                         ^
+  219 |
+  220 |   return (
+  221 |     <> {
+  digest: '718249723'
+}
+[browser] Encountered two children with the same key, `scroll_expansion_hero`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at warnOnInvalidKey (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4108:49)
+    at reconcileChildrenArray (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4129:160)
+    at reconcileChildFibersImpl (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:51)
+    at beginWork (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6758:1573)
+    at runWithFiberInDEV (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `scroll_expansion_hero`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at warnOnInvalidKey (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4108:49)
+    at reconcileChildrenArray (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4129:160)
+    at reconcileChildFibersImpl (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:51)
+    at beginWork (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6758:1573)
+    at runWithFiberInDEV (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `scroll_expansion_hero`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at warnOnInvalidKey (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4108:49)
+    at reconcileChildrenArray (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6758:1573)
+    at runWithFiberInDEV (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://F:/GOMO/component library/components-library/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)

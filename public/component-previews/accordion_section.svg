@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600" role="img" aria-label="Accordion Section preview">
+  <defs>
+    <linearGradient id="mint" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#00fec3"/><stop offset="1" stop-color="#8ce6ff"/></linearGradient>
+    <linearGradient id="ink" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#111316"/><stop offset="1" stop-color="#28302c"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity="0.16"/></filter>
+  </defs>
+  <rect width="960" height="600" fill="#f4f6ef"/>
+  <rect x="40" y="40" width="880" height="520" rx="24" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="72" y="90" fill="#151515" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Accordion Section</text>
+  <text x="72" y="124" fill="#5d636d" font-family="Inter, Arial, sans-serif" font-size="16">accordion component preview</text>
+  <rect x="120" y="180" width="330" height="48" rx="10" fill="#151515" /><rect x="120" y="246" width="330" height="48" rx="10" fill="#f4f6ef" /><rect x="120" y="312" width="330" height="48" rx="10" fill="#f4f6ef" /><rect x="120" y="378" width="330" height="48" rx="10" fill="#f4f6ef" /><rect x="535" y="180" width="300" height="246" rx="18" fill="#b7c9bf" />
+</svg>
