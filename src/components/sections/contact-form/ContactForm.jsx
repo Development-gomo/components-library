@@ -16,36 +16,56 @@ export default function ContactForm({ data }) {
   return (
     <section
       id={custom_id || undefined}
-      className={`py-15 md:py-30  px-6 ${custom_class || ""}`}
+      className={`py-20 md:py-32 overflow-hidden ${custom_class || ""}`}
       style={background_color ? { backgroundColor: background_color } : undefined}
     >
-      <div className="web-width">
-      {sub_heading && (
-        <div className="flex items-center gap-2 mb-2 md:mb-4">
-          <span className="h-2 w-2 rounded-full bg-(--color-accent)" />
-          <span className="subheading-label uppercase">{sub_heading}</span>
+      <div className="web-width px-6">
+
+        {/* ── Header ── */}
+        <div className="mb-5">
+          <div className="w-10 h-0.5 bg-(--color-accent) mb-6 md:mb-8 sticky top-0" />
+
+          {sub_heading && (
+            <div className="flex items-center gap-2 mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-(--color-accent)" />
+              <span className="subheading-label uppercase tracking-widest">
+                {sub_heading}
+              </span>
+            </div>
+          )}
+
+          {heading && (
+            <h2
+              className="text-3xl max-w-3xl"
+              dangerouslySetInnerHTML={{ __html: heading }}
+            />
+          )}
         </div>
-      )}
 
-      {heading && (
-        <h2
-          className="section-heading mb-6 md:mb-14"
-          dangerouslySetInnerHTML={{ __html: heading }}
-        />
-      )}
+        {/* ── Body: description + form ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-24 items-start">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
-        {description && (
-          <div
-            className="max-w-123"
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
-        )}
+          {/* Left — description, sticky on large screens */}
+          {description && (
+            <div className="lg:sticky lg:top-28">
+              <div
+                className="contact-description"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
+              {/* Decorative accent bar */}
+              <div className="mt-2 flex items-center gap-3">
+                <span className="h-px flex-1 bg-black/8" />
+                <span className="h-1.5 w-1.5 rounded-full bg-(--color-accent)" />
+              </div>
+            </div>
+          )}
 
-        <div>
-          <CForm formId={select_form} />
+          {/* Right — form */}
+          <div>
+            <CForm formId={select_form} />
+          </div>
+
         </div>
-      </div>
       </div>
     </section>
   );

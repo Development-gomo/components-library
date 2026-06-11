@@ -152,6 +152,48 @@ em {
   margin: 2.5rem 0;
 }
 
+/* ── Contact Form ─────────────────────────────────────── */
+.cf7-field-line {
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.12);
+  transition: border-color 0.25s ease;
+}
+.cf7-field-line:focus-within {
+  border-color: var(--color-accent);
+}
+.cf7-field-line.field-error {
+  border-color: #f87171;
+}
+
+.contact-description p {
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 1.25rem;
+}
+.contact-description strong {
+  font-weight: 600;
+  color: var(--color-dark);
+}
+.contact-description ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.contact-description ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.9375rem;
+  color: #555;
+}
+.contact-description a {
+  color: var(--color-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.contact-description a:hover {
+  color: var(--color-accent);
+}
+
 .cs-prose table {
   width: 100%;
   border-collapse: collapse;

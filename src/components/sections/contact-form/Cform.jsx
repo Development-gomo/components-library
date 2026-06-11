@@ -3,79 +3,92 @@
 import { useEffect, useMemo, useState } from "react";
 
 function Field({ field, value, onChange, error }) {
-  const baseClass =
-    "w-full border px-4 py-3 text-sm outline-none transition-colors " +
-    (error ? "border-red-500" : "border-black/15 focus:border-black/40");
-
   const label = field.label || field.key;
+  const wrapClass = `cf7-field-line pb-2 ${error ? "field-error" : ""}`;
+  const inputClass =
+    "w-full bg-transparent pt-1 pb-0.5 text-[15px] outline-none text-(--color-dark) placeholder:text-black/25";
+
   const labelEl = (
-    <label className="block text-sm font-medium">
+    <span className="block text-[10px] font-medium tracking-widest uppercase text-black/40 mb-1">
       {label}
       {field.required ? " *" : ""}
-    </label>
+    </span>
   );
-  const errorEl = error ? <p className="text-xs text-red-600">{error}</p> : null;
 
   if (field.type === "textarea") {
     return (
-      <div className="space-y-1">
+      <div>
         {labelEl}
-        <textarea
-          className={baseClass + " min-h-35"}
-          value={value || ""}
-          placeholder={field.placeholder || ""}
-          onChange={(e) => onChange(field.key, e.target.value)}
-        />
-        {errorEl}
+        <div className={wrapClass}>
+          <textarea
+            rows={4}
+            className={inputClass + " resize-none"}
+            value={value || ""}
+            placeholder={field.placeholder || ""}
+            onChange={(e) => onChange(field.key, e.target.value)}
+          />
+        </div>
+        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
       </div>
     );
   }
 
   if (field.type === "select") {
     return (
-      <div className="space-y-1">
+      <div>
         {labelEl}
-        <select
-          className={baseClass}
-          value={value || ""}
-          onChange={(e) => onChange(field.key, e.target.value)}
-        >
-          <option value="">{field.placeholder || "Select…"}</option>
-          {(field.options || []).map((opt, i) => (
-            <option key={i} value={opt.label}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        {errorEl}
+        <div className={wrapClass + " relative"}>
+          <select
+            className={inputClass + " appearance-none pr-6 cursor-pointer"}
+            value={value || ""}
+            onChange={(e) => onChange(field.key, e.target.value)}
+          >
+            <option value="">{field.placeholder || "Select an option"}</option>
+            {(field.options || []).map((opt, i) => (
+              <option key={i} value={opt.label}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+          {/* Custom chevron */}
+          <svg
+            className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-black/30"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
       </div>
     );
   }
 
   const inputType = ["email", "tel", "url"].includes(field.type) ? field.type : "text";
   return (
-    <div className="space-y-1">
+    <div>
       {labelEl}
-      <input
-        className={baseClass}
-        type={inputType}
-        value={value || ""}
-        placeholder={field.placeholder || ""}
-        onChange={(e) => onChange(field.key, e.target.value)}
-      />
-      {errorEl}
+      <div className={wrapClass}>
+        <input
+          className={inputClass}
+          type={inputType}
+          value={value || ""}
+          placeholder={field.placeholder || ""}
+          onChange={(e) => onChange(field.key, e.target.value)}
+        />
+      </div>
+      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
     </div>
   );
 }
 
 export default function CForm({ formId, submitLabel = "Send Message" }) {
-  const [schema, setSchema] = useState(null);
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [schema, setSchema]         = useState(null);
+  const [values, setValues]         = useState({});
+  const [errors, setErrors]         = useState({});
+  const [loading, setLoading]       = useState(true);
   const [fetchError, setFetchError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [status, setStatus] = useState({ ok: null, msg: "" });
+  const [status, setStatus]         = useState({ ok: null, msg: "" });
 
   const fields = useMemo(() => schema?.fields || [], [schema]);
 
@@ -142,8 +155,10 @@ export default function CForm({ formId, submitLabel = "Send Message" }) {
       const json = await res.json().catch(() => ({}));
 
       if (json.status === "mail_sent") {
-        const msg = json.message || schema?.settings?.successMessage || "Message sent successfully.";
-        setStatus({ ok: true, msg });
+        setStatus({
+          ok: true,
+          msg: json.message || schema?.settings?.successMessage || "Message sent successfully.",
+        });
         setValues(Object.fromEntries(fields.map((f) => [f.key, ""])));
       } else {
         if (Array.isArray(json.invalid_fields)) {
@@ -164,21 +179,49 @@ export default function CForm({ formId, submitLabel = "Send Message" }) {
     }
   }
 
+  /* ── Loading ── */
   if (loading) {
     return (
-      <div className="flex items-center gap-3 py-10 text-sm text-gray-500">
-        <span className="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-(--color-brand)" />
+      <div className="flex items-center gap-3 py-16 text-sm text-black/30">
+        <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/10 border-t-(--color-accent)" />
         Loading form…
       </div>
     );
   }
 
+  /* ── Error loading form ── */
   if (fetchError) {
-    return <p className="text-sm text-red-600">Could not load form. ({fetchError})</p>;
+    return (
+      <p className="py-6 text-sm text-red-500 border-l-2 border-red-400 pl-4">
+        Could not load form — {fetchError}
+      </p>
+    );
   }
 
+  /* ── Success state ── */
+  if (status.ok) {
+    return (
+      <div className="py-12 flex flex-col items-start gap-4">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-(--color-accent)">
+          <svg className="w-5 h-5 text-(--color-dark)" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <p className="text-sm font-medium text-(--color-dark)">{status.msg}</p>
+        <button
+          onClick={() => setStatus({ ok: null, msg: "" })}
+          className="text-xs tracking-widest uppercase text-black/40 hover:text-(--color-dark) transition-colors underline underline-offset-4"
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  /* ── Form ── */
   return (
-    <form onSubmit={onSubmit} className="space-y-5">
+    <form onSubmit={onSubmit} noValidate className="space-y-8">
+
       {fields.map((f) => (
         <Field
           key={f.key}
@@ -189,29 +232,38 @@ export default function CForm({ formId, submitLabel = "Send Message" }) {
         />
       ))}
 
-      <button
-        type="submit"
-        disabled={submitting}
-        className="cursor-pointer group relative inline-flex items-center gap-3 rounded-sm bg-(--color-brand) px-6 py-4 text-white transition-all duration-300 w-42.5 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        <span className="relative w-2 h-2 flex items-center justify-center">
-          <span className="absolute h-2 w-2 rounded-full bg-(--color-accent) transition-all duration-300 ease-out group-hover:opacity-0 group-hover:-translate-x-1" />
-        </span>
-        <span className="flex-1 text-base leading-none transition-all duration-300 ease-out group-hover:-translate-x-4 whitespace-nowrap">
-          {submitting ? "Sending…" : submitLabel}
-        </span>
-        <span className="relative w-4 flex items-center justify-center">
-          <span className="absolute opacity-0 -translate-x-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:-translate-x-2">
-            →
-          </span>
-        </span>
-      </button>
+      {/* Divider */}
+      <div className="h-px w-full bg-black/8" />
 
-      {status.msg && (
-        <p className={`text-sm ${status.ok ? "text-green-700" : "text-red-700"}`}>
-          {status.msg}
-        </p>
-      )}
+      {/* Submit */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="group relative inline-flex items-center gap-4 rounded-sm bg-(--color-dark) px-8 py-4 text-sm font-medium text-white overflow-hidden transition-all duration-300 hover:bg-(--color-brand) disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {/* Accent fill on hover */}
+          <span className="absolute inset-0 w-0 bg-(--color-accent) transition-all duration-500 ease-out group-hover:w-full" />
+
+          <span className="relative z-10 flex items-center gap-3">
+            <span className="h-1.5 w-1.5 rounded-full bg-(--color-accent) group-hover:bg-(--color-dark) transition-colors duration-300" />
+            <span className="text-[15px] leading-none tracking-wide text-white group-hover:text-(--color-dark) transition-colors duration-300 whitespace-nowrap">
+              {submitting ? "Sending…" : submitLabel}
+            </span>
+            <svg
+              className="w-4 h-4 text-white group-hover:text-(--color-dark) transition-all duration-300 group-hover:translate-x-1"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </button>
+
+        {status.msg && !status.ok && (
+          <p className="text-sm text-red-500">{status.msg}</p>
+        )}
+      </div>
+
     </form>
   );
 }
