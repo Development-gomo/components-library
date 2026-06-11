@@ -35,6 +35,7 @@ const TabsSection = dynamic(() => import("../sections/tabs/TabsSections"));
 const CaseStudyBentoGrid = dynamic(() => import("../sections/case-study/CaseStudyBentoGrid"));
 const CaseStudyGridLayout = dynamic(() => import("../sections/case-study/CaseStudyGridLayout"));
 import TabsCptSection from "../sections/tabs/TabsCptSection";
+import ContactForm from "../sections/contact-form/ContactForm";
 
 const CASE_STUDY_LAYOUTS = new Set([
   "case_study_listing",
@@ -119,6 +120,9 @@ export default async function PageBuilder({ sections }) {
             return <TabsSection key={i} data={block} />;
           case "tab_cpt_section":
             return <TabsCptSection key={i} data={block} />;
+          case "contact_form_section":
+            return <ContactForm key={i} data={block} />;
+
           case "interactive_map":
             return (
               <>
