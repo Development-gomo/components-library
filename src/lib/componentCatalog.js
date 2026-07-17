@@ -16,6 +16,21 @@ const EXTRA_SOURCE_FILES = [
   "src/app/case-study/[slug]/page.jsx",
 ];
 
+// Internal-only helper files: imported and rendered exclusively by another
+// catalog component (different prop shape, not a standalone ACF block), so
+// showing them as their own browsable card is just noise/confusion.
+const HIDDEN_PATHS = new Set([
+  "src/components/sections/team/TeamSlider.jsx",
+  "src/components/sections/client-logo/ClientLogoSlider.jsx",
+  "src/components/sections/content-sections/InsightsGrid.jsx",
+  "src/components/sections/content-sections/InsightsSlider.jsx",
+  "src/components/sections/interactive-map/MapView.jsx",
+  "src/components/sections/tabs/TabsCptClient.jsx",
+  "src/components/sections/contact-form/Cform.jsx",
+  "src/components/ui/hover-footer.jsx",
+  "src/components/ui/scroll-expansion-hero.jsx",
+]);
+
 const GROUP_ORDER = [
   "Hero Sections",
   "Content Sections",
@@ -335,7 +350,9 @@ async function buildCatalogItem(relativePath, source, layoutByPath) {
 export async function getComponentCatalog() {
   const layoutByPath = await getPageBuilderLayoutByPath();
   const scanFiles = (await Promise.all(SCAN_ROOTS.map(readFilesRecursive))).flat();
-  const files = [...new Set([...scanFiles, ...EXTRA_SOURCE_FILES])].sort();
+  const files = [...new Set([...scanFiles, ...EXTRA_SOURCE_FILES])]
+    .filter((relativePath) => !HIDDEN_PATHS.has(relativePath))
+    .sort();
   const items = [];
 
   for (const relativePath of files) {

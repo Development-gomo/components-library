@@ -1,0 +1,115 @@
+"use client";
+
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import { getSampleData, isHeavyPreview } from "@/lib/componentSampleData";
+import PreviewErrorBoundary from "./PreviewErrorBoundary";
+
+const CenteredHero = dynamic(() => import("@/components/sections/hero-sections/Centeredhero"));
+const HeroWithImage = dynamic(() => import("@/components/sections/hero-sections/HeroWithImage"));
+const HeroCenteredBg = dynamic(() => import("@/components/sections/hero-sections/HeroCenteredBg"));
+const FloatingGalleryHero = dynamic(() => import("@/components/sections/hero-sections/FloatingGalleryHero"));
+const ContentMediaBlock = dynamic(() => import("@/components/sections/content-sections/ContentMediaBlock"));
+const ServiceOverview = dynamic(() => import("@/components/sections/content-sections/ServiceOverview"));
+const ClientLogo = dynamic(() => import("@/components/sections/client-logo/ClientLogo"));
+const FeatureGrid = dynamic(() => import("@/components/sections/feature-grid/FeatureGrid"));
+const ProcessSteps = dynamic(() => import("@/components/sections/process/ProcessSteps"));
+const AccordionSection = dynamic(() => import("@/components/sections/accordian/AccordianTypes"));
+const TestimonialSection = dynamic(() => import("@/components/sections/testimonial/Testimonial"));
+const TestimonialSectionLogo = dynamic(() => import("@/components/sections/testimonial/TestimonialSectionLogo"));
+const TabsSection = dynamic(() => import("@/components/sections/tabs/TabsSections"));
+const ContactForm = dynamic(() => import("@/components/sections/contact-form/ContactForm"));
+
+// Add a case here whenever a new layout gets an entry in componentSampleData.js.
+// Mirrors the switch pattern in src/components/major/PageBuilder.jsx.
+function renderPreviewComponent(layout, data) {
+  switch (layout) {
+    case "centered_hero":
+      return <CenteredHero data={data} />;
+    case "hero_with_image":
+      return <HeroWithImage data={data} />;
+    case "hero_centered_bg":
+      return <HeroCenteredBg data={data} />;
+    case "floating_gallery_hero":
+      return <FloatingGalleryHero data={data} />;
+    case "content_media_block":
+      return <ContentMediaBlock data={data} />;
+    case "service_overview":
+      return <ServiceOverview data={data} />;
+    case "client_logo":
+      return <ClientLogo data={data} />;
+    case "feature_grid":
+      return <FeatureGrid data={data} />;
+    case "process_steps":
+      return <ProcessSteps data={data} />;
+    case "accordion_section":
+      return <AccordionSection data={data} />;
+    case "testimonial_section":
+      return <TestimonialSection data={data} />;
+    case "testimonial_section_with_logo":
+      return <TestimonialSectionLogo data={data} />;
+    case "tab_section":
+      return <TabsSection data={data} />;
+    case "contact_form_section":
+      return <ContactForm data={data} />;
+    default:
+      return null;
+  }
+}
+
+function StaticFallback({ item }) {
+  // Self-contained aspect-ratio box: next/image's `fill` needs a positioned,
+  // sized ancestor, and callers (card grid vs. detail page tabs) don't always
+  // provide one — this makes the fallback safe to render standalone anywhere.
+  return (
+    <div className="relative aspect-16/10 w-full overflow-hidden bg-[#eef1ea]">
+      <Image
+        src={item.preview}
+        alt={`${item.name} UI preview`}
+        fill
+        sizes="(min-width: 1024px) 480px, 100vw"
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
+/**
+ * Renders the real section component with sample data.
+ * mode="card": scaled thumbnail, non-interactive, used in grid/sidebar previews.
+ *   Falls back to the static image for "heavy" (continuously animating) components —
+ *   mounting a dozen rAF/scroll-linked components at once in a small grid is wasteful.
+ * mode="full": real size, interactive, used on the component detail page (one at a time).
+ */
+export default function LivePreview({ item, mode = "card", canvasWidth = 1440 }) {
+  const data = getSampleData(item.layout);
+  const skipInCardMode = mode === "card" && isHeavyPreview(item.layout);
+  const rendered = data && !skipInCardMode ? renderPreviewComponent(item.layout, data) : null;
+
+  if (!rendered) {
+    return <StaticFallback item={item} />;
+  }
+
+  const fallback = <StaticFallback item={item} />;
+
+  if (mode === "card") {
+    const scale = 0.28;
+    return (
+      <PreviewErrorBoundary fallback={fallback}>
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div
+            style={{
+              width: canvasWidth,
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          >
+            {rendered}
+          </div>
+        </div>
+      </PreviewErrorBoundary>
+    );
+  }
+
+  return <PreviewErrorBoundary fallback={fallback}>{rendered}</PreviewErrorBoundary>;
+}

@@ -1,3 +1,6 @@
+// Layout: contact_form_section
+// Fields: sub_heading, heading, description, select_form, background_color, custom_id, custom_class
+
 import CForm from "./Cform";
 
 export default function ContactForm({ data }) {
