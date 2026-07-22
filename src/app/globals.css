@@ -37,6 +37,12 @@ body {
   line-height: 24px;
 }
 
+/* Smooth in-page anchor scrolling, scoped to the /components library section only
+   (BodyClass adds this class there) so it doesn't change scroll feel site-wide. */
+:root:has(body.components-library-page) {
+  scroll-behavior: smooth;
+}
+
 /* Global heading tags default */
 h1,
 h2,

@@ -1,6 +1,7 @@
 import { getComponentCatalog } from "@/lib/componentCatalog";
 import { groupSlug } from "@/lib/catalogSlug";
 import { sampleDataByLayout } from "@/lib/componentSampleData";
+import { Badge } from "@/components/shadcn-ui/badge";
 import LivePreview from "./_shared/LivePreview";
 import CardLink from "./_shared/CardLink";
 
@@ -13,7 +14,7 @@ function ComponentCard({ item, gSlug }) {
   return (
     <CardLink
       href={`/components/${gSlug}/${item.id}`}
-      className="group block cursor-pointer overflow-hidden rounded-md border border-black/10 bg-white transition-shadow hover:shadow-md"
+      className="group block cursor-pointer overflow-hidden rounded-md border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-[#eef1ea]">
         <LivePreview item={item} mode="card" />
@@ -21,7 +22,9 @@ function ComponentCard({ item, gSlug }) {
       <div className="flex items-center justify-between gap-2 border-t border-black/10 p-4">
         <div className="min-w-0">
           <h3 className="truncate text-sm font-semibold text-[#151515]">{item.name}</h3>
-          <p className="mt-1 truncate text-xs text-[#8a8f99]">{item.layout}</p>
+          <Badge variant="outline" className="mt-1.5 max-w-full truncate font-normal normal-case text-[#8a8f99]">
+            {item.layout}
+          </Badge>
         </div>
         <span className="shrink-0 text-xs font-semibold text-[#1d7c68] opacity-0 transition-opacity group-hover:opacity-100">
           View →
@@ -70,7 +73,7 @@ export default async function ComponentsPage() {
       {groups.map((group) => {
         const gSlug = groupSlug(group.title);
         return (
-          <section key={group.title} className="border-b border-black/10">
+          <section key={group.title} id={gSlug} className="scroll-mt-6 border-b border-black/10">
             <div className="px-6 py-10 md:px-10 md:py-12">
               <div className="mb-6 max-w-3xl">
                 <p className="text-sm font-semibold uppercase text-[#1d7c68]">{group.title}</p>

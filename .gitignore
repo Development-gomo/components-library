@@ -40,4 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 dev-journey.html
-functions.php
+functions.php*
+.log
+.dev-err.log
+.dev-out.log
