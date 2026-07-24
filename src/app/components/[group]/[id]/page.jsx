@@ -11,6 +11,47 @@ import { Button } from "@/components/shadcn-ui/button";
 import LivePreview from "../../_shared/LivePreview";
 import ComponentDetailTabs from "../../_shared/ComponentDetailTabs";
 
+function FieldBadge({ field }) {
+  return (
+    <Badge className="gap-1.5">
+      {field.name}
+      {field.type && <span className="text-[#8a8f99]">({field.type})</span>}
+    </Badge>
+  );
+}
+
+function FieldsSection({ fields }) {
+  const simpleFields = fields.filter((field) => !field.subFields?.length);
+  const repeaterFields = fields.filter((field) => field.subFields?.length);
+
+  return (
+    <div className="flex flex-col gap-4">
+      {simpleFields.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {simpleFields.map((field) => (
+            <FieldBadge key={field.name} field={field} />
+          ))}
+        </div>
+      )}
+
+      {repeaterFields.map((field) => (
+        <div key={field.name} className="rounded-md border border-black/10 bg-[#fbfcf7] p-3">
+           <h6 className="text-xs font-semibold uppercase text-[#5b5f67] mb-2">Repeater Fields</h6>
+          <FieldBadge field={{ ...field, type: field.type || "repeater" }} />
+          <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-[#8a8f99]">
+            {field.type === "group" ? "Sub-fields (single group)" : "Sub-fields (repeated per row)"}
+          </p>
+          <div className="mt-1.5 flex flex-wrap gap-1.5">
+            {field.subFields.map((subField) => (
+              <FieldBadge key={subField.name} field={subField} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function langForPath(sourcePath) {
   if (sourcePath.endsWith(".tsx")) return "tsx";
   if (sourcePath.endsWith(".ts")) return "ts";
@@ -84,10 +125,8 @@ export default async function ComponentDetailPage({ params }) {
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           <div>
             <p className="text-xs font-semibold uppercase text-[#5b5f67]">Fields</p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {item.fields.map((field) => (
-                <Badge key={field}>{field}</Badge>
-              ))}
+            <div className="mt-2">
+              <FieldsSection fields={item.fields} />
             </div>
           </div>
 

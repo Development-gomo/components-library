@@ -1,5 +1,12 @@
 "use client";
 
+// Layout: cta_banner (case-study template — mapped via PageBuilderCasestudy)
+// ACF Fields:
+//   heading      (wysiwyg)
+//   short_text   (text)
+//   cta_text     (text)
+//   cta_url      (url)
+
 import Link from "next/link";
 import { motion } from "framer-motion";
 

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { getSampleData, isHeavyPreview } from "@/lib/componentSampleData";
 import PreviewErrorBoundary from "./PreviewErrorBoundary";
 
-const CenteredHero = dynamic(() => import("@/components/sections/hero-sections/Centeredhero"));
+const CenteredHero = dynamic(() => import("@/components/sections/hero-sections/CenteredHero"));
 const HeroWithImage = dynamic(() => import("@/components/sections/hero-sections/HeroWithImage"));
 const HeroCenteredBg = dynamic(() => import("@/components/sections/hero-sections/HeroCenteredBg"));
 const FloatingGalleryHero = dynamic(() => import("@/components/sections/hero-sections/FloatingGalleryHero"));

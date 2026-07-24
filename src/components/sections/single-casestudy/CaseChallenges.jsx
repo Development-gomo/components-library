@@ -1,5 +1,13 @@
 "use client";
 
+// Layout: challenges_section (case-study template — mapped via PageBuilderCasestudy)
+// ACF Fields:
+//   sub_heading       (text)
+//   heading           (text)
+//   content_heading   (text)
+//   short_text        (wysiwyg)
+//   challenge_image   (image)
+
 import Image from "next/image";
 import { motion } from "framer-motion";
 

@@ -1,5 +1,16 @@
 // Layout: hero_with_image
-// Fields: hero_title, hero_description, button_row, hero_image, background_image, background_color, background_video_url, custom_class, custom_id
+// ACF Fields:
+//   hero_title           (text)
+//   hero_description     (wysiwyg)
+//   button_row           (repeater)
+//     button_label            (text)
+//     button_link             (url)
+//   hero_image           (image)
+//   background_image     (image)
+//   background_color     (color_picker)
+//   background_video_url (text — direct video URL, not a file field)
+//   custom_class         (text)
+//   custom_id            (text)
 
 import Image from "next/image";
 import Link from "next/link";

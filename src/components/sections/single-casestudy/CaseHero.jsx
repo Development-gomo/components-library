@@ -1,5 +1,12 @@
 "use client";
 
+// Layout: hero_section (case-study template — mapped via PageBuilderCasestudy)
+// ACF Fields:
+//   bg_image      (image)
+//   heading       (text)
+//   sub_heading   (text)
+//   logo          (image)
+
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";

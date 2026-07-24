@@ -1,5 +1,14 @@
 "use client";
 
+// Layout: result_section (case-study template — mapped via PageBuilderCasestudy)
+// ACF Fields:
+//   sub_heading  (text)
+//   heading      (wysiwyg)
+//   counters     (repeater)
+//     number           (text — animated count-up)
+//     suffix           (text)
+//     short_text       (wysiwyg)
+
 import { useEffect, useRef } from "react";
 import { motion, useInView, animate } from "framer-motion";
 

@@ -1,5 +1,20 @@
 // Layout: service_overview
-// Fields: background_color, section_title, title, description, services_list (service_title, service_icon), button (button_text, button_url, button_style), image, image_position, custom_class, custom_id
+// ACF Fields:
+//   background_color  (color_picker)
+//   section_title     (text)
+//   title             (text)
+//   description       (wysiwyg)
+//   services_list     (repeater)
+//     service_title         (text)
+//     service_icon          (image)
+//   button            (group — single, not a repeater)
+//     button_text           (text)
+//     button_url            (url)
+//     button_style          (select: primary | secondary)
+//   image             (image)
+//   image_position    (select: left | right)
+//   custom_class      (text)
+//   custom_id         (text)
 
 import Image from "next/image";
 import Link from "next/link";

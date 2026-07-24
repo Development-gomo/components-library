@@ -7,7 +7,7 @@ const HeroClientslider = dynamic(() => import("../sections/hero-sections/HeroCli
 const HeroCenteredBg = dynamic(() => import("../sections/hero-sections/HeroCenteredBg"));
 const KineticHero = dynamic(() => import("../sections/hero-sections/KineticHero"));
 const HeroWithImage  = dynamic(() => import("../sections/hero-sections/HeroWithImage"));
-const CenteredHero = dynamic(() => import("../sections/hero-sections/Centeredhero"));
+const CenteredHero = dynamic(() => import("../sections/hero-sections/CenteredHero"));
 const ContentMediaBlock = dynamic(() => import("../sections/content-sections/ContentMediaBlock"));
 const ServiceOverview = dynamic(() => import("../sections/content-sections/ServiceOverview"));
 const LatestInsights = dynamic(() => import("../sections/content-sections/LatestInsights"));

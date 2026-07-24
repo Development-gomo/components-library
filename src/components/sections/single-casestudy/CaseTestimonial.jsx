@@ -1,5 +1,13 @@
 "use client";
 
+// Layout: testimonial_banner (case-study template — mapped via PageBuilderCasestudy)
+// ACF Fields:
+//   bg_image             (image)
+//   heading              (text)
+//   testimonial          (wysiwyg)
+//   name                 (text)
+//   person_organization  (text)
+
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";

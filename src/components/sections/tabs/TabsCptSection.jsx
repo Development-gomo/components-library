@@ -1,6 +1,17 @@
 // Layout: tab_cpt_section
 // Each tab selects a post_type (casestudy | insight | team) and shows 3 cards.
 // Data is fetched server-side; tab switching is client-side via TabsCptClient.
+// ACF Fields:
+//   background_color  (color_picker)
+//   sub_heading       (text)
+//   heading           (text)
+//   description       (wysiwyg)
+//   tab_style         (select: top | left | right | bottom)
+//   tab               (repeater)
+//     tab_label             (text)
+//     post_type             (select: casestudy | insight | team)
+//   custom_class      (text)
+//   custom_id         (text)
 
 import { getCaseStudies, getAllPosts, getTeamMembers } from '@/lib/api';
 import TabsCptClient from './TabsCptClient';

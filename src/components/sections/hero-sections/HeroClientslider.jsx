@@ -1,5 +1,17 @@
 "use client";
 
+// Layout: hero_with_slider
+// ACF Fields:
+//   bg_image          (image)
+//   bg_video          (file)
+//   heading           (text — supports inline <em> tags)
+//   short_heading     (wysiwyg)
+//   client_slider     (repeater)
+//     logo                  (image)
+//     statistics            (text)
+//     testimonial           (textarea)
+//     client_name           (text)
+
 import Image from "next/image";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

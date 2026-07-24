@@ -1,5 +1,16 @@
 "use client";
 
+// Layout: introduction_section (case-study template — mapped via PageBuilderCasestudy)
+// ACF Fields:
+//   sub_heading       (text)
+//   heading           (text)
+//   client_name       (text)
+//   services_offered  (wysiwyg)
+//   category          (wysiwyg)
+//   date              (text)
+//   short_text        (wysiwyg)
+//   section_image     (image)
+
 import Image from "next/image";
 import { motion } from "framer-motion";
 

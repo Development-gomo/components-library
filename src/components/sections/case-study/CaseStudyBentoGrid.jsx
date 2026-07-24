@@ -1,6 +1,16 @@
 // Layout: case_study_bento_grid
 // Bento grid: 3 cols × 3 rows, first 7 case studies fill fixed positions.
 // Slot 0 → featured white card | Slots 1,4,5,6 → text cards | Slots 2,3 → tall image cards
+// ACF Fields:
+//   background_color  (color_picker)
+//   section_title     (text)
+//   title             (text)
+//   description       (wysiwyg)
+//   custom_class      (text)
+//   custom_id         (text)
+
+// Note: case studies themselves come from the WordPress REST API (getCaseStudies),
+// not an ACF repeater on this block.
 
 import Image from "next/image";
 import Link from "next/link";

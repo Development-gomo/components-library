@@ -22,9 +22,6 @@ function ComponentCard({ item, gSlug }) {
       <div className="flex items-center justify-between gap-2 border-t border-black/10 p-4">
         <div className="min-w-0">
           <h3 className="truncate text-sm font-semibold text-[#151515]">{item.name}</h3>
-          <Badge variant="outline" className="mt-1.5 max-w-full truncate font-normal normal-case text-[#8a8f99]">
-            {item.layout}
-          </Badge>
         </div>
         <span className="shrink-0 text-xs font-semibold text-[#1d7c68] opacity-0 transition-opacity group-hover:opacity-100">
           View →

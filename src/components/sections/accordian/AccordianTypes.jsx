@@ -1,9 +1,17 @@
 'use client';
 
 // Layout: accordion_section
-// Fields: background_color, sub_heading, heading, description (wysiwyg), custom_class, custom_id,
-//         accordion_style (left | right | elegant | simple),
-//         accordion repeater: question (text), answer (wysiwyg)
+// ACF Fields:
+//   background_color  (color_picker)
+//   sub_heading       (text)
+//   heading           (text)
+//   description       (wysiwyg)
+//   accordion_style   (select: left | right | elegant | simple)
+//   accordion         (repeater)
+//     question              (text)
+//     answer                (wysiwyg)
+//   custom_class      (text)
+//   custom_id         (text)
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

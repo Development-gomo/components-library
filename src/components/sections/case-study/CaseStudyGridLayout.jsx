@@ -1,5 +1,15 @@
 // Layout: case_study_grid_layout
 // 3-item layout: 1 large featured card (left, ~60%) + 2 horizontal mini-cards stacked (right, ~40%)
+// ACF Fields:
+//   background_color  (color_picker)
+//   section_title     (text)
+//   title             (text)
+//   description       (wysiwyg)
+//   custom_class      (text)
+//   custom_id         (text)
+
+// Note: case studies themselves come from the WordPress REST API (getCaseStudies),
+// not an ACF repeater on this block.
 
 import Image from "next/image";
 import Link from "next/link";

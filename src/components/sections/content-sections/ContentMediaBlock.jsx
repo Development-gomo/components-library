@@ -1,5 +1,15 @@
 // Layout: content_media_block
-// Fields: title, content, image, button_row, image_position, background_color, custom_class, custom_id
+// ACF Fields:
+//   title             (text)
+//   content           (wysiwyg)
+//   image             (image)
+//   button_row        (repeater)
+//     button_label          (text)
+//     button_link           (url)
+//   image_position    (select: left | right)
+//   background_color  (color_picker)
+//   custom_class      (text)
+//   custom_id         (text)
 
 import Image from "next/image";
 import Link from "next/link";

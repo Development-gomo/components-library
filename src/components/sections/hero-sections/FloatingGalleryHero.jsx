@@ -1,5 +1,18 @@
 ﻿'use client';
 
+// Layout: floating_gallery_hero
+// ACF Fields:
+//   background_color  (color_picker)
+//   text_color        (color_picker)
+//   hero_title        (text)
+//   hero_description  (wysiwyg)
+//   cta_text          (text)
+//   cta_url           (url)
+//   items             (repeater)
+//     image                 (image)
+//   custom_class      (text)
+//   custom_id         (text)
+
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -1,5 +1,16 @@
 'use client';
 
+// Layout: scroller_section
+// ACF Fields:
+//   story_scroll_sections  (repeater)
+//     section_label             (text)
+//     background_color          (color_picker)
+//     text_color                (color_picker)
+//     heading                   (text)
+//     body_text                 (wysiwyg)
+//     columns                   (repeater — column_title (text), column_text (textarea))
+//     columns_row_2             (repeater — column_title (text), column_text (textarea))
+
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

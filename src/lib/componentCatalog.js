@@ -29,6 +29,9 @@ const HIDDEN_PATHS = new Set([
   "src/components/sections/contact-form/Cform.jsx",
   "src/components/ui/hover-footer.jsx",
   "src/components/ui/scroll-expansion-hero.jsx",
+  "src/components/major/HeaderComponent.jsx",
+  "src/components/sections/content-sections/insightsUtils.js",
+  "src/components/sections/animated-numbers/StatsCounter.jsx",
 ]);
 
 const GROUP_ORDER = [
@@ -60,13 +63,19 @@ const COMPONENT_OVERRIDES = {
     purpose: "Centered headline, rich text, CTA buttons, and image or video background.",
     notes: ["Video takes priority over image.", "Uses overlay when media exists."],
   },
-  "src/components/sections/hero-sections/Centeredhero.jsx": {
+  "src/components/sections/hero-sections/CenteredHero.jsx": {
     purpose: "Alternate centered hero mapped separately in PageBuilder.",
     notes: ["Useful when the CMS needs a second centered hero option."],
   },
   "src/components/sections/hero-sections/HeroWithImage.jsx": {
     purpose: "Two-column hero with text and a foreground image, plus optional media background.",
     notes: ["Best for product, service, or case-study intros with a visual asset."],
+  },
+  "src/components/sections/pricing/PricingTable.jsx": {
+    layout: "pricing_table",
+    purpose: "Currency-toggle pricing table. Rendered alongside InteractiveMap under the interactive_map layout.",
+    fields: ["No data prop — plans, prices, and features are hardcoded in the component"],
+    notes: ["Not driven by ACF.", "Edit the `plans` array in the source file to change pricing content."],
   },
   "src/components/sections/hero-sections/KineticHero.jsx": {
     purpose: "Animated image-column hero with scroll-responsive movement.",
@@ -81,6 +90,12 @@ const COMPONENT_OVERRIDES = {
     purpose: "Central switch that maps each ACF flexible-content layout to a React component.",
     fields: ["sections[].acf_fc_layout", "sections[] block data"],
     notes: ["Fetches case studies once when any case-study block is present."],
+  },
+  "src/components/major/PageBuilderCasestudy.jsx": {
+    layout: "page_builder_casestudy",
+    purpose: "Layout switch for the single case-study template — maps case-study-specific ACF layouts to their section components.",
+    fields: ["sections[].acf_fc_layout", "sections[] block data"],
+    notes: ["Used by src/app/case-study/[slug]/page.jsx.", "Separate switch from the main PageBuilder because case-study layout keys are unique to this template."],
   },
   "src/components/major/Header.jsx": {
     layout: "global_header",
@@ -217,6 +232,8 @@ async function getPageBuilderLayoutByPath() {
   return resolvedMappings;
 }
 
+const IGNORED_FIELD_NAMES = ["data", "block", "acf_fc_layout"];
+
 function cleanFieldName(value) {
   return String(value)
     .trim()
@@ -228,38 +245,91 @@ function cleanFieldName(value) {
 
 function addField(fields, value) {
   const field = cleanFieldName(value);
-  if (field && !["data", "block", "acf_fc_layout"].includes(field)) {
+  if (field && !IGNORED_FIELD_NAMES.includes(field)) {
     fields.add(field);
   }
 }
 
-function extractFieldNamesFromComment(source) {
+// Parses one "// name (type)" style comment line into { indent, name, type }.
+// `indent` is the number of leading spaces after `//`, used to detect ACF
+// repeater sub-fields nested under their parent field (see extractFieldsFromComment).
+function parseFieldCommentLine(raw) {
+  const match = raw.match(/^(\s*)(?:[-*]\s*)?([a-zA-Z_][\w.]*)\s*(?:\(([^)]*)\))?/);
+  if (!match) return null;
+
+  const [, indent, name] = match;
+  const typeRaw = match[3];
+  if (IGNORED_FIELD_NAMES.includes(name)) return null;
+
+  // "select: a | b | c" -> "select", "image → array" -> "image"
+  const type = typeRaw ? typeRaw.split(/[:→]/)[0].trim().split(/\s+/)[0] : undefined;
+
+  return { indent: indent.length, name, type: type || undefined };
+}
+
+// Documentation convention (see Testimonial.jsx, FeatureGrid.jsx, ProcessSteps.jsx for
+// examples):
+//   // Fields: simple, comma, list        <- flat shorthand, no types/repeaters
+// or the richer block form, which this also captures ACF repeater sub-fields for:
+//   // ACF Fields:
+//   //   heading           (text)
+//   //   features          (repeater)
+//   //     feature_title       (text)
+//   //     feature_icon        (image)
+function extractFieldsFromComment(source) {
   const lines = source.split(/\r?\n/);
-  const fields = new Set();
+  const fields = [];
+  const seenTopLevel = new Map();
 
   for (let i = 0; i < lines.length; i += 1) {
-    const line = lines[i];
-    const fieldHeader = line.match(/\/\/\s*(?:ACF\s+)?Fields?:\s*(.*)$/i);
+    const fieldHeader = lines[i].match(/\/\/\s*(?:ACF\s+)?Fields?:\s*(.*)$/i);
+    if (!fieldHeader) continue;
 
-    if (fieldHeader) {
-      if (fieldHeader[1]) {
-        fieldHeader[1]
-        .split(",")
-        .forEach((field) => addField(fields, field));
+    if (fieldHeader[1]?.trim()) {
+      fieldHeader[1].split(",").forEach((token) => {
+        const name = cleanFieldName(token);
+        if (!name || IGNORED_FIELD_NAMES.includes(name) || seenTopLevel.has(name)) return;
+        const field = { name };
+        seenTopLevel.set(name, field);
+        fields.push(field);
+      });
+    }
+
+    let lastTopLevel = fields[fields.length - 1] ?? null;
+    let baseIndent = null;
+
+    for (let j = i + 1; j < lines.length; j += 1) {
+      const commentLine = lines[j].match(/^\s*\/\/(.*)$/);
+      if (!commentLine) break;
+
+      const parsed = parseFieldCommentLine(commentLine[1]);
+      if (!parsed) break;
+      if (baseIndent === null) baseIndent = parsed.indent;
+
+      if (parsed.indent > baseIndent && lastTopLevel) {
+        lastTopLevel.subFields = lastTopLevel.subFields || [];
+        if (!lastTopLevel.subFields.some((f) => f.name === parsed.name)) {
+          lastTopLevel.subFields.push({ name: parsed.name, type: parsed.type });
+        }
+        continue;
       }
 
-      for (let j = i + 1; j < lines.length; j += 1) {
-        const fieldLine = lines[j].match(/\/\/\s*(?:[-*]\s*)?([a-zA-Z_][\w.]*)/);
-        if (!fieldLine) break;
-        addField(fields, fieldLine[1]);
+      if (seenTopLevel.has(parsed.name)) {
+        lastTopLevel = seenTopLevel.get(parsed.name);
+        continue;
       }
+
+      const field = { name: parsed.name, type: parsed.type };
+      seenTopLevel.set(parsed.name, field);
+      fields.push(field);
+      lastTopLevel = field;
     }
   }
 
-  return [...fields];
+  return fields;
 }
 
-function extractFieldNamesFromDataUsage(source) {
+function extractFieldsFromDataUsage(source) {
   const fields = new Set();
   const destructuringRegex = /const\s*{([\s\S]*?)}\s*=\s*data\b/g;
   let destructuringMatch;
@@ -278,7 +348,7 @@ function extractFieldNamesFromDataUsage(source) {
     addField(fields, dotAccessMatch[1]);
   }
 
-  return [...fields];
+  return [...fields].map((name) => ({ name }));
 }
 
 function extractLayoutFromComment(source) {
@@ -316,10 +386,11 @@ async function buildCatalogItem(relativePath, source, layoutByPath) {
   const group = inferGroup(relativePath);
   const mappedLayout = layoutByPath.get(relativePath);
   const layout = override.layout || mappedLayout || extractLayoutFromComment(source) || slugFromName(path.basename(relativePath));
-  const commentFields = extractFieldNamesFromComment(source);
-  const dataFields = extractFieldNamesFromDataUsage(source);
-  const fields = override.fields || (commentFields.length ? commentFields : dataFields);
-  const fieldSource = override.fields
+  const commentFields = extractFieldsFromComment(source);
+  const dataFields = extractFieldsFromDataUsage(source);
+  const overrideFields = override.fields?.map((name) => ({ name }));
+  const fields = overrideFields || (commentFields.length ? commentFields : dataFields);
+  const fieldSource = overrideFields
     ? "override"
     : commentFields.length
       ? "comments"
@@ -333,7 +404,7 @@ async function buildCatalogItem(relativePath, source, layoutByPath) {
     layout,
     path: relativePath,
     purpose: override.purpose || inferPurpose(relativePath, group),
-    fields: fields.length ? fields : ["Review source file"],
+    fields: fields.length ? fields : [{ name: "Review source file" }],
     notes: override.notes || [
       mappedLayout ? "Mapped in PageBuilder." : "Auto-discovered from the filesystem.",
       fieldSource === "comments"
