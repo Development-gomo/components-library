@@ -44,3 +44,6 @@ functions.php*
 .log
 .dev-err.log
 .dev-out.log
+
+docs
+wp-masking.md

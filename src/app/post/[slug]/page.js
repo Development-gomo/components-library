@@ -5,6 +5,7 @@ import Footer from "@/components/major/Footer";
 import { resolveParams } from "@/lib/params";
 import { getPostBySlug, getAllPosts } from "@/lib/api";
 import { buildMetadataFromYoast } from "@/lib/seo";
+import { rewriteWpUrlsInHtml } from "@/lib/mediaProxy";
 import { transformPost } from "@/components/sections/content-sections/insightsUtils";
 import { notFound } from "next/navigation";
 
@@ -23,7 +24,7 @@ export default async function PostSinglePage({ params }) {
   if (!post) notFound();
 
   const title       = post?.title?.rendered || "";
-  const content     = post?.content?.rendered || "";
+  const content     = rewriteWpUrlsInHtml(post?.content?.rendered || "");
   const featuredImg = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url || null;
   const featuredAlt = post?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text || title;
   const date        = post?.date
