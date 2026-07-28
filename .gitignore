@@ -44,7 +44,5 @@ functions.php*
 .log
 .dev-err.log
 .dev-out.log
-docs
-wp-masking.md
 .prod-err.log
 .prod-out.log
