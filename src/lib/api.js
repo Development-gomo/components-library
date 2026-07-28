@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { WP_BASE } from "@/config";
+import { rewriteWpUrlsDeep } from "@/lib/mediaProxy";
 
 const DEFAULT_REVALIDATE = 0;
 
@@ -20,7 +21,8 @@ export async function fetchWP(endpoint, options = {}) {
           };
     const res = await fetch(url, fetchOptions);
     if (!res.ok) return null;
-    return await res.json();
+    const json = await res.json();
+    return rewriteWpUrlsDeep(json);
   } catch {
     return null;
   }

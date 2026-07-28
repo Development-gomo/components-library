@@ -1,16 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-const wpHostname = process.env.NEXT_PUBLIC_WP_BASE
-  ? new URL(process.env.NEXT_PUBLIC_WP_BASE).hostname
-  : "localhost";
-
+// No WP hostname here on purpose: all WP media is served through the same-origin
+// proxy at /api/media/... (see src/lib/mediaProxy.js), so next/image never needs
+// to load directly from the WP origin. See docs/wp-masking.md.
 const nextConfig = {
   reactStrictMode: true,
 
   images: {
     remotePatterns: [
-      { protocol: "https", hostname: wpHostname, pathname: "/**" },
-      { protocol: "https", hostname: `www.${wpHostname}`, pathname: "/**" },
       { protocol: "https", hostname: "picsum.photos", pathname: "/**" },
     ],
   },

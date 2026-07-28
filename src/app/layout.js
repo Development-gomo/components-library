@@ -36,7 +36,12 @@ const schemas = [
   // },
 ];
 
+// Lets relative URLs in metadata (e.g. proxied OG images from /api/media/...)
+// resolve to absolute URLs automatically.
+const siteUrl = process.env.SITE_URL;
+
 export const metadata = {
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
   title: "Components Library",
   description: "Headless WordPress + Next.js",
 };
