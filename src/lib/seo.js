@@ -1,11 +1,19 @@
 // src/lib/seo.js
-import "server-only";
-import { toProxiedMediaUrl } from "@/lib/mediaProxy";
 
-// Note: `entry` here has already been through fetchWP()'s rewriteWpUrlsDeep, so
-// canonical/og_url/_embedded media URLs are already masked (relative /api/media/...
-// or SITE_URL-based) by the time they reach this file. The helpers below are kept
-// as a defensive second pass in case this is ever called with unprocessed data.
+const SITE_URL = process.env.SITE_URL || "";
+const WP_BASE = process.env.NEXT_PUBLIC_WP_BASE || "";
+
+// Strip the WP origin from a URL and return just the path,
+// so canonical/og_url point to the real site domain.
+function toSiteUrl(wpUrl) {
+  if (!wpUrl) return undefined;
+  try {
+    const wpOrigin = new URL(WP_BASE).origin;
+    return wpUrl.replace(wpOrigin, SITE_URL);
+  } catch {
+    return wpUrl;
+  }
+}
 
 function stripHtml(raw) {
   if (!raw) return "";
@@ -17,7 +25,7 @@ function mapOgImages(images = []) {
   const mapped = images
     .map((img) => {
       if (!img?.url) return null;
-      return { url: toProxiedMediaUrl(img.url, { absolute: true }), width: img.width, height: img.height, type: img.type, alt: img.alt };
+      return { url: img.url, width: img.width, height: img.height, type: img.type, alt: img.alt };
     })
     .filter(Boolean);
   return mapped.length > 0 ? mapped : undefined;
@@ -41,8 +49,8 @@ export function buildMetadataFromYoast(entry, options = {}) {
   const schema = yoast?.schema;
   const jsonLd = schema ? JSON.stringify(schema) : null;
 
-  const canonical = yoast?.canonical;
-  const ogUrl = yoast?.og_url;
+  const canonical = toSiteUrl(yoast?.canonical);
+  const ogUrl = toSiteUrl(yoast?.og_url);
 
   const metadata = {
     title,
@@ -61,7 +69,7 @@ export function buildMetadataFromYoast(entry, options = {}) {
       card: yoast?.twitter_card || "summary_large_image",
       title: yoast?.twitter_title || yoast?.og_title || title,
       description: yoast?.twitter_description || yoast?.og_description || description,
-      images: yoast?.twitter_image ? [toProxiedMediaUrl(yoast.twitter_image, { absolute: true })] : undefined,
+      images: yoast?.twitter_image ? [yoast.twitter_image] : undefined,
     },
     robots: yoast?.robots
       ? {
@@ -86,7 +94,7 @@ export function buildMetadataFromYoast(entry, options = {}) {
       entry?._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
       entry?.featured_image_url;
     if (featuredMedia) {
-      metadata.openGraph.images = [{ url: toProxiedMediaUrl(featuredMedia, { absolute: true }) }];
+      metadata.openGraph.images = [{ url: featuredMedia }];
     }
   }
 
