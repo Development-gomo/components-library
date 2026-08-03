@@ -19,8 +19,22 @@ const TestimonialSection = dynamic(() => import("@/components/sections/testimoni
 const TestimonialSectionLogo = dynamic(() => import("@/components/sections/testimonial/TestimonialSectionLogo"));
 const TabsSection = dynamic(() => import("@/components/sections/tabs/TabsSections"));
 const ContactForm = dynamic(() => import("@/components/sections/contact-form/ContactForm"));
+const CaseHero = dynamic(() => import("@/components/sections/single-casestudy/CaseHero"));
+const CaseIntroduction = dynamic(() => import("@/components/sections/single-casestudy/CaseIntroduction"));
+const CaseChallenges = dynamic(() => import("@/components/sections/single-casestudy/CaseChallenges"));
+const CaseSolution = dynamic(() => import("@/components/sections/single-casestudy/CaseSolution"));
+const CaseTestimonial = dynamic(() => import("@/components/sections/single-casestudy/CaseTestimonial"));
+const CaseResults = dynamic(() => import("@/components/sections/single-casestudy/CaseResults"));
+const CaseCtaBanner = dynamic(() => import("@/components/sections/single-casestudy/CaseCtaBanner"));
 
-// Add a case here whenever a new layout gets an entry in componentSampleData.js.
+// These have a scroll-linked (useScroll/useTransform) parallax effect rather than a
+// one-shot whileInView animation — same reasoning as isHeavyPreview() in
+// componentSampleData.js, but these layouts have no dummy sample data entry to hang
+// a `heavy` flag off of, so they get their own small set here.
+const HEAVY_CASE_STUDY_LAYOUTS = new Set(["hero_section", "testimonial_banner"]);
+
+// Add a case here whenever a new layout gets an entry in componentSampleData.js,
+// or a new single-case-study layout in PageBuilderCasestudy.jsx.
 // Mirrors the switch pattern in src/components/major/PageBuilder.jsx.
 function renderPreviewComponent(layout, data) {
   switch (layout) {
@@ -52,6 +66,20 @@ function renderPreviewComponent(layout, data) {
       return <TabsSection data={data} />;
     case "contact_form_section":
       return <ContactForm data={data} />;
+    case "hero_section":
+      return <CaseHero data={data} />;
+    case "introduction_section":
+      return <CaseIntroduction data={data} />;
+    case "challenges_section":
+      return <CaseChallenges data={data} />;
+    case "solution_section":
+      return <CaseSolution data={data} />;
+    case "testimonial_banner":
+      return <CaseTestimonial data={data} />;
+    case "result_section":
+      return <CaseResults data={data} />;
+    case "cta_banner":
+      return <CaseCtaBanner data={data} />;
     default:
       return null;
   }
@@ -84,7 +112,8 @@ function StaticFallback({ item }) {
  */
 export default function LivePreview({ item, mode = "card", canvasWidth = 1440, realData }) {
   const data = realData || getSampleData(item.layout);
-  const skipInCardMode = mode === "card" && isHeavyPreview(item.layout);
+  const skipInCardMode =
+    mode === "card" && (isHeavyPreview(item.layout) || HEAVY_CASE_STUDY_LAYOUTS.has(item.layout));
   const rendered = data && !skipInCardMode ? renderPreviewComponent(item.layout, data) : null;
 
   if (!rendered) {

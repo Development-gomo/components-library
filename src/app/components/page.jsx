@@ -36,7 +36,9 @@ export default async function ComponentsPage() {
   const groups = await getComponentCatalog();
   const realDataByLayout = await getRealComponentDataByLayout();
   const allComponents = groups.flatMap((group) => group.items);
-  const liveCount = allComponents.filter((item) => item.layout in sampleDataByLayout).length;
+  const liveCount = allComponents.filter(
+    (item) => item.layout in sampleDataByLayout || item.layout in realDataByLayout
+  ).length;
 
   const stats = [
     { value: String(allComponents.length), label: "documented components" },
