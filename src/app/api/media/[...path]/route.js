@@ -1,25 +1,33 @@
 import "server-only";
 import { WP_BASE } from "@/config";
+import { toRealMediaPath } from "@/lib/mediaProxy";
 
-// Same-origin media proxy: the browser only ever sees /api/media/<path>, never the
-// real WP origin. Deliberately restricted to /wp-content/ — this is a media proxy,
-// not a general WP reverse proxy, so wp-admin/wp-login/etc. are never forwardable.
+// Same-origin media proxy: the browser only ever sees /api/media/assets/<path>,
+// never the real WP origin or the "wp-content" folder name that would give away
+// the CMS. Deliberately restricted to media under wp-content — this is a media
+// proxy, not a general WP reverse proxy, so wp-admin/wp-login/etc. are never
+// forwardable.
 function getWpRoot() {
   return WP_BASE.replace(/\/wp-json\/?$/, "");
 }
 
 export async function GET(request, { params }) {
   const { path: segments } = await params;
-  const relPath = (segments || []).join("/");
+  const routeRelPath = (segments || []).join("/");
 
-  if (!relPath.startsWith("wp-content/") || relPath.includes("..")) {
+  if (routeRelPath.includes("..")) {
+    return new Response("Not found", { status: 404 });
+  }
+
+  const realRelPath = toRealMediaPath(routeRelPath);
+  if (!realRelPath) {
     return new Response("Not found", { status: 404 });
   }
 
   const wpRoot = getWpRoot();
   if (!wpRoot) return new Response("Not configured", { status: 404 });
 
-  const upstreamUrl = `${wpRoot}/${relPath}`;
+  const upstreamUrl = `${wpRoot}/${realRelPath}`;
 
   let upstream;
   try {

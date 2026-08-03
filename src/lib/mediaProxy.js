@@ -3,6 +3,11 @@ import { WP_BASE } from "@/config";
 
 const SITE_URL = process.env.SITE_URL || "";
 
+// The public-facing proxy segment. Deliberately NOT "wp-content" — that folder name
+// is a dead giveaway that the backend is WordPress, even once the domain is hidden.
+const PROXY_SEGMENT = "assets";
+const PROXY_PREFIX = `/api/media/${PROXY_SEGMENT}`;
+
 // WP_BASE is the REST API root (e.g. "https://realbackend.com/site-path/wp-json").
 // The WP install root — where /wp-content actually lives — is that minus the
 // trailing /wp-json segment. Handles both root installs and subdirectory installs.
@@ -10,8 +15,20 @@ function getWpRoot() {
   return WP_BASE.replace(/\/wp-json\/?$/, "");
 }
 
+// "/wp-content/uploads/x.jpg" -> "/api/media/assets/uploads/x.jpg"
+function proxyMediaPath(wpContentRelPath) {
+  return `${PROXY_PREFIX}${wpContentRelPath.slice("/wp-content".length)}`;
+}
+
+// Reverses proxyMediaPath for the route handler: "assets/uploads/x.jpg" -> "wp-content/uploads/x.jpg".
+// Returns null if the path doesn't look like a proxied media path.
+export function toRealMediaPath(routeRelPath) {
+  if (!routeRelPath.startsWith(`${PROXY_SEGMENT}/`)) return null;
+  return `wp-content/${routeRelPath.slice(`${PROXY_SEGMENT}/`.length)}`;
+}
+
 // Rewrites a single absolute WP URL to a same-origin equivalent:
-// - media (/wp-content/...) -> proxied through /api/media/...
+// - media (/wp-content/...) -> proxied through /api/media/assets/...
 // - anything else under the WP root (permalinks, REST _links, etc.) -> SITE_URL
 // URLs that don't start with the WP root (external links, already-relative paths)
 // are returned unchanged.
@@ -20,7 +37,7 @@ export function toProxiedMediaUrl(wpUrl, { absolute = false } = {}) {
 
   // Already proxied — e.g. fetchWP() already ran this through rewriteWpUrlsDeep,
   // and a caller (like seo.js) just needs to upgrade it to an absolute URL.
-  if (wpUrl.startsWith("/api/media/")) {
+  if (wpUrl.startsWith(`${PROXY_PREFIX}/`)) {
     return absolute ? `${SITE_URL}${wpUrl}` : wpUrl;
   }
 
@@ -28,7 +45,9 @@ export function toProxiedMediaUrl(wpUrl, { absolute = false } = {}) {
   if (!wpRoot || !wpUrl.startsWith(wpRoot)) return wpUrl;
 
   const relPath = wpUrl.slice(wpRoot.length);
-  const proxied = `/api/media${relPath}`;
+  if (!relPath.startsWith("/wp-content/")) return wpUrl;
+
+  const proxied = proxyMediaPath(relPath);
   return absolute ? `${SITE_URL}${proxied}` : proxied;
 }
 
@@ -43,7 +62,7 @@ function rewriteWpUrlString(value) {
   const wpRoot = getWpRoot();
   if (!wpRoot || !value.startsWith(wpRoot)) return value;
   const relPath = value.slice(wpRoot.length);
-  return relPath.startsWith("/wp-content/") ? `/api/media${relPath}` : toSiteUrl(value);
+  return relPath.startsWith("/wp-content/") ? proxyMediaPath(relPath) : toSiteUrl(value);
 }
 
 // Recursively walks a parsed WP REST JSON response (objects/arrays/strings only —
@@ -73,6 +92,6 @@ export function rewriteWpUrlsInHtml(html) {
 
   const escaped = wpRoot.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return html
-    .replaceAll(new RegExp(`${escaped}/wp-content/`, "g"), "/api/media/wp-content/")
+    .replaceAll(new RegExp(`${escaped}/wp-content/`, "g"), `${PROXY_PREFIX}/`)
     .replaceAll(new RegExp(escaped, "g"), SITE_URL);
 }
