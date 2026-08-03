@@ -1,5 +1,11 @@
 "use client";
 
+// Layout: team_slider
+// Not an ACF block on its own — this is the swiper sub-component TeamSection.jsx
+// renders internally when display_type is "slider". It takes a plain `members`
+// array (already parsed from the WP Team CPT), not the usual ACF `data` object.
+// Fields: members[].id, members[].name, members[].position, members[].imgUrl, members[].imgAlt
+
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";

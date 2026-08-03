@@ -36,6 +36,7 @@ const PricingTable = dynamic(() => import("@/components/sections/pricing/Pricing
 const CaseStudyFilter = dynamic(() => import("@/components/sections/case-study/CaseStudyFilter"));
 const CaseStudyDropDownFilter = dynamic(() => import("@/components/sections/case-study/CaseStudyDropDownFilter"));
 const CaseStudyLoadMore = dynamic(() => import("@/components/sections/case-study/CaseStudyLoadMore"));
+const TeamSlider = dynamic(() => import("@/components/sections/team/TeamSlider"));
 
 // These have a scroll-linked (useScroll/useTransform) parallax effect rather than a
 // one-shot whileInView animation — same reasoning as isHeavyPreview() in
@@ -110,6 +111,10 @@ function renderPreviewComponent(layout, data) {
       return <CaseStudyDropDownFilter data={data} />;
     case "case_study_load_more":
       return <CaseStudyLoadMore data={data} />;
+    case "team_slider":
+      // TeamSlider takes a plain `members` array, not the usual wrapped ACF `data`
+      // object — see componentSampleData.js's team_slider entry.
+      return <TeamSlider members={data} />;
     default:
       return null;
   }

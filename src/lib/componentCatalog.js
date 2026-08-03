@@ -20,7 +20,6 @@ const EXTRA_SOURCE_FILES = [
 // catalog component (different prop shape, not a standalone ACF block), so
 // showing them as their own browsable card is just noise/confusion.
 const HIDDEN_PATHS = new Set([
-  "src/components/sections/team/TeamSlider.jsx",
   "src/components/sections/client-logo/ClientLogoSlider.jsx",
   "src/components/sections/content-sections/InsightsGrid.jsx",
   "src/components/sections/content-sections/InsightsSlider.jsx",

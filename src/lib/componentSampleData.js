@@ -360,6 +360,17 @@ export const sampleDataByLayout = {
   case_study_load_more: {
     data: { section_title: "Case studies", title: "Explore more case studies" },
   },
+
+  // TeamSlider takes a plain `members` array directly, not a wrapped ACF `data`
+  // object — see the case in LivePreview.jsx's renderPreviewComponent().
+  team_slider: {
+    data: [
+      { id: 1, name: "Priya Nair", position: "<p>Product Designer</p>", imgUrl: placeholderImage("team-1", 400, 500).url, imgAlt: "Priya Nair" },
+      { id: 2, name: "Marcus Lee", position: "<p>Frontend Lead</p>", imgUrl: placeholderImage("team-2", 400, 500).url, imgAlt: "Marcus Lee" },
+      { id: 3, name: "Ava Thompson", position: "<p>Engineering Manager</p>", imgUrl: placeholderImage("team-3", 400, 500).url, imgAlt: "Ava Thompson" },
+      { id: 4, name: "Sam Ortiz", position: "<p>CTO</p>", imgUrl: placeholderImage("team-4", 400, 500).url, imgAlt: "Sam Ortiz" },
+    ],
+  },
 };
 
 export function getSampleData(layout) {
