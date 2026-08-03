@@ -37,6 +37,7 @@ const getSingleEntry = cache(async function getSingleEntry(endpoint, slug) {
     const entries = await fetchWP(`/wp/v2/${endpoint}?slug=${encodeURIComponent(slug)}&_embed`, {
       tags: [endpoint, `${endpoint}:${slug}`],
     });
+    console.error("[DEBUG getSingleEntry]", endpoint, slug, "isArray:", Array.isArray(entries), "length:", entries?.length, "slugs:", Array.isArray(entries) ? entries.map((e) => e.slug) : entries);
     if (!Array.isArray(entries) || entries.length === 0) return null;
     return entries.find((e) => e.slug === slug) || entries[0];
   } catch {

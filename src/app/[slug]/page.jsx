@@ -18,6 +18,7 @@ export async function generateStaticParams() {
 export default async function DynamicPage({ params }) {
   const { slug } = await params;
   const page = await getPageBySlug(slug);
+  console.error("[DEBUG DynamicPage]", slug, "page truthy:", !!page);
   if (!page) notFound();
 
   return (
@@ -35,5 +36,10 @@ export default async function DynamicPage({ params }) {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const page = await getPageBySlug(slug);
-  return buildMetadataFromYoast(page, { fallbackTitle: slug });
+  try {
+    return buildMetadataFromYoast(page, { fallbackTitle: slug });
+  } catch (err) {
+    console.error("[DEBUG generateMetadata THREW]", slug, err);
+    throw err;
+  }
 }
