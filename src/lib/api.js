@@ -23,7 +23,8 @@ export async function fetchWP(endpoint, options = {}) {
     if (!res.ok) return null;
     const json = await res.json();
     return rewriteWpUrlsDeep(json);
-  } catch {
+  } catch (err) {
+    console.error("[DEBUG fetchWP]", endpoint, err);
     return null;
   }
 }
