@@ -1,0 +1,143 @@
+
+> components-library@0.0.1 dev
+> next dev -p 3000
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.43.120.226:3000
+- Environments: .env.local
+✓ Ready in 840ms
+Creating turbopack project {
+  dir: 'F:\\GOMO\\component library\\components-library',
+  testMode: true
+}
+
+ GET /api/wp-redirects 200 in 3.3s (next.js: 98ms, application-code: 3.2s)
+ HEAD /components 200 in 5.5s (next.js: 1201ms, proxy.ts: 3.6s, application-code: 679ms)
+ HEAD /components 200 in 526ms (next.js: 9ms, proxy.ts: 12ms, application-code: 505ms)
+ GET /components 200 in 1285ms (next.js: 12ms, proxy.ts: 13ms, application-code: 1260ms)
+✓ Compiled in 1014ms
+ GET /api/wp-redirects 200 in 1074ms (next.js: 95ms, application-code: 979ms)
+ GET /components 200 in 3.9s (next.js: 161ms, proxy.ts: 1552ms, application-code: 2.1s)
+ GET /components 200 in 1609ms (next.js: 12ms, proxy.ts: 18ms, application-code: 1579ms)
+ GET /components 200 in 1147ms (next.js: 480ms, proxy.ts: 61ms, application-code: 606ms)
+ GET /components 200 in 1156ms (next.js: 40ms, proxy.ts: 44ms, application-code: 1073ms)
+ HEAD /components 200 in 1418ms (next.js: 8ms, proxy.ts: 10ms, application-code: 1401ms)
+✓ Compiled in 217ms
+ GET /api/wp-redirects 200 in 963ms (next.js: 55ms, application-code: 908ms)
+ GET /components 200 in 2.1s (next.js: 121ms, proxy.ts: 1096ms, application-code: 889ms)
+ GET /components 200 in 626ms (next.js: 4ms, proxy.ts: 7ms, application-code: 616ms)
+ GET /components 200 in 364ms (next.js: 5ms, proxy.ts: 6ms, application-code: 352ms)
+ HEAD /components 200 in 691ms (next.js: 8ms, proxy.ts: 11ms, application-code: 673ms)
+ GET /components 200 in 1079ms (next.js: 5ms, proxy.ts: 5ms, application-code: 1069ms)
+ GET /api/wp-redirects 200 in 1510ms (next.js: 9ms, application-code: 1501ms)
+ GET /api/wp-redirects 200 in 1032ms (next.js: 6ms, application-code: 1026ms)
+ GET /api/wp-redirects 200 in 958ms (next.js: 11ms, application-code: 947ms)
+ GET /api/wp-redirects 200 in 1648ms (next.js: 27ms, application-code: 1621ms)
+ GET /api/wp-redirects 200 in 903ms (next.js: 7ms, application-code: 896ms)
+ GET /api/wp-redirects 200 in 1024ms (next.js: 8ms, application-code: 1016ms)
+ GET /om-oss 200 in 7.2s (next.js: 5.1s, proxy.ts: 28ms, generate-params: 4.9s, application-code: 2.2s)
+✓ Compiled in 592ms
+ GET /api/wp-redirects 200 in 1921ms (next.js: 186ms, application-code: 1735ms)
+ GET /components 200 in 4.1s (next.js: 382ms, proxy.ts: 2.2s, application-code: 1448ms)
+ GET /components 200 in 767ms (next.js: 10ms, proxy.ts: 11ms, application-code: 746ms)
+ HEAD /components 200 in 2.0s (next.js: 14ms, proxy.ts: 18ms, application-code: 1979ms)
+ GET /components 200 in 2.5s (next.js: 15ms, proxy.ts: 47ms, application-code: 2.5s)
+✓ Compiled in 284ms
+ GET /api/wp-redirects 200 in 1231ms (next.js: 52ms, application-code: 1179ms)
+ GET /components 200 in 2.9s (next.js: 312ms, proxy.ts: 1399ms, application-code: 1207ms)
+ GET /components 200 in 488ms (next.js: 7ms, proxy.ts: 10ms, application-code: 471ms)
+✓ Compiled in 618ms
+ GET /api/wp-redirects 200 in 876ms (next.js: 23ms, application-code: 853ms)
+ GET /api/wp-redirects 200 in 924ms (next.js: 8ms, application-code: 916ms)
+ GET /api/wp-redirects 200 in 923ms (next.js: 14ms, application-code: 908ms)
+ GET /api/wp-redirects 200 in 4.8s (next.js: 464ms, application-code: 4.3s)
+ GET /components 200 in 6.2s (next.js: 900ms, proxy.ts: 1578ms, application-code: 3.7s)
+✓ Compiled in 490ms
+✓ Compiled in 510ms
+ GET /components 200 in 2.2s (next.js: 877ms, proxy.ts: 36ms, application-code: 1334ms)
+ GET /api/wp-redirects 200 in 2.7s (next.js: 127ms, application-code: 2.5s)
+ GET /components 200 in 8.2s (next.js: 12ms, proxy.ts: 3.0s, application-code: 5.1s)
+ GET /components 200 in 4.2s (next.js: 19ms, proxy.ts: 46ms, application-code: 4.2s)
+ GET /components 200 in 2.9s (next.js: 1051ms, proxy.ts: 35ms, application-code: 1808ms)
+ GET /components 200 in 2.9s (next.js: 35ms, proxy.ts: 33ms, application-code: 2.8s)
+ GET /components 200 in 2.9s (next.js: 1795ms, proxy.ts: 38ms, application-code: 1065ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FHeroCenteredBg.jsx 200 in 841ms (next.js: 809ms, application-code: 32ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FCenteredhero.jsx 200 in 15ms (next.js: 5ms, application-code: 10ms)
+ HEAD /components 200 in 1859ms (next.js: 6ms, proxy.ts: 12ms, application-code: 1841ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FHeroWithImage.jsx 200 in 33ms (next.js: 7ms, application-code: 27ms)
+ GET /api/component-source?path=package.json 404 in 15ms (next.js: 6ms, application-code: 10ms)
+ GET /components 200 in 2.2s (next.js: 6ms, proxy.ts: 7ms, application-code: 2.2s)
+✓ Compiled in 339ms
+ GET /api/wp-redirects 200 in 1263ms (next.js: 99ms, application-code: 1164ms)
+ GET /components 200 in 3.1s (next.js: 774ms, proxy.ts: 1473ms, application-code: 897ms)
+ HEAD /components 200 in 1738ms (next.js: 17ms, proxy.ts: 17ms, application-code: 1704ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FCenteredhero.jsx 200 in 143ms (next.js: 120ms, application-code: 23ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FCenteredhero.jsx 200 in 52ms (next.js: 14ms, application-code: 38ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FScrollExpansionHero.jsx 200 in 92ms (next.js: 14ms, application-code: 78ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fprocess%2FProcessSteps.jsx 200 in 72ms (next.js: 11ms, application-code: 61ms)
+✓ Compiled in 414ms
+ GET /api/wp-redirects 200 in 1333ms (next.js: 137ms, application-code: 1196ms)
+ GET /components 200 in 3.8s (next.js: 454ms, proxy.ts: 1673ms, application-code: 1709ms)
+ GET /components 200 in 947ms (next.js: 11ms, proxy.ts: 26ms, application-code: 909ms)
+✓ Compiled in 621ms
+ GET /api/wp-redirects 200 in 1197ms (next.js: 200ms, application-code: 996ms)
+ GET /components 200 in 7.0s (next.js: 828ms, proxy.ts: 1663ms, application-code: 4.5s)
+ HEAD /components 200 in 1553ms (next.js: 14ms, proxy.ts: 42ms, application-code: 1497ms)
+ GET /components 200 in 2.8s (next.js: 7ms, proxy.ts: 40ms, application-code: 2.8s)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FFloatingGalleryHero.jsx 200 in 192ms (next.js: 134ms, application-code: 57ms)
+✓ Compiled in 663ms
+ GET /api/wp-redirects 200 in 1113ms (next.js: 122ms, application-code: 991ms)
+ GET /components 200 in 4.3s (next.js: 395ms, proxy.ts: 1447ms, application-code: 2.5s)
+ GET /components 200 in 1657ms (next.js: 15ms, proxy.ts: 29ms, application-code: 1613ms)
+ GET /components 200 in 906ms (next.js: 13ms, proxy.ts: 17ms, application-code: 876ms)
+ HEAD /components 200 in 2.9s (next.js: 13ms, proxy.ts: 19ms, application-code: 2.9s)
+✓ Compiled in 283ms
+ GET /api/wp-redirects 200 in 1342ms (next.js: 97ms, application-code: 1245ms)
+ GET /components 200 in 2.3s (next.js: 282ms, proxy.ts: 1584ms, application-code: 472ms)
+ GET /components 200 in 303ms (next.js: 6ms, proxy.ts: 6ms, application-code: 291ms)
+ GET /components 200 in 255ms (next.js: 8ms, proxy.ts: 13ms, application-code: 234ms)
+ GET /api/wp-redirects 200 in 1673ms (next.js: 56ms, application-code: 1617ms)
+ GET /components 200 in 2.7s (next.js: 208ms, proxy.ts: 1844ms, application-code: 671ms)
+✓ Compiled in 202ms
+ GET /api/wp-redirects 200 in 1287ms (next.js: 78ms, application-code: 1210ms)
+ GET /components 200 in 2.3s (next.js: 282ms, proxy.ts: 1492ms, application-code: 508ms)
+✓ Compiled in 453ms
+ GET /api/wp-redirects 200 in 1273ms (next.js: 66ms, application-code: 1207ms)
+ GET /components 200 in 4.3s (next.js: 263ms, proxy.ts: 1464ms, application-code: 2.6s)
+ HEAD /components 200 in 124ms (next.js: 7ms, proxy.ts: 9ms, application-code: 108ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fhero-sections%2FCenteredhero.jsx 200 in 1463ms (next.js: 78ms, application-code: 1385ms)
+ GET /components 200 in 4.2s (next.js: 7ms, proxy.ts: 17ms, application-code: 4.2s)
+✓ Compiled in 214ms
+ GET /api/wp-redirects 200 in 1175ms (next.js: 167ms, application-code: 1008ms)
+ GET /api/wp-redirects 200 in 1428ms (next.js: 8ms, application-code: 1420ms)
+ GET /components 200 in 5.1s (next.js: 644ms, proxy.ts: 1480ms, application-code: 3.0s)
+ GET /components 200 in 5.8s (next.js: 26ms, proxy.ts: 1694ms, application-code: 4.0s)
+ GET /components 200 in 4.0s (next.js: 17ms, proxy.ts: 18ms, application-code: 3.9s)
+✓ Compiled in 340ms
+ GET /api/wp-redirects 200 in 906ms (next.js: 113ms, application-code: 792ms)
+ GET /components 200 in 5.6s (next.js: 472ms, proxy.ts: 1194ms, application-code: 3.9s)
+ GET /components 200 in 3.6s (next.js: 17ms, proxy.ts: 22ms, application-code: 3.6s)
+✓ Compiled in 263ms
+ GET /api/wp-redirects 200 in 968ms (next.js: 92ms, application-code: 875ms)
+ GET /components 200 in 6.5s (next.js: 440ms, proxy.ts: 1208ms, application-code: 4.8s)
+ GET /components 200 in 4.5s (next.js: 15ms, proxy.ts: 19ms, application-code: 4.5s)
+ HEAD /components 200 in 424ms (next.js: 9ms, proxy.ts: 12ms, application-code: 403ms)
+ GET /components 200 in 4.6s (next.js: 10ms, proxy.ts: 19ms, application-code: 4.6s)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fanimated-numbers%2FStatsCounter.jsx 200 in 664ms (next.js: 252ms, application-code: 412ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fclient-logo%2FClientLogo.jsx 200 in 515ms (next.js: 17ms, application-code: 498ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Ffeature-grid%2FFeatureGrid.jsx 200 in 430ms (next.js: 9ms, application-code: 421ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Faccordian%2FAccordionImageScroller.jsx 200 in 420ms (next.js: 10ms, application-code: 410ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fteam%2FTeamSection.jsx 200 in 496ms (next.js: 10ms, application-code: 485ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Ftestimonial%2FTestimonial.jsx 200 in 532ms (next.js: 8ms, application-code: 524ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Fteam%2FTeamSlider.jsx 200 in 454ms (next.js: 13ms, application-code: 441ms)
+ GET /api/component-source?path=src%2Fcomponents%2Fsections%2Ftabs%2FTabsSections.jsx 200 in 422ms (next.js: 8ms, application-code: 414ms)
+✓ Compiled in 290ms
+ GET /api/wp-redirects 200 in 2.1s (next.js: 139ms, application-code: 1967ms)
+ GET /api/wp-redirects 200 in 307ms (next.js: 8ms, application-code: 299ms)
+ GET /components 200 in 10.3s (next.js: 530ms, proxy.ts: 2.5s, application-code: 7.3s)
+ GET /components 200 in 7.1s (next.js: 14ms, proxy.ts: 568ms, application-code: 6.5s)
+ GET /components 200 in 6.4s (next.js: 23ms, proxy.ts: 33ms, application-code: 6.4s)
+ GET /components 200 in 3.3s (next.js: 6ms, proxy.ts: 10ms, application-code: 3.3s)
+ GET /components 200 in 3.3s (next.js: 9ms, proxy.ts: 13ms, application-code: 3.3s)
+[?25h
