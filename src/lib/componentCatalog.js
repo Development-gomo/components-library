@@ -32,6 +32,7 @@ const HIDDEN_PATHS = new Set([
   "src/components/major/HeaderComponent.jsx",
   "src/components/sections/content-sections/insightsUtils.js",
   "src/components/sections/animated-numbers/StatsCounter.jsx",
+  "src/components/ui/story-scroll.jsx",
 ]);
 
 const GROUP_ORDER = [
@@ -360,12 +361,11 @@ function extractLayoutFromComment(source) {
   return source.match(/\/\/\s*Layout:\s*([^\r\n(]+)/i)?.[1]?.trim();
 }
 
-// A couple of real PageBuilder blocks (scroller_section, tube_light_section) happen
-// to live under src/components/ui/ rather than sections/ — they'd otherwise be
-// grouped into "UI Components", which is hidden from the catalog (see
-// HIDDEN_GROUPS below). Route them into a real content group instead of losing them.
+// tube_light_section is a real PageBuilder block that happens to live under
+// src/components/ui/ rather than sections/ — it'd otherwise be grouped into "UI
+// Components", which is hidden from the catalog (see HIDDEN_GROUPS below). Route it
+// into a real content group instead of losing it.
 const GROUP_OVERRIDES_BY_PATH = {
-  "src/components/ui/story-scroll.jsx": "Structured Sections",
   "src/components/ui/TubeLight.jsx": "Structured Sections",
 };
 
