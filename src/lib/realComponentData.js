@@ -17,9 +17,29 @@ const CASE_STUDY_LAYOUTS = new Set([
   "cta_banner",
 ]);
 
-// Every layout we have dummy sample data for is also a candidate to be replaced
-// by a real example pulled from WordPress.
-const PAGE_LAYOUTS = new Set(Object.keys(sampleDataByLayout));
+// Layouts rendered via ServerPreview.jsx (async Server Components that fetch their
+// own real data — team members, blog posts, case studies — so they only need a
+// minimal ACF config, not the same kind of "sample content" as everything else).
+// global_footer is excluded here: it's site-wide theme options, not a page_builder
+// block, so it's never found by scanning page_builder fields.
+export const SERVER_PREVIEW_LAYOUTS = new Set([
+  "latest_insights",
+  "team_section",
+  "tab_cpt_section",
+  "case_study_listing",
+  "case_study_bento_grid",
+  "case_study_grid_layout",
+  "global_footer",
+]);
+
+const SCANNABLE_SERVER_PREVIEW_LAYOUTS = new Set(
+  [...SERVER_PREVIEW_LAYOUTS].filter((layout) => layout !== "global_footer")
+);
+
+// Every layout we have dummy sample data for, plus the server-preview layouts that
+// live on regular pages, are candidates to be replaced by a real example pulled
+// from WordPress.
+const PAGE_LAYOUTS = new Set([...Object.keys(sampleDataByLayout), ...SCANNABLE_SERVER_PREVIEW_LAYOUTS]);
 
 function collectFirstBlockPerLayout(posts, blocksField, targetLayouts, found) {
   if (!Array.isArray(posts)) return;
