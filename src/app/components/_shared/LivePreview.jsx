@@ -75,14 +75,15 @@ function StaticFallback({ item }) {
 }
 
 /**
- * Renders the real section component with sample data.
+ * Renders the real section component with real WP data when available, falling
+ * back to hardcoded sample data (see componentSampleData.js) otherwise.
  * mode="card": scaled thumbnail, non-interactive, used in grid/sidebar previews.
  *   Falls back to the static image for "heavy" (continuously animating) components —
  *   mounting a dozen rAF/scroll-linked components at once in a small grid is wasteful.
  * mode="full": real size, interactive, used on the component detail page (one at a time).
  */
-export default function LivePreview({ item, mode = "card", canvasWidth = 1440 }) {
-  const data = getSampleData(item.layout);
+export default function LivePreview({ item, mode = "card", canvasWidth = 1440, realData }) {
+  const data = realData || getSampleData(item.layout);
   const skipInCardMode = mode === "card" && isHeavyPreview(item.layout);
   const rendered = data && !skipInCardMode ? renderPreviewComponent(item.layout, data) : null;
 

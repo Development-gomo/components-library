@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { codeToHtml } from "shiki";
 import { getComponentCatalog, getAllowedComponentSourcePaths } from "@/lib/componentCatalog";
 import { groupSlug } from "@/lib/catalogSlug";
+import { getRealComponentDataByLayout } from "@/lib/realComponentData";
 import { Badge } from "@/components/shadcn-ui/badge";
 import { Button } from "@/components/shadcn-ui/button";
 import LivePreview from "../../_shared/LivePreview";
@@ -88,6 +89,9 @@ export default async function ComponentDetailPage({ params }) {
 
   if (!group || !item) notFound();
 
+  const realDataByLayout = await getRealComponentDataByLayout();
+  const realData = realDataByLayout[item.layout];
+
   const allowedSourcePaths = await getAllowedComponentSourcePaths();
   if (!allowedSourcePaths.has(item.path)) notFound();
 
@@ -110,12 +114,17 @@ export default async function ComponentDetailPage({ params }) {
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <h1 className="text-3xl font-semibold text-[#151515] md:text-4xl">{item.name}</h1>
           <Badge>{item.layout}</Badge>
+          {realData ? (
+            <Badge variant="accent">Live data from WordPress</Badge>
+          ) : (
+            <Badge variant="outline">Sample data</Badge>
+          )}
         </div>
         <p className="mt-3 max-w-3xl text-base leading-7 text-[#4f535c]">{item.purpose}</p>
 
         <div className="mt-8">
           <ComponentDetailTabs
-            preview={<LivePreview item={item} mode="full" />}
+            preview={<LivePreview item={item} mode="full" realData={realData} />}
             codeHtml={codeHtml}
             rawCode={rawCode}
             sourcePath={item.path}
