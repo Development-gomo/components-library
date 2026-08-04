@@ -1,5 +1,11 @@
 'use client';
 
+// Layout: insights_grid
+// Not an ACF block on its own — the grid-layout sub-component LatestInsights.jsx
+// renders internally when layout_style is "grid". Takes already-transformed post
+// objects (see insightsUtils.js's transformPost), not the usual ACF `data` object.
+// Fields: initialPosts, pagination_type, load_more_button, wpBase, loadMoreParams
+
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';

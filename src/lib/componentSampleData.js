@@ -371,6 +371,44 @@ export const sampleDataByLayout = {
       { id: 4, name: "Sam Ortiz", position: "<p>CTO</p>", imgUrl: placeholderImage("team-4", 400, 500).url, imgAlt: "Sam Ortiz" },
     ],
   },
+
+  // ClientLogoSlider takes a plain `logos` array directly, not a wrapped ACF
+  // `data` object — see the case in LivePreview.jsx's renderPreviewComponent().
+  client_logo_slider: {
+    data: [
+      placeholderImage("logo-slider-1", 160, 60),
+      placeholderImage("logo-slider-2", 160, 60),
+      placeholderImage("logo-slider-3", 160, 60),
+      placeholderImage("logo-slider-4", 160, 60),
+      placeholderImage("logo-slider-5", 160, 60),
+    ],
+  },
+
+  // InsightsGrid/InsightsSlider take already-transformed post objects (matching
+  // insightsUtils.js's transformPost shape) plus their own named props — not the
+  // usual wrapped ACF `data` object. pagination_type: "none" on the grid keeps its
+  // "Load more" button (which fetches directly from the real WP REST API
+  // client-side) from ever rendering in this preview.
+  insights_grid: {
+    data: {
+      initialPosts: [
+        { id: 1, title: "Shipping a component library that actually gets used", date: "May 12, 2026", link: "#", category: "Engineering", image: placeholderImage("insight-1", 900, 700).url, imageAlt: "Insight 1" },
+        { id: 2, title: "Why we masked our WordPress backend", date: "May 5, 2026", link: "#", category: "Infrastructure", image: placeholderImage("insight-2", 900, 700).url, imageAlt: "Insight 2" },
+        { id: 3, title: "Real data beats dummy data every time", date: "Apr 28, 2026", link: "#", category: "Product", image: placeholderImage("insight-3", 900, 700).url, imageAlt: "Insight 3" },
+      ],
+      pagination_type: "none",
+    },
+  },
+  insights_slider: {
+    data: {
+      posts: [
+        { id: 1, title: "Shipping a component library that actually gets used", date: "May 12, 2026", link: "#", category: "Engineering", image: placeholderImage("insight-slider-1", 900, 700).url, imageAlt: "Insight 1" },
+        { id: 2, title: "Why we masked our WordPress backend", date: "May 5, 2026", link: "#", category: "Infrastructure", image: placeholderImage("insight-slider-2", 900, 700).url, imageAlt: "Insight 2" },
+        { id: 3, title: "Real data beats dummy data every time", date: "Apr 28, 2026", link: "#", category: "Product", image: placeholderImage("insight-slider-3", 900, 700).url, imageAlt: "Insight 3" },
+      ],
+      slider_settings: { slides_to_show: 3, show_arrows: true, show_dots: true },
+    },
+  },
 };
 
 export function getSampleData(layout) {
