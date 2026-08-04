@@ -251,6 +251,164 @@ export const sampleDataByLayout = {
       select_form: "",
     },
   },
+
+  hero_with_slider: {
+    heavy: true,
+    data: {
+      heading: "Built for teams that move fast.",
+      short_heading: "<p>A library of ready components, backed by real data.</p>",
+      bg_image: placeholderImage("hero-slider-bg", 1600, 900),
+      client_slider: [
+        { logo: placeholderImage("slider-logo-1", 160, 60), statistics: "2x faster delivery" },
+        { logo: placeholderImage("slider-logo-2", 160, 60), statistics: "40% fewer bugs" },
+        { testimonial: "The component docs alone saved us a week of onboarding.", client_name: "Dana Cole" },
+      ],
+    },
+  },
+
+  kinetic_hero: {
+    heavy: true,
+    data: {
+      hero_title: "Motion that means something.",
+      hero_description: "<p>Scroll-reactive image columns with a kinetic drift effect.</p>",
+      cta_text: "Explore",
+      cta_url: "#",
+      overlay_opacity: 55,
+      base_speed: 40,
+      columns: [
+        { images: [{ image: placeholderImage("kinetic-1", 400, 520) }, { image: placeholderImage("kinetic-2", 400, 520) }] },
+        { images: [{ image: placeholderImage("kinetic-3", 400, 520) }, { image: placeholderImage("kinetic-4", 400, 520) }] },
+        { images: [{ image: placeholderImage("kinetic-5", 400, 520) }, { image: placeholderImage("kinetic-6", 400, 520) }] },
+      ],
+    },
+  },
+
+  scroll_expansion_hero: {
+    heavy: true,
+    data: {
+      media_type: "image",
+      media_src: placeholderImage("scroll-expand-media", 1600, 900).url,
+      background_image: placeholderImage("scroll-expand-bg", 1600, 900),
+      title: "Scroll to reveal",
+      date_label: "2026",
+      scroll_to_expand: "Scroll to expand",
+      text_blend: true,
+      content: "<p>Body content revealed once the media finishes expanding.</p>",
+    },
+  },
+
+  accordion_image_scroller: {
+    heavy: true,
+    data: {
+      section_title: "How it works",
+      heading: "One block, many stories",
+      description: "<p>Click a title to switch the image on the right.</p>",
+      box_color: "#111111",
+      auto_delay: 5,
+      items: [
+        { title: "Discover", description: "<p>Browse the catalog for the right section.</p>", image: placeholderImage("accordion-scroller-1", 900, 700) },
+        { title: "Preview", description: "<p>See it rendered with real data.</p>", image: placeholderImage("accordion-scroller-2", 900, 700) },
+        { title: "Ship", description: "<p>Copy the source and wire up the CMS fields.</p>", image: placeholderImage("accordion-scroller-3", 900, 700) },
+      ],
+    },
+  },
+
+  tube_light_section: {
+    data: {
+      sub_heading: "Featured",
+      heading: "Made to glow",
+      description: "<p>A centered spotlight section for a single strong statement.</p>",
+      accent_color: "#06b6d4",
+    },
+  },
+
+  scroller_section: {
+    data: {
+      story_scroll_sections: [
+        {
+          section_label: "01 — Discover",
+          background_color: "#ffffff",
+          text_color: "#000000",
+          heading: "Discover",
+          body_text: "<p>Browse the catalog for the right section.</p>",
+          columns: [{ column_title: "Fast", column_text: "Find a component in seconds." }],
+        },
+        {
+          section_label: "02 — Ship",
+          background_color: "#111111",
+          text_color: "#ffffff",
+          heading: "Ship",
+          body_text: "<p>Copy the source and wire up the CMS fields.</p>",
+          columns: [{ column_title: "Documented", column_text: "Every field is labeled and typed." }],
+        },
+      ],
+    },
+  },
+
+  pricing_table: {
+    data: {},
+  },
+
+  // These fetch real case studies themselves client-side (via /api/case-studies or
+  // fetchCaseStudiesClient()) — this config is just section header text.
+  case_study_filter: {
+    data: { section_title: "Case studies", title: "Filter by category" },
+  },
+  case_study_filter_dropdown: {
+    data: { section_title: "Case studies", title: "Filter by category" },
+  },
+  case_study_load_more: {
+    data: { section_title: "Case studies", title: "Explore more case studies" },
+  },
+
+  // TeamSlider takes a plain `members` array directly, not a wrapped ACF `data`
+  // object — see the case in LivePreview.jsx's renderPreviewComponent().
+  team_slider: {
+    data: [
+      { id: 1, name: "Priya Nair", position: "<p>Product Designer</p>", imgUrl: placeholderImage("team-1", 400, 500).url, imgAlt: "Priya Nair" },
+      { id: 2, name: "Marcus Lee", position: "<p>Frontend Lead</p>", imgUrl: placeholderImage("team-2", 400, 500).url, imgAlt: "Marcus Lee" },
+      { id: 3, name: "Ava Thompson", position: "<p>Engineering Manager</p>", imgUrl: placeholderImage("team-3", 400, 500).url, imgAlt: "Ava Thompson" },
+      { id: 4, name: "Sam Ortiz", position: "<p>CTO</p>", imgUrl: placeholderImage("team-4", 400, 500).url, imgAlt: "Sam Ortiz" },
+    ],
+  },
+
+  // ClientLogoSlider takes a plain `logos` array directly, not a wrapped ACF
+  // `data` object — see the case in LivePreview.jsx's renderPreviewComponent().
+  client_logo_slider: {
+    data: [
+      placeholderImage("logo-slider-1", 160, 60),
+      placeholderImage("logo-slider-2", 160, 60),
+      placeholderImage("logo-slider-3", 160, 60),
+      placeholderImage("logo-slider-4", 160, 60),
+      placeholderImage("logo-slider-5", 160, 60),
+    ],
+  },
+
+  // InsightsGrid/InsightsSlider take already-transformed post objects (matching
+  // insightsUtils.js's transformPost shape) plus their own named props — not the
+  // usual wrapped ACF `data` object. pagination_type: "none" on the grid keeps its
+  // "Load more" button (which fetches directly from the real WP REST API
+  // client-side) from ever rendering in this preview.
+  insights_grid: {
+    data: {
+      initialPosts: [
+        { id: 1, title: "Shipping a component library that actually gets used", date: "May 12, 2026", link: "#", category: "Engineering", image: placeholderImage("insight-1", 900, 700).url, imageAlt: "Insight 1" },
+        { id: 2, title: "Why we masked our WordPress backend", date: "May 5, 2026", link: "#", category: "Infrastructure", image: placeholderImage("insight-2", 900, 700).url, imageAlt: "Insight 2" },
+        { id: 3, title: "Real data beats dummy data every time", date: "Apr 28, 2026", link: "#", category: "Product", image: placeholderImage("insight-3", 900, 700).url, imageAlt: "Insight 3" },
+      ],
+      pagination_type: "none",
+    },
+  },
+  insights_slider: {
+    data: {
+      posts: [
+        { id: 1, title: "Shipping a component library that actually gets used", date: "May 12, 2026", link: "#", category: "Engineering", image: placeholderImage("insight-slider-1", 900, 700).url, imageAlt: "Insight 1" },
+        { id: 2, title: "Why we masked our WordPress backend", date: "May 5, 2026", link: "#", category: "Infrastructure", image: placeholderImage("insight-slider-2", 900, 700).url, imageAlt: "Insight 2" },
+        { id: 3, title: "Real data beats dummy data every time", date: "Apr 28, 2026", link: "#", category: "Product", image: placeholderImage("insight-slider-3", 900, 700).url, imageAlt: "Insight 3" },
+      ],
+      slider_settings: { slides_to_show: 3, show_arrows: true, show_dots: true },
+    },
+  },
 };
 
 export function getSampleData(layout) {

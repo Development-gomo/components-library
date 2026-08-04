@@ -35,14 +35,14 @@ export default function HeroClientslider({ data }) {
 
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  let logoSwiperRef = null;
-  let testiSwiperRef = null;
+  const logoSwiperRef = React.useRef(null);
+  const testiSwiperRef = React.useRef(null);
 
   // ✔ SYNC TESTIMONIAL + LOGO HIGHLIGHT EVERY 3s
   React.useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1 >= statsSlides.length ? 0 : prev + 1));
-      testiSwiperRef?.slideToLoop(activeIndex);
+      testiSwiperRef.current?.slideToLoop(activeIndex);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -123,7 +123,7 @@ export default function HeroClientslider({ data }) {
           <div className="md:max-w-[70%] ticker-wrapper">
             <Swiper
               modules={[Autoplay]}
-              onSwiper={(swiper) => (logoSwiperRef = swiper)}
+              onSwiper={(swiper) => { logoSwiperRef.current = swiper; }}
               autoplay={{
                 delay: 2500, // REQUIRED
                 reverseDirection: true, // Slide LEFT → RIGHT
@@ -179,7 +179,7 @@ export default function HeroClientslider({ data }) {
             <Swiper
               modules={[Autoplay]}
               direction={"vertical"}
-              onSwiper={(swiper) => (logoSwiperRef = swiper)}
+              onSwiper={(swiper) => { testiSwiperRef.current = swiper; }}
               autoplay={{
                 delay: 2500, // REQUIRED
                 reverseDirection: true,
@@ -216,7 +216,7 @@ export default function HeroClientslider({ data }) {
             spaceBetween={30}
             onSlideChange={(swiper) => {
               setActiveIndex(swiper.realIndex);
-              testiSwiperRef?.slideToLoop(swiper.realIndex);
+              testiSwiperRef.current?.slideToLoop(swiper.realIndex);
             }}
           >
             {statsSlides.map((item, index) => {

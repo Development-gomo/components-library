@@ -1,5 +1,10 @@
 "use client";
 
+// Layout: client_logo_slider
+// Not an ACF block on its own — the manual-arrow swiper ClientLogo.jsx renders
+// internally when display_type is "slider". Takes a plain `logos` array.
+// Fields: logos
+
 import { useRef } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";

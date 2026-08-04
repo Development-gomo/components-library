@@ -19,8 +19,36 @@ const TestimonialSection = dynamic(() => import("@/components/sections/testimoni
 const TestimonialSectionLogo = dynamic(() => import("@/components/sections/testimonial/TestimonialSectionLogo"));
 const TabsSection = dynamic(() => import("@/components/sections/tabs/TabsSections"));
 const ContactForm = dynamic(() => import("@/components/sections/contact-form/ContactForm"));
+const CaseHero = dynamic(() => import("@/components/sections/single-casestudy/CaseHero"));
+const CaseIntroduction = dynamic(() => import("@/components/sections/single-casestudy/CaseIntroduction"));
+const CaseChallenges = dynamic(() => import("@/components/sections/single-casestudy/CaseChallenges"));
+const CaseSolution = dynamic(() => import("@/components/sections/single-casestudy/CaseSolution"));
+const CaseTestimonial = dynamic(() => import("@/components/sections/single-casestudy/CaseTestimonial"));
+const CaseResults = dynamic(() => import("@/components/sections/single-casestudy/CaseResults"));
+const CaseCtaBanner = dynamic(() => import("@/components/sections/single-casestudy/CaseCtaBanner"));
+const HeroClientslider = dynamic(() => import("@/components/sections/hero-sections/HeroClientslider"));
+const KineticHero = dynamic(() => import("@/components/sections/hero-sections/KineticHero"));
+const ScrollExpansionHero = dynamic(() => import("@/components/sections/hero-sections/ScrollExpansionHero"));
+const AccordionImageScroller = dynamic(() => import("@/components/sections/accordian/AccordionImageScroller"));
+const TubeLightSection = dynamic(() => import("@/components/ui/TubeLight"));
+const StoryScroll = dynamic(() => import("@/components/ui/story-scroll"));
+const PricingTable = dynamic(() => import("@/components/sections/pricing/PricingTable"));
+const CaseStudyFilter = dynamic(() => import("@/components/sections/case-study/CaseStudyFilter"));
+const CaseStudyDropDownFilter = dynamic(() => import("@/components/sections/case-study/CaseStudyDropDownFilter"));
+const CaseStudyLoadMore = dynamic(() => import("@/components/sections/case-study/CaseStudyLoadMore"));
+const TeamSlider = dynamic(() => import("@/components/sections/team/TeamSlider"));
+const ClientLogoSlider = dynamic(() => import("@/components/sections/client-logo/ClientLogoSlider"));
+const InsightsGrid = dynamic(() => import("@/components/sections/content-sections/InsightsGrid"));
+const InsightsSlider = dynamic(() => import("@/components/sections/content-sections/InsightsSlider"));
 
-// Add a case here whenever a new layout gets an entry in componentSampleData.js.
+// These have a scroll-linked (useScroll/useTransform) parallax effect rather than a
+// one-shot whileInView animation — same reasoning as isHeavyPreview() in
+// componentSampleData.js, but these layouts have no dummy sample data entry to hang
+// a `heavy` flag off of, so they get their own small set here.
+const HEAVY_CASE_STUDY_LAYOUTS = new Set(["hero_section", "testimonial_banner"]);
+
+// Add a case here whenever a new layout gets an entry in componentSampleData.js,
+// or a new single-case-study layout in PageBuilderCasestudy.jsx.
 // Mirrors the switch pattern in src/components/major/PageBuilder.jsx.
 function renderPreviewComponent(layout, data) {
   switch (layout) {
@@ -52,6 +80,50 @@ function renderPreviewComponent(layout, data) {
       return <TabsSection data={data} />;
     case "contact_form_section":
       return <ContactForm data={data} />;
+    case "hero_section":
+      return <CaseHero data={data} />;
+    case "introduction_section":
+      return <CaseIntroduction data={data} />;
+    case "challenges_section":
+      return <CaseChallenges data={data} />;
+    case "solution_section":
+      return <CaseSolution data={data} />;
+    case "testimonial_banner":
+      return <CaseTestimonial data={data} />;
+    case "result_section":
+      return <CaseResults data={data} />;
+    case "cta_banner":
+      return <CaseCtaBanner data={data} />;
+    case "hero_with_slider":
+      return <HeroClientslider data={data} />;
+    case "kinetic_hero":
+      return <KineticHero data={data} />;
+    case "scroll_expansion_hero":
+      return <ScrollExpansionHero data={data} />;
+    case "accordion_image_scroller":
+      return <AccordionImageScroller data={data} />;
+    case "tube_light_section":
+      return <TubeLightSection data={data} />;
+    case "scroller_section":
+      return <StoryScroll data={data} />;
+    case "pricing_table":
+      return <PricingTable />;
+    case "case_study_filter":
+      return <CaseStudyFilter data={data} />;
+    case "case_study_filter_dropdown":
+      return <CaseStudyDropDownFilter data={data} />;
+    case "case_study_load_more":
+      return <CaseStudyLoadMore data={data} />;
+    case "team_slider":
+      // TeamSlider takes a plain `members` array, not the usual wrapped ACF `data`
+      // object — see componentSampleData.js's team_slider entry.
+      return <TeamSlider members={data} />;
+    case "client_logo_slider":
+      return <ClientLogoSlider logos={data} />;
+    case "insights_grid":
+      return <InsightsGrid {...data} />;
+    case "insights_slider":
+      return <InsightsSlider {...data} />;
     default:
       return null;
   }
@@ -75,16 +147,25 @@ function StaticFallback({ item }) {
 }
 
 /**
- * Renders the real section component with sample data.
+ * Renders the real section component with real WP data when available, falling
+ * back to hardcoded sample data (see componentSampleData.js) otherwise.
  * mode="card": scaled thumbnail, non-interactive, used in grid/sidebar previews.
  *   Falls back to the static image for "heavy" (continuously animating) components —
  *   mounting a dozen rAF/scroll-linked components at once in a small grid is wasteful.
  * mode="full": real size, interactive, used on the component detail page (one at a time).
+ *
+ * `preRendered`: some section components are `async` Server Components (they fetch
+ * their own real WP data internally — team members, blog posts, case studies) and
+ * cannot be dynamically imported into this "use client" component at all — that's a
+ * hard React Server/Client boundary rule. For those, the server page pre-renders
+ * them (see ServerPreview.jsx) and passes the already-rendered element here instead.
  */
-export default function LivePreview({ item, mode = "card", canvasWidth = 1440 }) {
-  const data = getSampleData(item.layout);
-  const skipInCardMode = mode === "card" && isHeavyPreview(item.layout);
-  const rendered = data && !skipInCardMode ? renderPreviewComponent(item.layout, data) : null;
+export default function LivePreview({ item, mode = "card", canvasWidth = 1440, realData, preRendered }) {
+  const data = realData || getSampleData(item.layout);
+  const skipInCardMode =
+    mode === "card" && (isHeavyPreview(item.layout) || HEAVY_CASE_STUDY_LAYOUTS.has(item.layout));
+  const rendered =
+    preRendered || (data && !skipInCardMode ? renderPreviewComponent(item.layout, data) : null);
 
   if (!rendered) {
     return <StaticFallback item={item} />;

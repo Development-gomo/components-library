@@ -1,5 +1,11 @@
 'use client';
 
+// Layout: insights_slider
+// Not an ACF block on its own — the slider sub-component LatestInsights.jsx renders
+// internally when layout_style is "slider". Takes already-transformed post objects
+// (see insightsUtils.js's transformPost), not the usual ACF `data` object.
+// Fields: posts, slider_settings
+
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -1,8 +1,10 @@
 import { getComponentCatalog } from "@/lib/componentCatalog";
 import { groupSlug } from "@/lib/catalogSlug";
 import { sampleDataByLayout } from "@/lib/componentSampleData";
+import { getRealComponentDataByLayout, SERVER_PREVIEW_LAYOUTS } from "@/lib/realComponentData";
 import { Badge } from "@/components/shadcn-ui/badge";
 import LivePreview from "./_shared/LivePreview";
+import ServerPreview from "./_shared/ServerPreview";
 import CardLink from "./_shared/CardLink";
 
 export const metadata = {
@@ -10,14 +12,21 @@ export const metadata = {
   description: "Browse and preview every reusable page-builder component in this project.",
 };
 
-function ComponentCard({ item, gSlug }) {
+function ComponentCard({ item, gSlug, realData }) {
+  const usesServerPreview = SERVER_PREVIEW_LAYOUTS.has(item.layout);
+
   return (
     <CardLink
       href={`/components/${gSlug}/${item.id}`}
       className="group block cursor-pointer overflow-hidden rounded-md border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-[#eef1ea]">
-        <LivePreview item={item} mode="card" />
+        <LivePreview
+          item={item}
+          mode="card"
+          realData={realData}
+          preRendered={usesServerPreview ? <ServerPreview item={item} data={realData} /> : undefined}
+        />
       </div>
       <div className="flex items-center justify-between gap-2 border-t border-black/10 p-4">
         <div className="min-w-0">
@@ -33,8 +42,14 @@ function ComponentCard({ item, gSlug }) {
 
 export default async function ComponentsPage() {
   const groups = await getComponentCatalog();
+  const realDataByLayout = await getRealComponentDataByLayout();
   const allComponents = groups.flatMap((group) => group.items);
-  const liveCount = allComponents.filter((item) => item.layout in sampleDataByLayout).length;
+  const liveCount = allComponents.filter(
+    (item) =>
+      item.layout in sampleDataByLayout ||
+      item.layout in realDataByLayout ||
+      SERVER_PREVIEW_LAYOUTS.has(item.layout)
+  ).length;
 
   const stats = [
     { value: String(allComponents.length), label: "documented components" },
@@ -79,7 +94,12 @@ export default async function ComponentsPage() {
 
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {group.items.map((item) => (
-                  <ComponentCard key={item.id} item={item} gSlug={gSlug} />
+                  <ComponentCard
+                    key={item.id}
+                    item={item}
+                    gSlug={gSlug}
+                    realData={realDataByLayout[item.layout]}
+                  />
                 ))}
               </div>
             </div>

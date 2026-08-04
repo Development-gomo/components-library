@@ -6,9 +6,11 @@ import { notFound } from "next/navigation";
 import { codeToHtml } from "shiki";
 import { getComponentCatalog, getAllowedComponentSourcePaths } from "@/lib/componentCatalog";
 import { groupSlug } from "@/lib/catalogSlug";
+import { getRealComponentDataByLayout, SERVER_PREVIEW_LAYOUTS } from "@/lib/realComponentData";
 import { Badge } from "@/components/shadcn-ui/badge";
 import { Button } from "@/components/shadcn-ui/button";
 import LivePreview from "../../_shared/LivePreview";
+import ServerPreview from "../../_shared/ServerPreview";
 import ComponentDetailTabs from "../../_shared/ComponentDetailTabs";
 
 function FieldBadge({ field }) {
@@ -52,6 +54,12 @@ function FieldsSection({ fields }) {
   );
 }
 
+// Components with no ACF fields at all — always render the exact same static
+// content the live site does, so "Sample data" (implying a fake placeholder) would
+// be misleading, and "Live data from WordPress" (implying it's WP-driven) would be
+// wrong the other way.
+const NO_CMS_DATA_LAYOUTS = new Set(["pricing_table"]);
+
 function langForPath(sourcePath) {
   if (sourcePath.endsWith(".tsx")) return "tsx";
   if (sourcePath.endsWith(".ts")) return "ts";
@@ -88,6 +96,11 @@ export default async function ComponentDetailPage({ params }) {
 
   if (!group || !item) notFound();
 
+  const realDataByLayout = await getRealComponentDataByLayout();
+  const realData = realDataByLayout[item.layout];
+  const usesServerPreview = SERVER_PREVIEW_LAYOUTS.has(item.layout);
+  const isLiveData = Boolean(realData) || usesServerPreview;
+
   const allowedSourcePaths = await getAllowedComponentSourcePaths();
   if (!allowedSourcePaths.has(item.path)) notFound();
 
@@ -110,12 +123,26 @@ export default async function ComponentDetailPage({ params }) {
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <h1 className="text-3xl font-semibold text-[#151515] md:text-4xl">{item.name}</h1>
           <Badge>{item.layout}</Badge>
+          {NO_CMS_DATA_LAYOUTS.has(item.layout) ? (
+            <Badge variant="outline">Static — no CMS data</Badge>
+          ) : isLiveData ? (
+            <Badge variant="accent">Live data from WordPress</Badge>
+          ) : (
+            <Badge variant="outline">Sample data</Badge>
+          )}
         </div>
         <p className="mt-3 max-w-3xl text-base leading-7 text-[#4f535c]">{item.purpose}</p>
 
         <div className="mt-8">
           <ComponentDetailTabs
-            preview={<LivePreview item={item} mode="full" />}
+            preview={
+              <LivePreview
+                item={item}
+                mode="full"
+                realData={realData}
+                preRendered={usesServerPreview ? <ServerPreview item={item} data={realData} /> : undefined}
+              />
+            }
             codeHtml={codeHtml}
             rawCode={rawCode}
             sourcePath={item.path}

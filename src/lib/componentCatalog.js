@@ -20,10 +20,6 @@ const EXTRA_SOURCE_FILES = [
 // catalog component (different prop shape, not a standalone ACF block), so
 // showing them as their own browsable card is just noise/confusion.
 const HIDDEN_PATHS = new Set([
-  "src/components/sections/team/TeamSlider.jsx",
-  "src/components/sections/client-logo/ClientLogoSlider.jsx",
-  "src/components/sections/content-sections/InsightsGrid.jsx",
-  "src/components/sections/content-sections/InsightsSlider.jsx",
   "src/components/sections/interactive-map/MapView.jsx",
   "src/components/sections/tabs/TabsCptClient.jsx",
   "src/components/sections/contact-form/Cform.jsx",
@@ -32,6 +28,7 @@ const HIDDEN_PATHS = new Set([
   "src/components/major/HeaderComponent.jsx",
   "src/components/sections/content-sections/insightsUtils.js",
   "src/components/sections/animated-numbers/StatsCounter.jsx",
+  "src/components/ui/story-scroll.jsx",
 ]);
 
 const GROUP_ORDER = [
@@ -45,6 +42,11 @@ const GROUP_ORDER = [
   "Single Case Study Components",
   "Other Components",
 ];
+
+// These groups are internal site plumbing (global header/footer/page-builder
+// switches, low-level UI helpers) rather than page-builder content blocks — hidden
+// from the catalog entirely per request.
+const HIDDEN_GROUPS = new Set(["Major Layout Components", "UI Components"]);
 
 const GROUP_DESCRIPTIONS = {
   "Hero Sections": "Top-of-page sections for campaign, service, and editorial entry points.",
@@ -355,7 +357,16 @@ function extractLayoutFromComment(source) {
   return source.match(/\/\/\s*Layout:\s*([^\r\n(]+)/i)?.[1]?.trim();
 }
 
+// tube_light_section is a real PageBuilder block that happens to live under
+// src/components/ui/ rather than sections/ — it'd otherwise be grouped into "UI
+// Components", which is hidden from the catalog (see HIDDEN_GROUPS below). Route it
+// into a real content group instead of losing it.
+const GROUP_OVERRIDES_BY_PATH = {
+  "src/components/ui/TubeLight.jsx": "Structured Sections",
+};
+
 function inferGroup(relativePath) {
+  if (GROUP_OVERRIDES_BY_PATH[relativePath]) return GROUP_OVERRIDES_BY_PATH[relativePath];
   if (relativePath.includes("/hero-sections/")) return "Hero Sections";
   if (relativePath.includes("/content-sections/")) return "Content Sections";
   if (relativePath.includes("/case-study/") || relativePath.includes("/case-study/[")) return "Case Study Sections";
@@ -446,7 +457,7 @@ export async function getComponentCatalog() {
 
   return [...groups.values()]
     .sort((a, b) => GROUP_ORDER.indexOf(a.title) - GROUP_ORDER.indexOf(b.title))
-    .filter((group) => group.items.length > 0);
+    .filter((group) => group.items.length > 0 && !HIDDEN_GROUPS.has(group.title));
 }
 
 export async function getAllowedComponentSourcePaths() {
