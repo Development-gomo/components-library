@@ -32,7 +32,6 @@ const HIDDEN_PATHS = new Set([
 ]);
 
 const GROUP_ORDER = [
-  "Hero Sections",
   "Content Sections",
   "Structured Sections",
   "Case Study Sections",
@@ -40,6 +39,7 @@ const GROUP_ORDER = [
   "Major Layout Components",
   "UI Components",
   "Single Case Study Components",
+  "Hero Sections",
   "Other Components",
 ];
 
