@@ -44,12 +44,6 @@ const InsightsGrid = dynamic(() => import("@/components/sections/content-section
 const InsightsSlider = dynamic(() => import("@/components/sections/content-sections/InsightsSlider"));
 const InteractiveMap = dynamic(() => import("@/components/sections/interactive-map/InteractiveMap"));
 
-// These have a scroll-linked (useScroll/useTransform) parallax effect rather than a
-// one-shot whileInView animation — same reasoning as isHeavyPreview() in
-// componentSampleData.js, but these layouts have no dummy sample data entry to hang
-// a `heavy` flag off of, so they get their own small set here.
-const HEAVY_CASE_STUDY_LAYOUTS = new Set(["hero_section", "testimonial_banner"]);
-
 // Add a case here whenever a new layout gets an entry in componentSampleData.js,
 // or a new single-case-study layout in PageBuilderCasestudy.jsx.
 // Mirrors the switch pattern in src/components/major/PageBuilder.jsx.
@@ -171,8 +165,7 @@ function StaticFallback({ item }) {
  */
 export default function LivePreview({ item, mode = "card", canvasWidth = 1440, realData, preRendered }) {
   const data = realData || getSampleData(item.layout);
-  const skipInCardMode =
-    mode === "card" && (isHeavyPreview(item.layout) || HEAVY_CASE_STUDY_LAYOUTS.has(item.layout));
+  const skipInCardMode = mode === "card" && isHeavyPreview(item.layout);
   const rendered =
     preRendered || (data && !skipInCardMode ? renderPreviewComponent(item.layout, data) : null);
 

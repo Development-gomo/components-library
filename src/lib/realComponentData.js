@@ -30,15 +30,10 @@ export const SERVER_PREVIEW_LAYOUTS = new Set([
   "case_study_bento_grid",
   "case_study_grid_layout",
   "global_footer",
-  "case-study/[slug]",
 ]);
 
-// "case-study/[slug]" fetches its own real case study directly in ServerPreview.jsx
-// rather than being scanned out of a page's page_builder field like the others below.
 const SCANNABLE_SERVER_PREVIEW_LAYOUTS = new Set(
-  [...SERVER_PREVIEW_LAYOUTS].filter(
-    (layout) => layout !== "global_footer" && layout !== "case-study/[slug]"
-  )
+  [...SERVER_PREVIEW_LAYOUTS].filter((layout) => layout !== "global_footer")
 );
 
 // Every layout we have dummy sample data for, plus the server-preview layouts that

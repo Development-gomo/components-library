@@ -61,6 +61,7 @@ em {
 }
 
 .min-h-screen {margin-bottom: 50px;}
+.min-h-screen.mb-0 {margin-bottom: 0;}
 
 .web-width {
   max-width: 1250px;

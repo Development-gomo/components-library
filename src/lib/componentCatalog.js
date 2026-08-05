@@ -13,7 +13,6 @@ const SCAN_ROOTS = [
 
 const EXTRA_SOURCE_FILES = [
   "src/components/BodyClass.jsx",
-  "src/app/case-study/[slug]/page.jsx",
 ];
 
 // Internal-only helper files: imported and rendered exclusively by another
@@ -32,6 +31,7 @@ const HIDDEN_PATHS = new Set([
 ]);
 
 const GROUP_ORDER = [
+  "Hero Sections",
   "Content Sections",
   "Structured Sections",
   "Case Study Sections",
@@ -39,7 +39,6 @@ const GROUP_ORDER = [
   "Major Layout Components",
   "UI Components",
   "Single Case Study Components",
-  "Hero Sections",
   "Other Components",
 ];
 
@@ -122,13 +121,6 @@ const COMPONENT_OVERRIDES = {
     purpose: "Applies route or page-specific body classes.",
     fields: ["className"],
     notes: ["Useful for scoped page styling without changing the root layout."],
-  },
-  "src/app/case-study/[slug]/page.jsx": {
-    layout: "case-study/[slug]",
-    name: "Single Case Study Template",
-    purpose: "Template composed from the single case-study section components.",
-    fields: ["hero", "introduction", "challenges", "solution", "results.counters", "testimonial", "cta"],
-    notes: ["Used by the case-study route rather than the main PageBuilder switch."],
   },
 };
 

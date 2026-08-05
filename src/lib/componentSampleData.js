@@ -344,6 +344,83 @@ export const sampleDataByLayout = {
     data: {},
   },
 
+  // Single-case-study template sections (mapped via PageBuilderCasestudy). These
+  // are normally real-data-only — see realComponentData.js's CASE_STUDY_LAYOUTS —
+  // but a real example isn't always found on the WP backend, so they get sample
+  // data here too rather than always falling back to the static preview image.
+  hero_section: {
+    data: {
+      bg_image: placeholderImage("case-hero-bg", 1600, 900),
+      heading: "Navigating market complexity for brand growth",
+      sub_heading: "The challenge",
+      logo: placeholderImage("case-hero-logo", 200, 100),
+    },
+  },
+
+  introduction_section: {
+    data: {
+      sub_heading: "Introduction",
+      heading: "Fällräven's global success through Insights",
+      client_name: "Senter Group",
+      services_offered: "<p>Paid media strategy<br />Local advertisement</p>",
+      category: "<p>Digital Automation</p>",
+      date: "April 2026",
+      short_text: "<p>A complete rebuild of the client's growth engine, combining automation with a redesigned local media strategy.</p>",
+      section_image: placeholderImage("case-intro", 900, 1080),
+    },
+  },
+
+  challenges_section: {
+    data: {
+      sub_heading: "The challenge",
+      heading: "A fragmented process was slowing every campaign launch.",
+      content_heading: "Where things stood",
+      short_text: "<p>Campaigns were built by hand across a dozen spreadsheets, with no shared source of truth between teams.</p><ul><li>Manual handoffs between strategy and media buying</li><li>No consistent reporting across markets</li></ul>",
+      challenge_image: placeholderImage("case-challenge", 900, 700),
+    },
+  },
+
+  solution_section: {
+    data: {
+      sub_heading: "The solution",
+      heading: "A changing buyer journey demanded a new digital solution",
+      solution_heading: "What we built",
+      short_text: "<p>A unified campaign platform that syncs strategy, creative, and reporting into a single workflow.</p>",
+      solution_image: placeholderImage("case-solution", 900, 700),
+    },
+  },
+
+  testimonial_banner: {
+    data: {
+      bg_image: placeholderImage("case-testimonial-bg", 1600, 900),
+      heading: "Client feedback",
+      testimonial: "<p>This partnership completely changed how we plan and launch campaigns. What used to take weeks now takes days.</p>",
+      name: "Dana Cole",
+      person_organization: "VP Marketing, Senter Group",
+    },
+  },
+
+  result_section: {
+    data: {
+      sub_heading: "The result",
+      heading: "Digital transformation delivered <strong>measurable results</strong>",
+      counters: [
+        { number: "20", suffix: "+", short_text: "<p>Local digital and social campaign lines executed</p>" },
+        { number: "100", suffix: "+", short_text: "<p>Platform adopted across all Senter Group brands</p>" },
+        { number: "95", suffix: "%", short_text: "<p>Local media activated with strong digital results</p>" },
+      ],
+    },
+  },
+
+  cta_banner: {
+    data: {
+      heading: "Let's work together",
+      short_text: "Join us for a personalized demo session where you'll see how our innovative solutions can streamline your advertising efforts.",
+      cta_text: "Get in touch",
+      cta_url: "#",
+    },
+  },
+
   interactive_map: {
     data: {
       text_color: "#1a1a1a",
