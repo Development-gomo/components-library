@@ -6,6 +6,7 @@
 // Instead, the server page renders this and passes the result into LivePreview as
 // the `preRendered` prop.
 import dynamic from "next/dynamic";
+import { getCaseStudies } from "@/lib/api";
 
 const LatestInsights = dynamic(() => import("@/components/sections/content-sections/LatestInsights"));
 const TeamSection = dynamic(() => import("@/components/sections/team/TeamSection"));
@@ -14,6 +15,7 @@ const CaseStudyListing = dynamic(() => import("@/components/sections/case-study/
 const CaseStudyBentoGrid = dynamic(() => import("@/components/sections/case-study/CaseStudyBentoGrid"));
 const CaseStudyGridLayout = dynamic(() => import("@/components/sections/case-study/CaseStudyGridLayout"));
 const Footer = dynamic(() => import("@/components/major/Footer"));
+const PageBuilderCasestudy = dynamic(() => import("@/components/major/PageBuilderCasestudy"));
 
 // Minimal config used only when no real example of the block was found on any
 // page — the components themselves still fetch and render real posts/case
@@ -43,12 +45,24 @@ const FALLBACK_DATA = {
   case_study_grid_layout: { section_title: "Case studies", title: "Our work" },
 };
 
-export default function ServerPreview({ item, data }) {
+export default async function ServerPreview({ item, data }) {
   const layout = item.layout;
 
   // Global footer isn't a page_builder block at all — it's site-wide theme
   // options, so it always renders regardless of any per-page data.
   if (layout === "global_footer") return <Footer />;
+
+  // Not a page_builder block either — it's the whole single-case-study route,
+  // composed from every case-study section. Pull one real case study and render
+  // its full section list the same way the live template does.
+  if (layout === "case-study/[slug]") {
+    const caseStudies = await getCaseStudies();
+    const withSections = caseStudies.find(
+      (cs) => Array.isArray(cs?.acf?.case_study_builder) && cs.acf.case_study_builder.length > 0
+    );
+    if (!withSections) return null;
+    return <PageBuilderCasestudy sections={withSections.acf.case_study_builder} />;
+  }
 
   const finalData = data || FALLBACK_DATA[layout];
   if (!finalData) return null;

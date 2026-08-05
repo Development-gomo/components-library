@@ -36,10 +36,13 @@ const PricingTable = dynamic(() => import("@/components/sections/pricing/Pricing
 const CaseStudyFilter = dynamic(() => import("@/components/sections/case-study/CaseStudyFilter"));
 const CaseStudyDropDownFilter = dynamic(() => import("@/components/sections/case-study/CaseStudyDropDownFilter"));
 const CaseStudyLoadMore = dynamic(() => import("@/components/sections/case-study/CaseStudyLoadMore"));
+const CaseStudySlider = dynamic(() => import("@/components/sections/case-study/CaseStudySlider"));
+const CaseStudySliderFullWidth = dynamic(() => import("@/components/sections/case-study/CaseStudySliderFullWidth"));
 const TeamSlider = dynamic(() => import("@/components/sections/team/TeamSlider"));
 const ClientLogoSlider = dynamic(() => import("@/components/sections/client-logo/ClientLogoSlider"));
 const InsightsGrid = dynamic(() => import("@/components/sections/content-sections/InsightsGrid"));
 const InsightsSlider = dynamic(() => import("@/components/sections/content-sections/InsightsSlider"));
+const InteractiveMap = dynamic(() => import("@/components/sections/interactive-map/InteractiveMap"));
 
 // These have a scroll-linked (useScroll/useTransform) parallax effect rather than a
 // one-shot whileInView animation — same reasoning as isHeavyPreview() in
@@ -108,12 +111,18 @@ function renderPreviewComponent(layout, data) {
       return <StoryScroll data={data} />;
     case "pricing_table":
       return <PricingTable />;
+    case "interactive_map":
+      return <InteractiveMap data={data} />;
     case "case_study_filter":
       return <CaseStudyFilter data={data} />;
     case "case_study_filter_dropdown":
       return <CaseStudyDropDownFilter data={data} />;
     case "case_study_load_more":
       return <CaseStudyLoadMore data={data} />;
+    case "case_study_slider":
+      return <CaseStudySlider data={data} />;
+    case "case_study_slider_full_width":
+      return <CaseStudySliderFullWidth data={data} />;
     case "team_slider":
       // TeamSlider takes a plain `members` array, not the usual wrapped ACF `data`
       // object — see componentSampleData.js's team_slider entry.

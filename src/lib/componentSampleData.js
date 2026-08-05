@@ -58,7 +58,6 @@ export const sampleDataByLayout = {
   },
 
   floating_gallery_hero: {
-    heavy: true,
     data: {
       hero_title: "Crafted, not templated.",
       hero_description: "<p>A floating gallery hero with mouse-parallax depth.</p>",
@@ -253,7 +252,6 @@ export const sampleDataByLayout = {
   },
 
   hero_with_slider: {
-    heavy: true,
     data: {
       heading: "Built for teams that move fast.",
       short_heading: "<p>A library of ready components, backed by real data.</p>",
@@ -267,7 +265,6 @@ export const sampleDataByLayout = {
   },
 
   kinetic_hero: {
-    heavy: true,
     data: {
       hero_title: "Motion that means something.",
       hero_description: "<p>Scroll-reactive image columns with a kinetic drift effect.</p>",
@@ -284,7 +281,6 @@ export const sampleDataByLayout = {
   },
 
   scroll_expansion_hero: {
-    heavy: true,
     data: {
       media_type: "image",
       media_src: placeholderImage("scroll-expand-media", 1600, 900).url,
@@ -298,7 +294,6 @@ export const sampleDataByLayout = {
   },
 
   accordion_image_scroller: {
-    heavy: true,
     data: {
       section_title: "How it works",
       heading: "One block, many stories",
@@ -349,6 +344,48 @@ export const sampleDataByLayout = {
     data: {},
   },
 
+  interactive_map: {
+    data: {
+      text_color: "#1a1a1a",
+      accent_color: "#00fec3",
+      section_title: "Our locations",
+      heading: "Teams around the world",
+      description: "<p>Find the office closest to you.</p>",
+      map_tile: "dark",
+      map_height: 480,
+      locations: [
+        {
+          location_name: "London HQ",
+          location_address: "1 Old Street, London, UK",
+          location_phone: "+44 20 7946 0958",
+          location_email: "london@example.com",
+          location_region: "Europe",
+          location_lat: "51.5074",
+          location_lng: "-0.1278",
+          is_headquarters: true,
+        },
+        {
+          location_name: "New York",
+          location_address: "350 5th Ave, New York, NY",
+          location_email: "nyc@example.com",
+          location_region: "Americas",
+          location_lat: "40.7484",
+          location_lng: "-73.9857",
+          is_headquarters: false,
+        },
+        {
+          location_name: "Tokyo",
+          location_address: "1 Chome Shibuya, Tokyo",
+          location_email: "tokyo@example.com",
+          location_region: "Asia",
+          location_lat: "35.6595",
+          location_lng: "139.7005",
+          is_headquarters: false,
+        },
+      ],
+    },
+  },
+
   // These fetch real case studies themselves client-side (via /api/case-studies or
   // fetchCaseStudiesClient()) — this config is just section header text.
   case_study_filter: {
@@ -359,6 +396,12 @@ export const sampleDataByLayout = {
   },
   case_study_load_more: {
     data: { section_title: "Case studies", title: "Explore more case studies" },
+  },
+  case_study_slider: {
+    data: { section_title: "Case studies", title: "Featured work" },
+  },
+  case_study_slider_full_width: {
+    data: { section_title: "Case studies", title: "Featured work" },
   },
 
   // TeamSlider takes a plain `members` array directly, not a wrapped ACF `data`
