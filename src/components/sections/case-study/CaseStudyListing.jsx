@@ -31,8 +31,7 @@ export default async function CaseStudyListing({ data, caseStudiesData = null })
     post?._embedded?.["wp:term"]?.[0]?.[0]?.name || null;
 
   return (
-    <section
-      id={custom_id || undefined}
+    <section id={custom_id || undefined}
       className={`w-full px-6 py-16 md:py-24${custom_class ? ` ${custom_class}` : ""}`}
       style={background_color ? { backgroundColor: background_color } : {}}
     >
