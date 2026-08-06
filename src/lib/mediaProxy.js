@@ -60,9 +60,18 @@ export function toSiteUrl(wpUrl) {
 
 function rewriteWpUrlString(value) {
   const wpRoot = getWpRoot();
-  if (!wpRoot || !value.startsWith(wpRoot)) return value;
-  const relPath = value.slice(wpRoot.length);
-  return relPath.startsWith("/wp-content/") ? proxyMediaPath(relPath) : toSiteUrl(value);
+  if (!wpRoot || !value.includes(wpRoot)) return value;
+
+  // Whole-string URL (the common case: media src, permalink, _links href, ...).
+  if (value.startsWith(wpRoot)) {
+    const relPath = value.slice(wpRoot.length);
+    return relPath.startsWith("/wp-content/") ? proxyMediaPath(relPath) : toSiteUrl(value);
+  }
+
+  // WP root appears only as a substring — e.g. Yoast's `yoast_head` field, which
+  // is a raw rendered <head> HTML blob with URLs embedded inside <meta> tags
+  // rather than being a URL itself. Same rewrite, applied globally.
+  return rewriteWpUrlsInHtml(value);
 }
 
 // Recursively walks a parsed WP REST JSON response (objects/arrays/strings only —
@@ -84,14 +93,27 @@ export function rewriteWpUrlsDeep(value) {
 }
 
 // Rewrites WP-origin URLs embedded inside a raw HTML string (WYSIWYG body content,
-// where an editor may have pasted an <img>/<a> pointing at the WP domain directly).
+// where an editor may have pasted an <img>/<a> pointing at the WP domain directly;
+// also WP's `yoast_head` field, whose HTML embeds a <script type="application/ld+json">
+// block — URLs there have their slashes JSON-escaped as "\/" rather than "/", so both
+// forms need to be replaced or the escaped copy slips through unmasked).
 export function rewriteWpUrlsInHtml(html) {
   if (typeof html !== "string" || !html) return html;
   const wpRoot = getWpRoot();
   if (!wpRoot) return html;
 
-  const escaped = wpRoot.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // Build a regex source that matches "/" as either a plain slash or its JSON-escaped
+  // form "\/" (both are valid inside a "/"-containing string, but JSON.stringify — as
+  // WP does when embedding LD+JSON into `yoast_head` — emits the escaped form).
+  const flexibleSlash = (s) =>
+    s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\//g, "\\\\?/");
+
+  const rootPattern = flexibleSlash(wpRoot);
+  const wpContentPattern = flexibleSlash(`${wpRoot}/wp-content/`);
+
+  // Forward slashes don't need escaping in JSON string values, so a plain
+  // (unescaped) replacement is valid whichever form was matched.
   return html
-    .replaceAll(new RegExp(`${escaped}/wp-content/`, "g"), `${PROXY_PREFIX}/`)
-    .replaceAll(new RegExp(escaped, "g"), SITE_URL);
+    .replaceAll(new RegExp(wpContentPattern, "g"), `${PROXY_PREFIX}/`)
+    .replaceAll(new RegExp(rootPattern, "g"), SITE_URL);
 }

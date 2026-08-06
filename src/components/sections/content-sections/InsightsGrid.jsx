@@ -4,7 +4,7 @@
 // Not an ACF block on its own — the grid-layout sub-component LatestInsights.jsx
 // renders internally when layout_style is "grid". Takes already-transformed post
 // objects (see insightsUtils.js's transformPost), not the usual ACF `data` object.
-// Fields: initialPosts, pagination_type, load_more_button, wpBase, loadMoreParams
+// Fields: initialPosts, pagination_type, load_more_button, loadMoreParams
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -72,7 +72,6 @@ export default function InsightsGrid({
   initialPosts,
   pagination_type,
   load_more_button,
-  wpBase,
   loadMoreParams, // { loadCount, categories }
 }) {
   const [posts, setPosts] = useState(initialPosts);
@@ -85,7 +84,7 @@ export default function InsightsGrid({
   const handleLoadMore = async () => {
     setLoading(true);
     try {
-      let url = `${wpBase}/wp/v2/posts?per_page=${loadCount}&offset=${posts.length}&_embed`;
+      let url = `/api/posts?per_page=${loadCount}&offset=${posts.length}`;
       if (loadMoreParams?.categories) {
         url += `&categories=${loadMoreParams.categories}`;
       }

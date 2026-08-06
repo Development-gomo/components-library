@@ -4,7 +4,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { fetchWP } from "@/lib/api";
-import { WP_BASE } from "@/config";
 import InsightsGrid from "./InsightsGrid";
 import { transformPost } from "./insightsUtils";
 import InsightsSlider from "./InsightsSlider";
@@ -114,7 +113,6 @@ export default async function LatestInsights({ data }) {
             initialPosts={transformedPosts}
             pagination_type={pagination_type}
             load_more_button={load_more_button}
-            wpBase={WP_BASE}
             loadMoreParams={{ categories: categoryIds }}
           />
         )}
