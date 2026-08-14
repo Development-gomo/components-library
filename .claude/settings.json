@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://gomowebb.com/components-library/wp-json/wp/v2/case-study?per_page=1&_embed\")",
+      "Bash(node -e ' *)",
+      "Bash(node \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-User-OneDrive-Desktop-components-library\\\\075de255-ae2c-4c91-8e25-5ab1dc8a2ff0\\\\scratchpad\\\\test-mask.mjs\")",
+      "Bash(curl -s \"http://localhost:3000/case-study/real-time-codec-processing-becomes-embedded\" -o /tmp/cs.html -w \"%{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(curl -s \"http://localhost:3000/insights\" -o /tmp/ins.html -w \"%{http_code}\\\\n\")",
+      "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\User\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-User-OneDrive-Desktop-components-library\\\\075de255-ae2c-4c91-8e25-5ab1dc8a2ff0\\\\scratchpad\")",
+      "Bash(nohup npm run dev)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s \"http://localhost:3000/case-study/real-time-codec-processing-becomes-embedded\" -o /tmp/cs.html -w \"http:%{http_code}\\\\n\")",
+      "Bash(curl -s \"http://localhost:3000/insights\" -o /tmp/ins.html -w \"http:%{http_code}\\\\n\")",
+      "Bash(curl -s \"https://gomowebb.com/components-library/wp-json/wp/v2/case-study?per_page=5&_fields=slug\")",
+      "Bash(curl -s \"http://localhost:3000/case-study\" -o /tmp/cslist.html -w \"http:%{http_code}\\\\n\")",
+      "Bash(grep -v -E \"CaseStudy|^/case-study/[0-9]+$|^/case-study/$\")",
+      "Bash(curl -s -o /tmp/ks.html -w \"http:%{http_code}\\\\n\" \"http://localhost:3000/case-study/key-trends-of-reliable-video-over-ip-standards-in-2026\")",
+      "Bash(curl -s \"https://gomowebb.com/components-library/wp-json/wp/v2/case-study?slug=key-trends-of-reliable-video-over-ip-standards-in-2026&_embed&acf_format=standard\")",
+      "Bash(rm -rf .next)",
+      "Bash(curl -s -o /tmp/ks2.html -w \"http:%{http_code}\\\\n\" \"http://localhost:3000/case-study/key-trends-of-reliable-video-over-ip-standards-in-2026\")",
+      "Bash(curl -s -o /dev/null -w \"insights http:%{http_code}\\\\n\" \"http://localhost:3000/insights\")",
+      "Bash(curl -s -o /tmp/insights2.html -w \"insights http:%{http_code}\\\\n\" \"http://localhost:3000/insights\")",
+      "Bash(grep -o '\"/api/media/[^\"]*\"' /tmp/insights2.html | sort -u | head -20 *)",
+      "Bash(grep -o '<img[^>]*>' /tmp/insights2.html | head -20)",
+      "Bash(curl -s -o /dev/null -w \"http:%{http_code} content-type:%{content_type} size:%{size_download}\\\\n\" \"http://localhost:3000/_next/image?url=%2Fapi%2Fmedia%2Fassets%2Fuploads%2F2026%2F04%2FRectangle-144.png&w=3840&q=75\")",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}
