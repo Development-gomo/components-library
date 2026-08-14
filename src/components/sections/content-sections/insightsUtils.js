@@ -5,7 +5,7 @@ export function transformPost(post) {
     id: post.id,
     title: post.title?.rendered || post.post_title || '',
     date: formatDate(post.date),
-    link: post.link || `/post/${post.slug}`,
+    link: `/insights/${post.slug}`,
     category: post?._embedded?.['wp:term']?.[0]?.[0]?.name || 'Article',
     image:
       post?.featured_image_url ||
